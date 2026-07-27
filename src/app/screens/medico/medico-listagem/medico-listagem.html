@@ -1,0 +1,59 @@
+<div style="padding: 10px;">
+    <header>
+        <span>Cadastro > Médico > Listagem</span>
+        <h3>Listagem de Médicos</h3>
+    </header>
+
+    <section>
+        <article>
+            <form [formGroup]="formulario">
+                <div class="row">
+                    <div class="col">
+                        <label>Nome:</label>
+                        <input formControlName="nome" class="form-control">
+                    </div>
+                    <div class="col-3">
+                        <label>CPF:</label>
+                        <input formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                    <button (click)="filtrar()" class="btn btn-secondary">Pesquisar</button>
+                </div>
+            </form>
+        </article>
+
+        <article class="mt-4">
+            <h4>{{listaSize()}} itens encontrados</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Nome do médico
+                        </th>
+                        <th class="text-center">
+                            CPF
+                        </th>
+                        <th class="">
+                            Email
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of lista(); track item.id) {
+                    <tr>
+                        <td>{{item.nome}}</td>
+                        <td style="width: 130px;">{{item.cpf | cpf}} </td>
+                        <td style="width: 30%;"> {{item.email}}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="3">Nenhum médico encontrado.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </article>
+    </section>
+</div>

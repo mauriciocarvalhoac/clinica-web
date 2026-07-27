@@ -1,5 +1,6 @@
 <div class="template-default">
-    <aside class="navigation" *ngIf="isInvisibleMenu">
+    @if (isInvisibleMenu) {
+    <aside class="navigation">
         <div class="nav-logo">
             <span>Clínica Médica</span>
         </div>
@@ -13,7 +14,7 @@
             </li>
         </ul>
     </aside>
-
+    }
     <main class="content-full">
         <header class="content-header">
             <a (click)="toggleMenu()" class="hamburguer-menu">
