@@ -5,6 +5,7 @@ import { HttpParams } from '@angular/common/http';
 
 @Service()
 export class MedicoService extends AbstractService {
+
     constructor() {
         super("/medicos");
     }
@@ -24,4 +25,10 @@ export class MedicoService extends AbstractService {
         }
         return this.http.get<any>(this.url + "/filtro", { params });
     }
+
+    salvar(obj: any): Observable<any> {
+        return this.http.post<any>(this.url, obj);
+    }
+
+
 }

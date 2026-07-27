@@ -3,11 +3,12 @@ import { MedicoService } from '../../../service/medico-service';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-medico-listagem',
   standalone: true,
-  imports: [ReactiveFormsModule, NgxMaskDirective, CpfPipe],
+  imports: [ReactiveFormsModule, NgxMaskDirective, CpfPipe, RouterLink],
   templateUrl: './medico-listagem.html',
   styleUrl: './medico-listagem.scss',
 })

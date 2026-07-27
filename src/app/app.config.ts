@@ -15,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgbModule),
     provideHttpClient(withInterceptors([interceptorInterceptor])),
     provideEnvironmentNgxMask({
-      dropSpecialCharacters: false,
+      dropSpecialCharacters: true,
     }),
   ],
 };

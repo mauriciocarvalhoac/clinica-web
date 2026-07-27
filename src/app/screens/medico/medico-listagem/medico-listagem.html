@@ -1,11 +1,24 @@
 <div style="padding: 10px;">
     <header>
-        <span>Cadastro > Médico > Listagem</span>
-        <h3>Listagem de Médicos</h3>
+        <div style="background: #eee; padding: 10px;">
+            <span>Cadastro > Médico > Listagem</span>
+            <h3>Listagem de Médicos</h3>
+        </div>
+        <div style="background: #DDD;" class="d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/medico-inclusao']" class="btn btn-sm btn-add">Adicionar</button>
+
+            </div>
+            <div>
+                <button (click)="limpar()" class="btn btn-sm btn-reset" style="margin-right: 10px;">Limpar</button>
+                <button (click)="filtrar()" class="btn btn-sm btn-search">Pesquisar</button>
+
+            </div>
+        </div>
     </header>
 
-    <section>
-        <article>
+    <section class="formulario">
+        <article class="pesquisa">
             <form [formGroup]="formulario">
                 <div class="row">
                     <div class="col">
@@ -18,14 +31,11 @@
                             class="form-control">
                     </div>
                 </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <button (click)="limpar()" class="btn btn-secondary">Limpar</button>
-                    <button (click)="filtrar()" class="btn btn-secondary">Pesquisar</button>
-                </div>
+
             </form>
         </article>
 
-        <article class="mt-4">
+        <article class="tabela">
             <h4>{{listaSize()}} itens encontrados</h4>
             <table class="table table-striped">
                 <thead>

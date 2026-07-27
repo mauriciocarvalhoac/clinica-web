@@ -1,0 +1,53 @@
+<div style="padding: 10px;">
+    <header>
+        <div style="background: #eee; padding: 10px;">
+            <span>Cadastro > Médico > Inclusão</span>
+            <h3>Inclusão de Médicos</h3>
+        </div>
+        <div style="background:#DDD;" class="d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Pesquisar</button>
+
+            </div>
+            <div>
+                <button (click)="cancelar()" class="btn btn-sm btn-cancel" style="margin-right: 10px;">cancelar</button>
+                <button (click)="salvar()" class="btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <article class="inclusao">
+            <form [formGroup]="formulario">
+                <div class="row">
+                    <div class="col">
+                        <label>Nome*:</label>
+                        <input formControlName="nome" class="form-control">
+                    </div>
+                    <div class="col-3">
+                        <label>CPF*:</label>
+                        <input formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
+                            class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-5">
+                        <label>Email*:</label>
+                        <input formControlName="email" class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <label>Celular*:</label>
+                        <input formControlName="celular" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
+                            class="form-control">
+                    </div>
+                    <div class="col-2">
+                        <label>Telefone:</label>
+                        <input formControlName="telefone" mask="(00) 0000-0000" placeholder="(00) 0000-0000"
+                            class="form-control">
+                    </div>
+                </div>
+            </form>
+
+        </article>
+    </section>
+</div>

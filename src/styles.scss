@@ -1,6 +1,62 @@
-@use 'bootstrap/scss/bootstrap';
+@use "bootstrap/scss/bootstrap";
 * {
-  margin: 0;
-  padding: 0;
-  //   box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    //   box-sizing: border-box;
+}
+.formulario {
+    margin-top: 10px;
+    .pesquisa {
+        padding: 10px;
+        background: #eee;
+    }
+    .tabela {
+        margin-top: 10px;
+        padding: 10px;
+        background: #eee;
+    }
+    .inclusao {
+        padding: 10px;
+        background: #eee;
+    }
+}
+
+.btn {
+    &.btn-sm {
+        &.btn-search {
+            background: rgb(75, 150, 75);
+            color: white;
+            &:hover {
+                background: rgb(125, 175, 125);
+                color: white;
+            }
+        }
+
+        &.btn-add {
+            background: rgb(75, 125, 175);
+            color: white;
+            &:hover {
+                background: rgb(125, 175, 200);
+                color: white;
+            }
+        }
+
+        &.btn-reset {
+            background: rgb(200, 200, 200);
+            color: black;
+            &:hover {
+                background: rgb(255, 255, 255);
+                color: black;
+            }
+        }
+
+        &.btn-cancel {
+            background: rgb(175, 75, 75);
+            color: white;
+            &:hover {
+                background: rgb(200, 100, 100);
+                color: white;
+            }
+        }
+    }
 }
