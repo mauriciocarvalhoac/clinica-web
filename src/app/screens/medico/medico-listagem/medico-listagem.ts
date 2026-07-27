@@ -25,12 +25,15 @@ export class MedicoListagem implements OnInit {
     });
   }
   ngOnInit(): void {
+    this.listar();
+  }
+
+  listar() {
     this.service.listar().subscribe((lista: any) => {
       this.lista.set(lista);
       this.listaSize.set(lista.length);
     });
   }
-
   filtrar() {
     console.log("Filtrando com os valores: ", this.formulario.value);
 
@@ -38,5 +41,10 @@ export class MedicoListagem implements OnInit {
       this.lista.set(medicos);
       this.listaSize.set(medicos.length);
     });
+  }
+
+  limpar() {
+    this.formulario.reset();
+    this.listar();
   }
 }
