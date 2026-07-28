@@ -1,0 +1,26 @@
+<div class="login-container">
+
+    <section class="login-form">
+        <form [formGroup]="formulario" (ngSubmit)="login()">
+            <div class="row">
+                <div class="col">
+                    <label>Login:</label>
+                    <input formControlName="username" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Senha:</label>
+                    <input type="password" formControlName="password" class="form-control">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col text-center">
+                    <button type="submit" [disabled]="formulario.invalid" class="btn btn-primary">Entrar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+</div>
