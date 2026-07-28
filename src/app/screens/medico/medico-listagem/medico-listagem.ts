@@ -3,7 +3,8 @@ import { MedicoService } from '../../../service/medico-service';
 import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { AbstractComponent } from '../../abstract-component';
 
 @Component({
   selector: 'app-medico-listagem',
@@ -12,14 +13,17 @@ import { RouterLink } from "@angular/router";
   templateUrl: './medico-listagem.html',
   styleUrl: './medico-listagem.scss',
 })
-export class MedicoListagem implements OnInit {
+export class MedicoListagem extends AbstractComponent implements OnInit {
+
   private service = inject(MedicoService);
+  router = inject(Router);
   formulario!: FormGroup;
 
   lista = signal<any>([]);
   listaSize = signal<number>(0);
 
   constructor(private fb: FormBuilder) {
+    super();
     this.formulario = this.fb.group({
       nome: null,
       cpf: null,
@@ -35,13 +39,22 @@ export class MedicoListagem implements OnInit {
       this.listaSize.set(lista.length);
     });
   }
-  filtrar() {
-    console.log("Filtrando com os valores: ", this.formulario.value);
 
+  filtrar() {
     this.service.filtrar(this.formulario.value.nome, this.formulario.value.cpf).subscribe((medicos: any[]) => {
       this.lista.set(medicos);
       this.listaSize.set(medicos.length);
     });
+  }
+
+  excluir(obj: any) {
+    this.service.excluir(obj.id).subscribe(() => {
+      this.listar();
+    });
+  }
+
+  irParaEdicao(obj: any) {
+    this.router.navigate(['/medico-inclusao', obj.id]);
   }
 
   limpar() {

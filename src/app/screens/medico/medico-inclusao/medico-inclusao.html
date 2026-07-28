@@ -4,16 +4,41 @@
             <span>Cadastro > Médico > Inclusão</span>
             <h3>Inclusão de Médicos</h3>
         </div>
-        <div style="background:#DDD;" class="d-flex justify-content-between">
+        @if (isCRUD == 'C') {
+        <div class="navegacao d-flex justify-content-between">
             <div>
-                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Pesquisar</button>
+                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Voltar</button>
 
             </div>
             <div>
-                <button (click)="cancelar()" class="btn btn-sm btn-cancel" style="margin-right: 10px;">cancelar</button>
-                <button (click)="salvar()" class="btn btn-sm btn-search">Salvar</button>
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
             </div>
         </div>
+        }
+        @if (isCRUD == "U") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+        }
+        @if (isCRUD == "R") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="habilitarCampos()" class="btn btn-sm btn-habilitar">Habilitar campos</button>
+            </div>
+        </div>
+        }
     </header>
 
     <section class="formulario">

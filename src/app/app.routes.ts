@@ -10,6 +10,7 @@ export const routes: Routes = [
             { path: "dashboard", component: DashboardGraphics },
             { path: "medico-listagem", component: MedicoListagem },
             { path: "medico-inclusao", component: MedicoInclusao },
+            { path: "medico-inclusao/:id", component: MedicoInclusao },
         ]
     }
 ];

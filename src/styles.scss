@@ -4,6 +4,7 @@
     padding: 0;
     //   box-sizing: border-box;
 }
+
 .formulario {
     margin-top: 10px;
     .pesquisa {
@@ -19,6 +20,26 @@
         padding: 10px;
         background: #eee;
     }
+}
+
+.navegacao {
+    background: #ddd;
+}
+
+.ml-10 {
+    margin-left: 10px;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
 }
 
 .btn {
@@ -41,7 +62,16 @@
             }
         }
 
-        &.btn-reset {
+        &.btn-habilitar {
+            background: rgb(75, 125, 175);
+            color: white;
+            &:hover {
+                background: rgb(125, 175, 200);
+                color: white;
+            }
+        }
+
+        &.btn-clean {
             background: rgb(200, 200, 200);
             color: black;
             &:hover {
