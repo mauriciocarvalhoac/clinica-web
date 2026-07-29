@@ -76,6 +76,7 @@
             .content-page {
                 background: white;
                 height: calc(100vh - 40px - 10px - 10px);
+                overflow-y: scroll;
             }
         }
     }
