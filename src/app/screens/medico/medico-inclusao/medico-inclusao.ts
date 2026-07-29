@@ -46,10 +46,15 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
     if (this.formulario.invalid) {
       return;
     }
-    this.service.salvar(this.formulario.value).subscribe((response: any) => {
-      this.formulario.reset();
-      this.router.navigate(['/medico-listagem']);
-    });
+    if (this.formulario.value.id) {
+      this.service.editar(this.formulario.value).subscribe(() => {
+        this.router.navigate(['/medico-listagem']);
+      });
+    } else {
+      this.service.salvar(this.formulario.value).subscribe(() => {
+        this.router.navigate(['/medico-listagem']);
+      });
+    }
   }
 
   limpar() {

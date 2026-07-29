@@ -81,6 +81,17 @@
     }
 }
 
+.dropend .dropdown-item::after {
+    display: inline-block;
+    margin-left: auto;
+    vertical-align: middle;
+    content: "";
+    border-top: 0.3em solid transparent;
+    border-right: 0;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.3em solid;
+}
+
 .img-foto {
     border-radius: 50px;
 }
@@ -96,6 +107,10 @@
 
 .font-13 {
     font-size: 13px;
+}
+
+.font-15 {
+    font-size: 15px;
 }
 
 .mr-10 {
