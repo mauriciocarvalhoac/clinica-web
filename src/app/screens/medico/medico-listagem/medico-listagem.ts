@@ -5,6 +5,8 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
 import { Router, RouterLink } from "@angular/router";
 import { AbstractComponent } from '../../abstract-component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from '../../../shared/modal/modal-component/modal-service';
 
 @Component({
   selector: 'app-medico-listagem',
@@ -15,9 +17,11 @@ import { AbstractComponent } from '../../abstract-component';
 })
 export class MedicoListagem extends AbstractComponent implements OnInit {
 
+  formulario!: FormGroup;
+
   private service = inject(MedicoService);
   router = inject(Router);
-  formulario!: FormGroup;
+  private modal = inject(ModalService);
 
   lista = signal<any>([]);
   listaSize = signal<number>(0);
@@ -48,8 +52,14 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
   }
 
   excluir(obj: any) {
-    this.service.excluir(obj.id).subscribe(() => {
-      this.listar();
+    console.log("Abrir Modal")
+    this.modal.confirmDelete().subscribe((result) => {
+      console.log("Resultado na listagem: " + result)
+      if (result) {
+        this.service.excluir(obj.id).subscribe(() => {
+          this.listar();
+        });
+      }
     });
   }
 

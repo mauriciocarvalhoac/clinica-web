@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ title }}</h4>
+    <button type="button" class="btn-close" aria-label="Close"
+        (click)="activeModal.dismiss(ModalAction.CLOSE_X)"></button>
+</div>
+<div class="modal-body">
+    <p> {{ message }}</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="activeModal.dismiss(ModalAction.CANCEL)">Cancelar</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(ModalAction.CONFIRM)">Confirmar</button>
+</div>
