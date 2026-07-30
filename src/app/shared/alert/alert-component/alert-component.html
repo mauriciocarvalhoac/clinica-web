@@ -1,0 +1,7 @@
+<div class="alert-container-fixo">
+    @for (alert of alertService.alerts(); track alert.id) {
+    <ngb-alert [type]="alert.tipo" (closed)="alertService.remover(alert.id!)">
+        {{ alert.mensagem }}
+    </ngb-alert>
+    }
+</div>

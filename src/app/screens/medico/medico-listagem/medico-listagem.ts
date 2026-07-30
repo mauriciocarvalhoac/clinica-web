@@ -5,12 +5,10 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
 import { Router, RouterLink } from "@angular/router";
 import { AbstractComponent } from '../../abstract-component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalService } from '../../../shared/modal/modal-component/modal-service';
 
 @Component({
   selector: 'app-medico-listagem',
-  standalone: true,
+  // standalone: true,
   imports: [ReactiveFormsModule, NgxMaskDirective, CpfPipe, RouterLink],
   templateUrl: './medico-listagem.html',
   styleUrl: './medico-listagem.scss',

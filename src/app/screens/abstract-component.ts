@@ -1,6 +1,7 @@
 import { Component, inject, Injectable, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalService } from '../shared/modal/modal-component/modal-service';
+import { AlertService } from '../shared/alert/alert-service';
 
 export enum CrudEnum {
   C, R, U, D
@@ -12,6 +13,7 @@ export abstract class AbstractComponent {
   protected formulario!: FormGroup;
   protected formBuilder = inject(FormBuilder);
   protected modal = inject(ModalService);
+  protected alert = inject(AlertService);
 
   isCRUD = "C";
 

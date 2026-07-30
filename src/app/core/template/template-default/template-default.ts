@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../../service/login-service';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlert, NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { AlertComponent } from '../../../shared/alert/alert-component/alert-component';
 
 @Component({
   selector: 'app-template-default',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, NgbDropdownModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, NgbDropdownModule, NgbAlertModule, AlertComponent],
   templateUrl: './template-default.html',
   styleUrl: './template-default.scss',
 })
