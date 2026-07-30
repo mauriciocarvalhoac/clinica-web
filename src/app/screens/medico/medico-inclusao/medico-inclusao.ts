@@ -4,29 +4,30 @@ import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/route
 import { MedicoService } from '../../../service/medico-service';
 import { NgxMaskDirective } from 'ngx-mask';
 import { AbstractComponent, CrudEnum } from '../../abstract-component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-medico-inclusao',
-  imports: [RouterLink, ReactiveFormsModule, NgxMaskDirective],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, NgxMaskDirective],
   templateUrl: './medico-inclusao.html',
   styleUrl: './medico-inclusao.scss',
 })
 export class MedicoInclusao extends AbstractComponent implements OnInit {
-  formulario!: FormGroup;
+
   service = inject(MedicoService);
   route = inject(ActivatedRoute);
-  router = inject(Router)
+  router = inject(Router);
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     super();
     this.isCRUD = "C";
   }
 
   ngOnInit(): void {
-    this.formulario = this.fb.group({
+    this.formulario = this.formBuilder.group({
       id: [null],
       nome: [null, [Validators.required, Validators.maxLength(100)]],
-      email: [null, [Validators.required, Validators.maxLength(100)]],
+      email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
       cpf: [null, [Validators.required]],
       celular: [null, [Validators.required]],
       telefone: [null],
@@ -44,8 +45,10 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
 
   salvar() {
     if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
       return;
     }
+
     if (this.formulario.value.id) {
       this.service.editar(this.formulario.value).subscribe(() => {
         this.router.navigate(['/medico-listagem']);
@@ -73,4 +76,5 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
     this.isCRUD = "U";
     this.formulario.enable();
   }
+
 }

@@ -1,9 +1,26 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, Injectable, signal } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ModalService } from '../shared/modal/modal-component/modal-service';
 
-
-export class AbstractComponent {
-  isCRUD = "C";
-}
 export enum CrudEnum {
   C, R, U, D
+}
+@Injectable({
+  providedIn: 'root'
+})
+export abstract class AbstractComponent {
+  protected formulario!: FormGroup;
+  protected formBuilder = inject(FormBuilder);
+  protected modal = inject(ModalService);
+
+  isCRUD = "C";
+
+  constructor() {
+
+  }
+
+  hasNotValidated(valor: string) {
+    return this.formulario.get(valor)?.invalid &&
+      (this.formulario.get(valor)?.touched || this.formulario.get(valor)?.dirty)
+  };
 }

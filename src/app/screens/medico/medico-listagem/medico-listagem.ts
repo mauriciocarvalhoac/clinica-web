@@ -17,18 +17,15 @@ import { ModalService } from '../../../shared/modal/modal-component/modal-servic
 })
 export class MedicoListagem extends AbstractComponent implements OnInit {
 
-  formulario!: FormGroup;
-
   private service = inject(MedicoService);
   router = inject(Router);
-  private modal = inject(ModalService);
 
   lista = signal<any>([]);
   listaSize = signal<number>(0);
 
-  constructor(private fb: FormBuilder) {
+  constructor() {
     super();
-    this.formulario = this.fb.group({
+    this.formulario = this.formBuilder.group({
       nome: null,
       cpf: null,
     });

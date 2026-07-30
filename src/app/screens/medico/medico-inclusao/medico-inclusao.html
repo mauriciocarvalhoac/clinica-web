@@ -47,23 +47,27 @@
                 <div class="row">
                     <div class="col">
                         <label>Nome*:</label>
-                        <input formControlName="nome" class="form-control">
+                        <input formControlName="nome" class="form-control"
+                            [ngClass]="{ 'is-invalid': hasNotValidated('nome')}">
+
+
                     </div>
                     <div class="col-3">
                         <label>CPF*:</label>
                         <input formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
-                            class="form-control">
+                            class="form-control" [ngClass]="{ 'is-invalid': hasNotValidated('cpf')}">
                     </div>
                 </div>
                 <div class="row">
                     <div class=" col-5">
                         <label>Email*:</label>
-                        <input formControlName="email" class="form-control">
+                        <input formControlName="email" class="form-control"
+                            [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
                     </div>
                     <div class="col-2">
                         <label>Celular*:</label>
                         <input formControlName="celular" mask="(00) 00000-0000" placeholder="(00) 00000-0000"
-                            class="form-control">
+                            class="form-control" [ngClass]="{ 'is-invalid': hasNotValidated('celular')}">
                     </div>
                     <div class="col-2">
                         <label>Telefone:</label>
