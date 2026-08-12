@@ -7,15 +7,19 @@ import { Login } from './screens/login/login';
 import { authGuard } from './core/auth/auth-guard';
 
 export const routes: Routes = [
-    { path: "login", component: Login },
+    { path: 'login', component: Login },
+
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+
     {
-        path: "", component: TemplateDefault, canActivateChild: [authGuard], children: [
-            { path: "dashboard", component: DashboardGraphics },
-            { path: "medico-listagem", component: MedicoListagem },
-            { path: "medico-inclusao", component: MedicoInclusao },
-            { path: "medico-inclusao/:id", component: MedicoInclusao },
+        path: '', component: TemplateDefault, canActivateChild: [authGuard],
+        children: [
+            { path: 'dashboard', component: DashboardGraphics },
+            { path: 'medico-listagem', component: MedicoListagem },
+            { path: 'medico-inclusao', component: MedicoInclusao },
+            { path: 'medico-inclusao/:id', component: MedicoInclusao },
         ]
     },
-    { path: "", redirectTo: "login", pathMatch: "full" },
-    { path: "**", component: Login },
+
+    { path: '**', redirectTo: 'login' }
 ];

@@ -1,0 +1,13 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: clinic-app
+servers: 1
+agents: 1
+ports:
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+  - port: 443:443
+    nodeFilters:
+      - loadbalancer
