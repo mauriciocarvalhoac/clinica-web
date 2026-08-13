@@ -1,0 +1,66 @@
+name: Pipeline CI/CD
+
+on:
+  push:
+    branches: [ "master", "develop" , "feature/sprint082026/003-configuracao-kubernetes"]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+    
+      - name: Install dependencies
+        run: npm ci
+    
+      - name: Build Angular
+        run: npm run build -- --configuration production
+
+      - name: Login Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:${{ github.sha }} \
+            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:latest .
+
+      - name: Push image
+        run: |
+          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:latest
+
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Setup Helm
+        uses: azure/setup-helm@v4
+
+      - name: Configure kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+
+      - name: Helm Upgrade
+        run: |
+          helm upgrade --install clinic-web ./helm/clinic-web \
+            --set image.repository=${{ secrets.DOCKER_USERNAME }}/clinic-web \
+            --set image.tag=${{ github.sha }}
