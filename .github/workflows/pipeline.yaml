@@ -54,9 +54,9 @@ jobs:
       - name: Setup Helm
         uses: azure/setup-helm@v4
 
-      - name: Configure kubeconfig
-        run: |
-          mkdir -p ./app/k8s
+      # - name: Configure kubeconfig
+      #   run: |
+      #     mkdir -p ./app/k8s
 
       - name: Helm Upgrade
         run: |
