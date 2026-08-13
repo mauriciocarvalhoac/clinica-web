@@ -60,4 +60,4 @@ jobs:
 
       - name: Helm Upgrade
         run: |
-          helm upgrade --install clinic-web ./k8s/clinic-web/ --set image.repository=mauriciocarvalhoac/clinic-web --set image.tag=1.0.0
+          helm upgrade --install clinic-web ./k8s/clinic-web/
