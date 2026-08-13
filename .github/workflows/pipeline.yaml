@@ -32,13 +32,13 @@ jobs:
       - name: Build image
         run: |
           docker build \
-            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:${{ github.sha }} \
-            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:latest .
+            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:1.0.0 \
+            -t ${{ secrets.DOCKER_USERNAME }}/clinic-web:1.0.0 .
 
       - name: Push image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:1.0.0
+          docker push ${{ secrets.DOCKER_USERNAME }}/clinic-web:1.0.0
 
   deploy:
     needs: build-and-push
@@ -63,4 +63,4 @@ jobs:
         run: |
           helm upgrade --install clinic-web ./helm/clinic-web \
             --set image.repository=${{ secrets.DOCKER_USERNAME }}/clinic-web \
-            --set image.tag=${{ github.sha }}
+            --set image.tag=1.0.0
