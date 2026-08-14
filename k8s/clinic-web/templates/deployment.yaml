@@ -17,7 +17,7 @@ spec:
       containers:
         - name: clinic-web
           image: "mauriciocarvalhoac/clinic-web:1.0.0"
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
