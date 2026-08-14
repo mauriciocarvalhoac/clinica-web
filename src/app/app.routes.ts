@@ -5,6 +5,7 @@ import { MedicoListagem } from './screens/medico/medico-listagem/medico-listagem
 import { MedicoInclusao } from './screens/medico/medico-inclusao/medico-inclusao';
 import { Login } from './screens/login/login';
 import { authGuard } from './core/auth/auth-guard';
+import { PacienteListagem } from './screens/paciente/paciente-listagem/paciente-listagem';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -18,6 +19,7 @@ export const routes: Routes = [
             { path: 'medico-listagem', component: MedicoListagem },
             { path: 'medico-inclusao', component: MedicoInclusao },
             { path: 'medico-inclusao/:id', component: MedicoInclusao },
+            { path: 'paciente-listagem', component: PacienteListagem },
         ]
     },
 
