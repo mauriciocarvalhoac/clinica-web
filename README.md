@@ -8,7 +8,12 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 - npm install ngx-mask
 
 
-### Subindo no Kubernetes
+### Subindo no Kubernetes k3s
+Para deployar no kubernetes localmente, execute o comando:
+
+* kubectl rollout restart deployment clinic-web
+
+### Subindo no Kubernetes k3D
 
 Para deployar no kubernetes localmente, execute o comando:
 
