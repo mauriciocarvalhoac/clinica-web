@@ -6,7 +6,7 @@ metadata:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: clinic-app.cloud
+  - host: https://clinic-app.cloud
     http:
       paths:
       - path: /
