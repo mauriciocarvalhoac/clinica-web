@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: "https://clinic-app.cloud/api",
+    apiUrl: "http://clinic-app.cloud/api",
 };
