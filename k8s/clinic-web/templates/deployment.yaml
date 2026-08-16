@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: clinic-web
   labels:
-    app: release-name
+    app: clinic-web-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: release-name
+      app: clinic-web-app
   template:
     metadata:
       labels:
-        app: release-name
+        app: clinic-web-app
     spec:
       containers:
         - name: clinic-web
