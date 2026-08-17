@@ -6,6 +6,8 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { AbstractComponent } from '../../abstract-component';
 import { CommonModule } from '@angular/common';
 import { NgbAlert, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { Validator } from '../../../shared/validator/validator';
+import { EnumGenero } from '../../../model/enum/enum-genero';
 
 @Component({
   selector: 'app-medico-inclusao',
@@ -19,19 +21,21 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   service = inject(MedicoService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  enumGeneros = EnumGenero.values();
 
   constructor() {
     super();
+    console.log(this.enumGeneros)
     this.isCRUD = "C";
   }
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
       id: [null],
-      nome: [null, [Validators.required, Validators.maxLength(100)]],
+      nome: [null, [Validators.required, Validators.maxLength(250)]],
       cpf: [null, [Validators.required]],
       rg: [null],
-      nascimento: [null, [Validators.required]],
+      dataNascimento: [null, [Validators.required, Validator.dateOfBirth]],
       genero: [null],
       email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
       celular: [null, [Validators.required]],

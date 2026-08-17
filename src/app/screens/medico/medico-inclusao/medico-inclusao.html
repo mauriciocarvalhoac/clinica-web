@@ -80,16 +80,16 @@
                                             </div>
                                             <div class="col-3">
                                                 <label>Data Nascimento*:</label>
-                                                <input formControlName="nascimento" mask="00/00/0000"
-                                                    placeholder="00/00/0000" class="form-control"
-                                                    [ngClass]="{ 'is-invalid': hasNotValidated('nascimento')}">
+                                                <input formControlName="dataNascimento" type="date" class="form-control"
+                                                    [ngClass]="{ 'is-invalid': hasNotValidated('dataNascimento')}">
                                             </div>
                                             <div class="col-3">
                                                 <label>Genero:</label>
                                                 <select formControlName="genero" class="form-select">
                                                     <option>Selecione</option>
-                                                    <option>Masculino</option>
-                                                    <option>Feminino</option>
+                                                    @for (i of enumGeneros; track $index) {
+                                                    <option [value]="i.sigla" [label]="i.descricao">
+                                                        }
                                                 </select>
                                             </div>
 
@@ -108,7 +108,8 @@
                                             </div>
                                             <div class="col-3">
                                                 <label>Telefone:</label>
-                                                <input formControlName="telefone" mask="(00) 0000-0000"
+                                                <input formControlName="telefone"
+                                                    mask="(00) 0000-0000 || (00) 00000-0000"
                                                     placeholder="(00) 0000-0000" class="form-control">
                                             </div>
                                         </div>
