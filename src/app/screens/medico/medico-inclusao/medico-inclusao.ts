@@ -31,7 +31,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
       nome: [null, [Validators.required, Validators.maxLength(100)]],
       cpf: [null, [Validators.required]],
       rg: [null],
-      nascimento: [null],
+      nascimento: [null, [Validators.required]],
       genero: [null],
       email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
       celular: [null, [Validators.required]],
