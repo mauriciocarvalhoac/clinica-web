@@ -22,6 +22,7 @@ export const routes: Routes = [
             { path: 'medico-inclusao/:id', component: MedicoInclusao },
             { path: 'paciente-listagem', component: PacienteListagem },
             { path: 'paciente-inclusao', component: PacienteInclusao },
+            { path: 'paciente-inclusao/:id', component: PacienteInclusao },
         ]
     },
 

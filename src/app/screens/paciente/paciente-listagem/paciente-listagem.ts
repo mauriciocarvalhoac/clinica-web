@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AbstractComponent } from '../../abstract-component';
 import { PacienteService } from '../../../service/paciente-service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
 import { NgxMaskDirective } from 'ngx-mask';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -26,9 +26,11 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
       cpf: null,
     });
   }
+
   ngOnInit(): void {
     this.listar();
   }
+
   listar() {
     this.service.listar().subscribe((lista: any) => {
       this.lista.set(lista);
@@ -49,7 +51,7 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
   }
 
   irParaEdicao(item: any) {
-
+    this.irParaRota.navigate(['/paciente-inclusao', item.id]);
   }
 
   excluir(obj: any) {
@@ -61,4 +63,5 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
       }
     });
   }
+
 }
