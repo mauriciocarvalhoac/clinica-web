@@ -41,7 +41,10 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
   }
 
   filtrar() {
-
+    this.service.filtrar(this.formulario.value.nome, this.formulario.value.cpf).subscribe((pacientes: any[]) => {
+      this.lista.set(pacientes);
+      this.listaSize.set(pacientes.length);
+    });
   }
 
   irParaEdicao(item: any) {

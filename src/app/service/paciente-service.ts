@@ -14,17 +14,17 @@ export class PacienteService extends AbstractService {
         return this.http.get<any>(this.url);
     }
 
-    // filtrar(nome: string, cpf: string): Observable<any> {
-    //     var params = new HttpParams();
+    filtrar(nome: string, cpf: string): Observable<any> {
+        var params = new HttpParams();
 
-    //     if (nome) {
-    //         params = params.set('nome', nome);
-    //     }
-    //     if (cpf) {
-    //         params = params.set('cpf', cpf);
-    //     }
-    //     return this.http.get<any>(this.url + "/filtro", { params });
-    // }
+        if (nome) {
+            params = params.set('nome', nome);
+        }
+        if (cpf) {
+            params = params.set('cpf', cpf);
+        }
+        return this.http.get<any>(this.url + "/filtro", { params });
+    }
 
     // salvar(obj: any): Observable<any> {
     //     return this.http.post<any>(this.url, obj);
