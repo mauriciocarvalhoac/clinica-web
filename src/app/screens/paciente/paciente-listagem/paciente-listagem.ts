@@ -37,7 +37,8 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
   }
 
   limpar() {
-
+    this.formulario.reset();
+    this.listar();
   }
 
   filtrar() {
