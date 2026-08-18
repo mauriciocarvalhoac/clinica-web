@@ -67,8 +67,13 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
       this.service.salvar(this.formulario.value).subscribe({
         next: () => {
           this.router.navigate(['/paciente-listagem']);
-          this.alert.alertInfo("Alterado com sucesso!!");
+          this.alert.alertInfo("Cadastrado com sucesso!!");
         }
+      });
+    } else {
+      this.service.editar(this.formulario.value).subscribe(() => {
+        this.router.navigate(['/paciente-listagem']);
+        this.alert.alertInfo("Alterado com sucesso!!");
       });
     }
   }
@@ -84,7 +89,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   }
 
   limpar() {
-
+    this.formulario.reset();
   }
 
   habilitarCampos() {
