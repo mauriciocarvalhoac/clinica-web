@@ -2,7 +2,7 @@ name: Pipeline CI/CD
 
 on:
   push:
-    branches: [ "master", "develop" , "feature/sprint082026/003-configuracao-kubernetes"]
+    branches: [ "master", "develop" ]
 
 jobs:
   build-and-push:
