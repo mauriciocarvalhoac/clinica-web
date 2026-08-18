@@ -2,6 +2,7 @@ import { Component, inject, Injectable, signal } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ModalService } from '../shared/modal/modal-component/modal-service';
 import { AlertService } from '../shared/alert/alert-service';
+import { Router } from '@angular/router';
 
 export enum CrudEnum {
   C, R, U, D
@@ -14,6 +15,7 @@ export abstract class AbstractComponent {
   protected formBuilder = inject(FormBuilder);
   protected modal = inject(ModalService);
   protected alert = inject(AlertService);
+  protected irParaRota = inject(Router);
 
   isCRUD = "C";
 

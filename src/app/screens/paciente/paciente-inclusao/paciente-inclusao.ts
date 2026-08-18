@@ -27,6 +27,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
+      id: [null],
       nome: [null, [Validators.required, Validators.maxLength(250)]],
       cpf: [null, [Validators.required]],
       rg: [null],
@@ -44,6 +45,15 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
         estado: [null],
       }),
     });
+
+    var id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isCRUD = "R";
+      this.service.buscarPorId(id).subscribe((obj: any) => {
+        this.formulario.patchValue(obj);
+        this.formulario.disable();
+      });
+    }
   }
 
   salvar() {
@@ -64,7 +74,13 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   }
 
   cancelar() {
-
+    if (this.formulario.value.id) {
+      this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
+        this.formulario.patchValue(obj);
+        this.formulario.disable();
+        this.isCRUD = "R";
+      });
+    }
   }
 
   limpar() {
@@ -72,6 +88,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   }
 
   habilitarCampos() {
-
+    this.isCRUD = "U";
+    this.formulario.enable();
   }
 }
