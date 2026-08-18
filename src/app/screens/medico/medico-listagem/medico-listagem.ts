@@ -49,7 +49,6 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
   excluir(obj: any) {
     console.log("Abrir Modal")
     this.modal.confirmDelete().subscribe((result) => {
-      console.log("Resultado na listagem: " + result)
       if (result) {
         this.service.excluir(obj.id).subscribe(() => {
           this.listar();

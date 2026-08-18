@@ -52,6 +52,12 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
   }
 
   excluir(obj: any) {
-
+    this.modal.confirmDelete().subscribe((result) => {
+      if (result) {
+        this.service.excluir(obj.id).subscribe(() => {
+          this.listar();
+        });
+      }
+    });
   }
 }
