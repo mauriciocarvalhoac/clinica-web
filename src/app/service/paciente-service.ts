@@ -26,9 +26,9 @@ export class PacienteService extends AbstractService {
         return this.http.get<any>(this.url + "/filtro", { params });
     }
 
-    // salvar(obj: any): Observable<any> {
-    //     return this.http.post<any>(this.url, obj);
-    // }
+    salvar(obj: any): Observable<any> {
+        return this.http.post<any>(this.url, obj);
+    }
 
     // editar(obj: any): Observable<any> {
     //     return this.http.put<any>(this.url + "/" + obj.id, obj);

@@ -1,0 +1,158 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Paciente > Inclusão</span>
+            <h3>Inclusão de Pacientes</h3>
+        </div>
+        @if (isCRUD == 'C') {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/paciente-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+        }
+        @if (isCRUD == "U") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/paciente-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+        }
+        @if (isCRUD == "R") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/paciente-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="habilitarCampos()" class="btn btn-sm btn-habilitar">Habilitar campos</button>
+            </div>
+        </div>
+        }
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <section class="formulario">
+                <article class="inclusao">
+                    <h6>Identificação</h6>
+                    <div class="d-flex">
+                        <div class="col-2">
+                            <div
+                                style="border: 1px solid #ddd;padding: 10px; height: 100%; display: flex;justify-content: center; text-align: center;">
+                                <img src="/images/user-unknown.png" style="margin: 10px;">
+                            </div>
+                        </div>
+                        <div class="col" style="padding: 10px;">
+                            <div class="row">
+                                <div class="col">
+                                    <label>Nome*:</label>
+                                    <input formControlName="nome" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('nome')}">
+                                </div>
+                                <div class="col-3">
+                                    <label>CPF*:</label>
+                                    <input formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
+                                        class="form-control" [ngClass]="{ 'is-invalid': hasNotValidated('cpf')}">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3">
+                                    <label>RG:</label>
+                                    <input formControlName="rg" class="form-control">
+                                </div>
+                                <div class="col-3">
+                                    <label>Data Nascimento*:</label>
+                                    <input formControlName="dataNascimento" type="date" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('dataNascimento')}">
+                                </div>
+                                <div class="col-3">
+                                    <label>Genero:</label>
+                                    <select formControlName="genero" class="form-select">
+                                        <option>Selecione</option>
+                                        @for (i of enumGeneros; track $index) {
+                                        <option [value]="i.sigla" [label]="i.descricao">
+                                            }
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class=" col">
+                                    <label>Email*:</label>
+                                    <input formControlName="email" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
+                                </div>
+                                <div class="col-3">
+                                    <label>Celular*:</label>
+                                    <input formControlName="celular" mask="(00) 00000-0000"
+                                        placeholder="(00) 00000-0000" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('celular')}">
+                                </div>
+                                <div class="col-3">
+                                    <label>Telefone:</label>
+                                    <input formControlName="telefone" mask="(00) 0000-0000 || (00) 00000-0000"
+                                        placeholder="(00) 0000-0000" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="inclusao">
+                    <h6>Dados de Endereço</h6>
+                    <div class="row" formGroupName="endereco">
+                        <div class="row">
+                            <div class="col-3">
+                                <label>CEP:</label>
+                                <input formControlName="cep" mask="00000-000" placeholder="00000-000"
+                                    class="form-control">
+                            </div>
+                            <div class="col">
+                                <label>Logradouro:</label>
+                                <input formControlName="logradouro" class="form-control">
+                            </div>
+                            <div class="col-2">
+                                <label>Número:</label>
+                                <input formControlName="numero" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Bairro:</label>
+                                <input formControlName="bairro" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label>Cidade:</label>
+                                <input formControlName="cidade" class="form-control">
+                            </div>
+                            <div class="col-3">
+                                <label>Estado:</label>
+                                <select formControlName="estado" class="form-select">
+                                    <option>Selecione</option>
+                                    <option>Bahia</option>
+                                    <option>Recife</option>
+                                    <option>Rio de Janeiro</option>
+                                    <option>São Paulo</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </form>
+    </section>
+</div>
