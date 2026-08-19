@@ -1,0 +1,54 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { AbstractComponent } from '../../abstract-component';
+import { RouterLink } from '@angular/router';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { NgxMaskDirective } from "ngx-mask";
+import { EspecialidadeService } from '../../../service/especialidade-service';
+
+@Component({
+  selector: 'app-especialidade-inclusao',
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgxMaskDirective],
+  templateUrl: './especialidade-inclusao.html',
+  styleUrl: './especialidade-inclusao.scss',
+})
+export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
+  service = inject(EspecialidadeService);
+
+  ngOnInit(): void {
+    this.formulario = this.formBuilder.group({
+      descricao: [null, [Validators.required, Validators.maxLength(200)]],
+      cbo: [null, [Validators.maxLength(6)]],
+      tiss: [null, [Validators.maxLength(10)]],
+      status: [null]
+    });
+  }
+  salvar() {
+    if (this.formulario.invalid) {
+      this.formulario.markAllAsTouched();
+      this.alert.alertWarning('Preencha todos os campos obrigatórios!');
+      return;
+    }
+
+    this.service.salvar(this.formulario.value).subscribe({
+      next: (response) => {
+        this.alert.alertInfo('Especialidade cadastrada com sucesso!');
+        this.irParaRota.navigate(['/especialidade-listagem']);
+      },
+      error: (error) => {
+        this.alert.alertDanger(error.error.message);
+      }
+    });
+  }
+
+  habilitarCampos() {
+    throw new Error('Method not implemented.');
+  }
+  cancelar() {
+    throw new Error('Method not implemented.');
+  }
+  limpar() {
+    throw new Error('Method not implemented.');
+  }
+
+} 

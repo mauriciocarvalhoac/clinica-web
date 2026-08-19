@@ -1,0 +1,84 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Especialidade > Inclusão</span>
+            <h3>Inclusão de Especialidades</h3>
+        </div>
+        @if (isCRUD == 'C') {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+        }
+        @if (isCRUD == "U") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+            </div>
+        </div>
+        }
+        @if (isCRUD == "R") {
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                <button (click)="habilitarCampos()" class="btn btn-sm btn-habilitar">Habilitar campos</button>
+            </div>
+        </div>
+        }
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <section class="formulario">
+                <article class="inclusao">
+                    <h6>Identificação</h6>
+                    <div class="col" style="padding: 10px;">
+                        <div class="row">
+                            <div class="col">
+                                <label>Descrição*:</label>
+                                <input formControlName="descricao" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('descricao')}">
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>CBO:</label>
+                                <input formControlName="cbo" class="form-control" placeholder="0000-00" mask="9999-99"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('cbo')}">
+                            </div>
+                            <div class="col">
+                                <label>TISS:</label>
+                                <input formControlName="tiss" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('tiss')}">
+                            </div>
+                            <div class="col">
+                                <label>Status:</label>
+                                <select formControlName="status" [ngClass]="{ 'is-invalid': hasNotValidated('status')}"
+                                    class="form-select">
+                                    <option value="1">Ativo</option>
+                                    <option value="0">Inativo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </section>
+        </form>
+    </section>
+</div>
