@@ -7,6 +7,7 @@ import { Login } from './screens/login/login';
 import { authGuard } from './core/auth/auth-guard';
 import { PacienteListagem } from './screens/paciente/paciente-listagem/paciente-listagem';
 import { PacienteInclusao } from './screens/paciente/paciente-inclusao/paciente-inclusao';
+import { EspecialidadeListagem } from './screens/especialidade/especialidade-listagem/especialidade-listagem';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -23,6 +24,7 @@ export const routes: Routes = [
             { path: 'paciente-listagem', component: PacienteListagem },
             { path: 'paciente-inclusao', component: PacienteInclusao },
             { path: 'paciente-inclusao/:id', component: PacienteInclusao },
+            { path: 'especialidade-listagem', component: EspecialidadeListagem },
         ]
     },
 

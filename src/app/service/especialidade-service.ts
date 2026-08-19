@@ -4,24 +4,17 @@ import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 
 @Service()
-export class MedicoService extends AbstractService {
+export class EspecialidadeService extends AbstractService {
 
     constructor() {
-        super("/medicos");
+        super("/especialidades");
     }
 
-    // listar(): Observable<any> {
-    //     return this.http.get<any>(this.url);
-    // }
-
-    filtrar(nome: string, cpf: string): Observable<any> {
+    filtrar(descricao: string, cpf: string): Observable<any> {
         var params = new HttpParams();
 
-        if (nome) {
-            params = params.set('nome', nome);
-        }
-        if (cpf) {
-            params = params.set('cpf', cpf);
+        if (descricao) {
+            params = params.set('descricao', descricao);
         }
         return this.http.get<any>(this.url + "/filtro", { params });
     }

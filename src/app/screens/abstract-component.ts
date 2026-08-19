@@ -27,4 +27,5 @@ export abstract class AbstractComponent {
     return this.formulario.get(valor)?.invalid &&
       (this.formulario.get(valor)?.touched || this.formulario.get(valor)?.dirty)
   };
+
 }

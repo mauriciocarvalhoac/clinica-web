@@ -10,9 +10,9 @@ export class PacienteService extends AbstractService {
         super("/pacientes");
     }
 
-    listar(): Observable<any> {
-        return this.http.get<any>(this.url);
-    }
+    // listar(): Observable<any> {
+    //     return this.http.get<any>(this.url);
+    // }
 
     filtrar(nome: string, cpf: string): Observable<any> {
         var params = new HttpParams();

@@ -1,0 +1,60 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Especialidade > Listagem</span>
+            <h3>Listagem de Especilidades</h3>
+        </div>
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/especialidade-inclusao']" class="btn btn-sm btn-add">Adicionar</button>
+            </div>
+            <div>
+                <button (click)="limpar()" class="btn btn-sm btn-reset" style="margin-right: 10px;">Limpar</button>
+                <button (click)="filtrar()" class="btn btn-sm btn-search">Pesquisar</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <article class="pesquisa">
+            <form [formGroup]="formulario">
+                <div class="row">
+                    <div class="col">
+                        <label>Descrição:</label>
+                        <input formControlName="descricao" class="form-control">
+                    </div>
+                </div>
+
+            </form>
+        </article>
+
+        <article class="tabela">
+            <h4>{{listaSize()}} especialidades encontradas</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Descrição da Especialidade </th>
+                        <th> Ação </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (obj of lista() ; track obj.id) {
+                    <tr>
+                        <td> {{obj.descricao}} </td>
+                        <td style="width: 90px;">
+                            <a (click)="irParaEdicao(obj)" class="btn btn-sm btn-edit">
+                                <i class="fas fa-edit"></i></a>
+                            <a (click)="excluir(obj)" class="btn btn-sm btn-delete">
+                                <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="3">Nenhum paciente encontrado.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </article>
+    </section>
+</div>
