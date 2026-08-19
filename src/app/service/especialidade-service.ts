@@ -19,14 +19,8 @@ export class EspecialidadeService extends AbstractService {
         return this.http.get<any>(this.url + "/filtro", { params });
     }
 
-  
-
     editar(obj: any): Observable<any> {
         return this.http.put<any>(this.url + "/" + obj.id, obj);
-    }
-
-    excluir(id: any): Observable<any> {
-        return this.http.delete<any>(this.url + "/" + id);
     }
 
     buscarPorId(id: string): Observable<any> {

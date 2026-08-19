@@ -30,10 +30,6 @@ export class PacienteService extends AbstractService {
         return this.http.put<any>(this.url + "/" + obj.id, obj);
     }
 
-    excluir(id: any): Observable<any> {
-        return this.http.delete<any>(this.url + "/" + id);
-    }
-
     buscarPorId(id: string): Observable<any> {
         return this.http.get<any>(this.url + "/" + id);
     }

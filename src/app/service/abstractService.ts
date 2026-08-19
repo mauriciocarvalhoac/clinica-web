@@ -21,4 +21,8 @@ export class AbstractService {
     public salvar(obj: any): Observable<any> {
         return this.http.post<any>(this.url, obj);
     }
+
+    public excluir(id: any): Observable<any> {
+        return this.http.delete<any>(this.url + "/" + id);
+    }
 }
