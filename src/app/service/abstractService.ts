@@ -17,4 +17,8 @@ export class AbstractService {
     public listar(): Observable<any> {
         return this.http.get<any>(this.url);
     }
+
+    public salvar(obj: any): Observable<any> {
+        return this.http.post<any>(this.url, obj);
+    }
 }
