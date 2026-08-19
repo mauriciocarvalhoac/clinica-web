@@ -42,11 +42,19 @@ export class EspecialidadeListagem extends AbstractComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  excluir(_t42: any) {
-    throw new Error('Method not implemented.');
+  excluir(obj: any) {
+    this.modal.confirmDelete().subscribe((result) => {
+      if (result) {
+        this.service.excluir(obj.id).subscribe((response) => {
+          this.alert.alertInfo('Especialidade excluída com sucesso!');
+          this.listar();
+        });
+      }
+    });
   }
 
-  irParaEdicao(_t42: any) {
+  irParaEdicao(obj: any) {
     throw new Error('Method not implemented.');
+
   }
 }
