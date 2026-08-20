@@ -54,7 +54,6 @@ export class EspecialidadeListagem extends AbstractComponent implements OnInit {
   }
 
   irParaEdicao(obj: any) {
-    throw new Error('Method not implemented.');
-
+    this.irParaRota.navigate(['/especialidade-inclusao', obj.id]);
   }
 }

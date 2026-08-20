@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AbstractComponent } from '../../abstract-component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from "ngx-mask";
@@ -14,6 +14,7 @@ import { EspecialidadeService } from '../../../service/especialidade-service';
 })
 export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   service = inject(EspecialidadeService);
+  route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -22,6 +23,14 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       tiss: [null, [Validators.maxLength(10)]],
       status: [null]
     });
+
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.service.buscarPorId(id).subscribe((obj: any) => {
+        this.formulario.patchValue(obj);
+        this.isCRUD = "U";
+      });
+    }
   }
   salvar() {
     if (this.formulario.invalid) {
@@ -40,15 +49,17 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       }
     });
   }
-
-  habilitarCampos() {
-    throw new Error('Method not implemented.');
-  }
+  
   cancelar() {
-    throw new Error('Method not implemented.');
+    this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
+      this.formulario.patchValue(obj);
+      this.formulario.disable();
+      this.isCRUD = "R";
+    });
   }
+
   limpar() {
-    throw new Error('Method not implemented.');
+    this.formulario.reset();
   }
 
 } 

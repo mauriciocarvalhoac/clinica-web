@@ -4,41 +4,23 @@
             <span>Cadastro > Especialidade > Inclusão</span>
             <h3>Inclusão de Especialidades</h3>
         </div>
-        @if (isCRUD == 'C') {
         <div class="navegacao d-flex justify-content-between">
             <div>
                 <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
 
             </div>
             <div>
+                @if (isCRUD == 'C') {
                 <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
-            </div>
-        </div>
-        }
-        @if (isCRUD == "U") {
-        <div class="navegacao d-flex justify-content-between">
-            <div>
-                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
-            </div>
-            <div>
+                }
+                @if (isCRUD == "U") {
                 <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
+                }
+                @if (isCRUD == 'C' || isCRUD == "U") {
                 <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+                }
             </div>
         </div>
-        }
-        @if (isCRUD == "R") {
-        <div class="navegacao d-flex justify-content-between">
-            <div>
-                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
-            </div>
-            <div>
-                <button (click)="habilitarCampos()" class="btn btn-sm btn-habilitar">Habilitar campos</button>
-            </div>
-        </div>
-        }
     </header>
 
     <section class="formulario">

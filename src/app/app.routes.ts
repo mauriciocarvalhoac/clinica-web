@@ -27,6 +27,7 @@ export const routes: Routes = [
             { path: 'paciente-inclusao/:id', component: PacienteInclusao },
             { path: 'especialidade-listagem', component: EspecialidadeListagem },
             { path: 'especialidade-inclusao', component: EspecialidadeInclusao },
+            { path: 'especialidade-inclusao/:id', component: EspecialidadeInclusao },
         ]
     },
 
