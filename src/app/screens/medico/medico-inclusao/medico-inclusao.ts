@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { NgbAlert, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { Validator } from '../../../shared/validator/validator';
 import { EnumGenero } from '../../../model/enum/enum-genero';
+import { EnumEstados } from '../../../model/enum/enum-estado';
 
 @Component({
   selector: 'app-medico-inclusao',
@@ -22,6 +23,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   route = inject(ActivatedRoute);
   router = inject(Router);
   enumGeneros = EnumGenero.values();
+  enumEstados = EnumEstados.values();
 
   constructor() {
     super();

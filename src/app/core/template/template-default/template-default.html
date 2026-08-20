@@ -31,12 +31,13 @@
                 <img src="/images/user-unknown.png" alt="Foto" width="35" class="img-foto mr-10">
                 <span class=""></span>
 
-                <div ngbDropdown class="d-inline-block">
-                    <button style="background: transparent;" class="font-15 btn btn-primary" ngbDropdownToggle>
+                <div ngbDropdown [autoClose]="'outside'" placement="top-start" class="d-inline-block">
+                    <button style="background: transparent;" type="button" class="font-15 btn btn-primary"
+                        ngbDropdownToggle>
                         Drª Alice Carvalho
                     </button>
 
-                    <div ngbDropdownMenu style="padding: 5px;">
+                    <div ngbDropdownMenu>
                         <label class="font-15" style="width: 100%; text-align: center;">Versão: 1.0.0</label>
                         <button (click)="logout()" style="width: 100%;" class="btn btn-sm btn-danger">Logout</button>
                     </div>

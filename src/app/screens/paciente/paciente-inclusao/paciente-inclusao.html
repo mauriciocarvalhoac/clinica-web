@@ -142,10 +142,9 @@
                                 <label>Estado:</label>
                                 <select formControlName="estado" class="form-select">
                                     <option>Selecione</option>
-                                    <option>Bahia</option>
-                                    <option>Recife</option>
-                                    <option>Rio de Janeiro</option>
-                                    <option>São Paulo</option>
+                                    @for(e of enumEstados; track $index) {
+                                    <option [value]="e.sigla" [label]="e.descricao">
+                                        }
                                 </select>
                             </div>
 

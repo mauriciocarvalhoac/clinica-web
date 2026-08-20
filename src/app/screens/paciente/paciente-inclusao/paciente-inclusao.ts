@@ -7,6 +7,7 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Validator } from '../../../shared/validator/validator';
 import { NgxMaskDirective } from 'ngx-mask';
+import { EnumEstados } from '../../../model/enum/enum-estado';
 
 @Component({
   selector: 'app-paciente-inclusao',
@@ -19,6 +20,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   route = inject(ActivatedRoute);
   router = inject(Router);
   enumGeneros = EnumGenero.values();
+  enumEstados = EnumEstados.values();
 
   constructor() {
     super();
