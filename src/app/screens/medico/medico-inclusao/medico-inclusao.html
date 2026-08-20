@@ -92,7 +92,15 @@
                                                         }
                                                 </select>
                                             </div>
-
+                                            <div class="col-3">
+                                                <label>Pais Origem:</label>
+                                                <select formControlName="paisOrigem" class="form-select">
+                                                    <option [value]="null">Selecione</option>
+                                                    @for(p of enumPaises; track $index) {
+                                                    <option [value]="p.sigla" [label]="p.descricao">
+                                                        }
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class=" col">

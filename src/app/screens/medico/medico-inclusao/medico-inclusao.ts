@@ -9,6 +9,7 @@ import { NgbAlert, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { Validator } from '../../../shared/validator/validator';
 import { EnumGenero } from '../../../model/enum/enum-genero';
 import { EnumEstados } from '../../../model/enum/enum-estado';
+import { EnumPais } from '../../../model/enum/enum-pais';
 
 @Component({
   selector: 'app-medico-inclusao',
@@ -24,6 +25,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   router = inject(Router);
   enumGeneros = EnumGenero.values();
   enumEstados = EnumEstados.values();
+  enumPaises = EnumPais.values();
 
   constructor() {
     super();
@@ -39,6 +41,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
       rg: [null],
       dataNascimento: [null, [Validators.required, Validator.dateOfBirth]],
       genero: [null],
+      paisOrigem: [null],
       email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
       celular: [null, [Validators.required]],
       telefone: [null],
