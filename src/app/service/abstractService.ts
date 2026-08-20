@@ -25,4 +25,12 @@ export class AbstractService {
     public excluir(id: any): Observable<any> {
         return this.http.delete<any>(this.url + "/" + id);
     }
+
+    public editar(obj: any): Observable<any> {
+        return this.http.put<any>(this.url + "/" + obj.id, obj);
+    }
+
+    public buscarPorId(id: string): Observable<any> {
+        return this.http.get<any>(this.url + "/" + id);
+    }
 }

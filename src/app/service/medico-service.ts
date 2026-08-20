@@ -10,10 +10,6 @@ export class MedicoService extends AbstractService {
         super("/medicos");
     }
 
-    // listar(): Observable<any> {
-    //     return this.http.get<any>(this.url);
-    // }
-
     filtrar(nome: string, cpf: string): Observable<any> {
         var params = new HttpParams();
 
@@ -24,14 +20,6 @@ export class MedicoService extends AbstractService {
             params = params.set('cpf', cpf);
         }
         return this.http.get<any>(this.url + "/filtro", { params });
-    }
-
-    editar(obj: any): Observable<any> {
-        return this.http.put<any>(this.url + "/" + obj.id, obj);
-    }
-
-    buscarPorId(id: string): Observable<any> {
-        return this.http.get<any>(this.url + "/" + id);
     }
 
 }
