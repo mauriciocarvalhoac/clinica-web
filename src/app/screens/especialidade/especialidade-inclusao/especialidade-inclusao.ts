@@ -18,6 +18,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
+      id: [null],
       descricao: [null, [Validators.required, Validators.maxLength(200)]],
       cbo: [null, [Validators.maxLength(6)]],
       tiss: [null, [Validators.maxLength(10)]],
@@ -39,17 +40,31 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       return;
     }
 
-    this.service.salvar(this.formulario.value).subscribe({
-      next: (response) => {
-        this.alert.alertInfo('Especialidade cadastrada com sucesso!');
-        this.irParaRota.navigate(['/especialidade-listagem']);
-      },
-      error: (error) => {
-        this.alert.alertDanger(error.error.message);
-      }
-    });
+    if (this.formulario.value.id) {
+      console.log('Atualizando especialidade:', this.formulario.value);
+      this.service.editar(this.formulario.value).subscribe({
+        next: (response) => {
+          this.alert.alertInfo('Especialidade editada com sucesso!');
+          this.irParaRota.navigate(['/especialidade-listagem']);
+        },
+        error: (error) => {
+          this.alert.alertDanger('Erro ao editar especialidade.');
+        }
+      });
+    } else {
+      console.log('Cadastrando especialidade:', this.formulario.value);
+      this.service.salvar(this.formulario.value).subscribe({
+        next: (response) => {
+          this.alert.alertInfo('Especialidade cadastrada com sucesso!');
+          this.irParaRota.navigate(['/especialidade-listagem']);
+        },
+        error: (error) => {
+          this.alert.alertDanger("Erro ao cadastrar especialidade.");
+        }
+      });
+    }
   }
-  
+
   cancelar() {
     this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
       this.formulario.patchValue(obj);
