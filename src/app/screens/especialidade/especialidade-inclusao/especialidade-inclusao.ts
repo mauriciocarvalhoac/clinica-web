@@ -5,6 +5,7 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from "ngx-mask";
 import { EspecialidadeService } from '../../../service/especialidade-service';
+import { EnumSituacao } from '../../../model/enum/enum-situacao';
 
 @Component({
   selector: 'app-especialidade-inclusao',
@@ -15,6 +16,7 @@ import { EspecialidadeService } from '../../../service/especialidade-service';
 export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   service = inject(EspecialidadeService);
   route = inject(ActivatedRoute);
+  enumSituacao = EnumSituacao.values();
 
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
@@ -22,7 +24,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       descricao: [null, [Validators.required, Validators.maxLength(200)]],
       cbo: [null, [Validators.maxLength(6)]],
       tiss: [null, [Validators.maxLength(10)]],
-      status: [null]
+      situacao: [null]
     });
 
     const id = this.route.snapshot.paramMap.get('id');

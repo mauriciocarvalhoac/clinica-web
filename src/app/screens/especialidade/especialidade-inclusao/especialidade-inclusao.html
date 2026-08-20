@@ -50,10 +50,11 @@
                             </div>
                             <div class="col">
                                 <label>Status:</label>
-                                <select formControlName="status" [ngClass]="{ 'is-invalid': hasNotValidated('status')}"
-                                    class="form-select">
-                                    <option value="1">Ativo</option>
-                                    <option value="0">Inativo</option>
+                                <select formControlName="situacao"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}" class="form-select">
+                                    @for(b of enumSituacao ;track $index ) {
+                                    <option [value]="b.valor" [label]="b.descricao">
+                                        }
                                 </select>
                             </div>
                         </div>
