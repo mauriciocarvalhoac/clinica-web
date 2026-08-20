@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from "ngx-mask";
 import { EspecialidadeService } from '../../../service/especialidade-service';
 import { EnumSituacao } from '../../../model/enum/enum-situacao';
+import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 
 @Component({
   selector: 'app-especialidade-inclusao',
@@ -38,7 +39,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning('Preencha todos os campos obrigatórios!');
+      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
       return;
     }
 

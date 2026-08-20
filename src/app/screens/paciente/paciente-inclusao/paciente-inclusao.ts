@@ -9,6 +9,7 @@ import { Validator } from '../../../shared/validator/validator';
 import { NgxMaskDirective } from 'ngx-mask';
 import { EnumEstados } from '../../../model/enum/enum-estado';
 import { EnumPais } from '../../../model/enum/enum-pais';
+import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 
 @Component({
   selector: 'app-paciente-inclusao',
@@ -64,7 +65,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning("Preencha todos oscampos obrigatórios!!");
+      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
       return;
     }
 

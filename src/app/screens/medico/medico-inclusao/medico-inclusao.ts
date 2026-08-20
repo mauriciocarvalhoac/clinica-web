@@ -10,6 +10,7 @@ import { Validator } from '../../../shared/validator/validator';
 import { EnumGenero } from '../../../model/enum/enum-genero';
 import { EnumEstados } from '../../../model/enum/enum-estado';
 import { EnumPais } from '../../../model/enum/enum-pais';
+import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 
 @Component({
   selector: 'app-medico-inclusao',
@@ -80,6 +81,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
+      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
       return;
     }
 
