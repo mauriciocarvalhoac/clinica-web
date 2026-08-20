@@ -35,7 +35,10 @@ export class EspecialidadeListagem extends AbstractComponent implements OnInit {
   }
 
   filtrar() {
-    throw new Error('Method not implemented.');
+    this.service.filtrar(this.formulario.value.descricao).subscribe((lista: any) => {
+      this.lista.set(lista);
+      this.listaSize.set(lista.length);
+    });
   }
 
   limpar() {

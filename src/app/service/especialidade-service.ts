@@ -10,7 +10,7 @@ export class EspecialidadeService extends AbstractService {
         super("/especialidades");
     }
 
-    filtrar(descricao: string, cpf: string): Observable<any> {
+    filtrar(descricao: string): Observable<any> {
         var params = new HttpParams();
 
         if (descricao) {
