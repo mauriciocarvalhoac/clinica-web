@@ -48,7 +48,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
           this.irParaRota.navigate(['/especialidade-listagem']);
         },
         error: (error) => {
-          this.alert.alertDanger('Erro ao editar especialidade.');
+          this.alert.alertDanger(error.error.message);
         }
       });
     } else {
@@ -59,7 +59,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
           this.irParaRota.navigate(['/especialidade-listagem']);
         },
         error: (error) => {
-          this.alert.alertDanger("Erro ao cadastrar especialidade.");
+          this.alert.alertDanger(error.error.message);
         }
       });
     }
