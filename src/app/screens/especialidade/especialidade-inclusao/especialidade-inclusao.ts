@@ -39,7 +39,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
       return;
     }
 
@@ -47,7 +47,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       console.log('Atualizando especialidade:', this.formulario.value);
       this.service.editar(this.formulario.value).subscribe({
         next: (response) => {
-          this.alert.alertInfo('Especialidade editada com sucesso!');
+          this.alert.alertInfo(MsgUtil.atualizar_sucesso);
           this.irParaRota.navigate(['/especialidade-listagem']);
         },
         error: (error) => {
@@ -55,10 +55,9 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
         }
       });
     } else {
-      console.log('Cadastrando especialidade:', this.formulario.value);
       this.service.salvar(this.formulario.value).subscribe({
         next: (response) => {
-          this.alert.alertInfo('Especialidade cadastrada com sucesso!');
+          this.alert.alertInfo(MsgUtil.salvar_sucesso);
           this.irParaRota.navigate(['/especialidade-listagem']);
         },
         error: (error) => {

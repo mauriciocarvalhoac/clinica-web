@@ -65,7 +65,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
       return;
     }
 
@@ -73,13 +73,17 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
       this.service.salvar(this.formulario.value).subscribe({
         next: () => {
           this.router.navigate(['/paciente-listagem']);
-          this.alert.alertInfo("Cadastrado com sucesso!!");
+          this.alert.alertInfo(MsgUtil.salvar_sucesso);
+        }, error: (error) => {
+          this.alert.alertDanger(error.error.message);
         }
       });
     } else {
       this.service.editar(this.formulario.value).subscribe(() => {
         this.router.navigate(['/paciente-listagem']);
-        this.alert.alertInfo("Alterado com sucesso!!");
+        this.alert.alertInfo(MsgUtil.atualizar_sucesso);
+      }, (error) => {
+        this.alert.alertDanger(error.error.message);
       });
     }
   }

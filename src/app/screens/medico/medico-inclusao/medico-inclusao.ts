@@ -81,7 +81,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning(MsgUtil.campos_obrigatorios);
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
       return;
     }
 
@@ -89,11 +89,15 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
       this.service.editar(this.formulario.value).subscribe(() => {
         this.router.navigate(['/medico-listagem']);
         this.alert.alertInfo("Alterado com sucesso!!");
+      }, (error) => {
+        this.alert.alertDanger(error.error.message);
       });
     } else {
       this.service.salvar(this.formulario.value).subscribe(() => {
-        this.alert.alertInfo("Salvo com sucesso!!");
+        this.alert.alertInfo(MsgUtil.salvar_sucesso);
         this.router.navigate(['/medico-listagem']);
+      }, (error) => {
+        this.alert.alertDanger(error.error.message);
       });
     }
   }
