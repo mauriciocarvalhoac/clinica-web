@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Validator } from '../../../shared/validator/validator';
 import { NgxMaskDirective } from 'ngx-mask';
 import { EnumEstados } from '../../../model/enum/enum-estado';
+import { EnumPais } from '../../../model/enum/enum-pais';
 
 @Component({
   selector: 'app-paciente-inclusao',
@@ -21,6 +22,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   router = inject(Router);
   enumGeneros = EnumGenero.values();
   enumEstados = EnumEstados.values();
+  enumPais = EnumPais.values();
 
   constructor() {
     super();
@@ -37,6 +39,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
       genero: [null],
       email: [null, [Validators.required]],
       celular: [null, [Validators.required]],
+      paisOrigem: [null],
       telefone: [null],
       endereco: this.formBuilder.group({
         cep: [null],

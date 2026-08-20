@@ -80,9 +80,18 @@
                                 <div class="col-3">
                                     <label>Genero:</label>
                                     <select formControlName="genero" class="form-select">
-                                        <option>Selecione</option>
+                                        <option [value]="null">Selecione</option>
                                         @for (i of enumGeneros; track $index) {
                                         <option [value]="i.sigla" [label]="i.descricao">
+                                            }
+                                    </select>
+                                </div>
+                                <div class="col-3">
+                                    <label>Pais Origem:</label>
+                                    <select formControlName="paisOrigem" class="form-select">
+                                        <option [value]="null">Selecione</option>
+                                        @for(p of enumPais; track $index) {
+                                        <option [value]="p.sigla" [label]="p.descricao">
                                             }
                                     </select>
                                 </div>
@@ -141,13 +150,12 @@
                             <div class="col-3">
                                 <label>Estado:</label>
                                 <select formControlName="estado" class="form-select">
-                                    <option>Selecione</option>
+                                    <option [value]="null">Selecione</option>
                                     @for(e of enumEstados; track $index) {
                                     <option [value]="e.sigla" [label]="e.descricao">
                                         }
                                 </select>
                             </div>
-
                         </div>
                     </div>
                 </article>
