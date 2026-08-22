@@ -1,0 +1,61 @@
+[33md467a0b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/sprint082026/006-melhorias-cadastro-geral[m[33m)[m 000 - melhoria na padronizacao dos erros
+[33m6a37c16[m[33m ([m[1;31morigin/feature/sprint082026/006-melhorias-cadastro-geral[m[33m)[m 000 - melhoria na padronizacao dos erros
+[33md79eefc[m[33m ([m[1;31morigin/develop[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mdevelop[m[33m)[m 000 - Melhorias do cadastro
+[33m1b47d03[m 000 - Melhorias no cadastro
+[33mbffdff4[m 000 - Melhorias no cadastro
+[33m61e5892[m 000 - Incluindo enum estados nos cadastros
+[33mc438309[m[33m ([m[1;31morigin/feature/sprint082026/005-cadastro-especialidade[m[33m, [m[1;32mfeature/sprint082026/005-cadastro-especialidade[m[33m)[m 123 - Implementando filtragem de especialidade
+[33m1c6373d[m 123 - Implementando Busca de especialidade por ID
+[33mdbca516[m 288 - Implementando AbstractConponent
+[33m6628782[m 288 - Implementando Edicoes de Especialidades
+[33mde38fcd[m 288 - Implementando Edicoes de Especialidades
+[33m6807890[m 892 - Ajustando AstractService
+[33m655046f[m 892 - Implementando a exclusao de Especialidade
+[33m01f9e84[m 892 - Ajustando AstractService
+[33mbf4285c[m 892 - Implementando a inclusao de Especialidade
+[33m5f12cdb[m 738 - Implementando Listagem de Especialidades
+[33m9ee14bb[m Merge branch 'feature/sprint082026/004-CadastroDePacientes' into develop
+[33mc57db6c[m 766 - Editando o cadastro de pacientes
+[33m38dd48b[m 766 - Editando o cadastro de pacientes
+[33m2ffde28[m 766 - Listando  o cadastro de pacientes
+[33m9d67641[m 766 - Excluindo  o cadastro de pacientes
+[33m5dfe0b4[m 766 - Iniciando o cadastro de pacientes
+[33m22934a3[m configurando pipeline
+[33m669e62d[m 849 - Implementando a filtragem de paciente
+[33m42f8c43[m[33m ([m[1;31morigin/feature/sprint082026/003-configuracao-kubernetes[m[33m, [m[1;32mfeature/sprint082026/003-configuracao-kubernetes[m[33m)[m 849 - Listagem de paciente
+[33me7546b0[m 234 - Ajustando validacao de formulario no cadastro de medico
+[33m3f31961[m Ajustando validacao de campos
+[33m0042a3c[m 383 - alterando a apiUrl para https
+[33m405043b[m 009 - ajustando nginx config
+[33mfcd8ce7[m 220 - Ajustes na url
+[33m4b44754[m 220 - Ajustes no helm
+[33maf95348[m 839 - Incluindo https no codigo
+[33m3cbce99[m 128 - Ajudando ssl
+[33m384b3a9[m 344 - http para https
+[33m144e218[m atualizando charts do helm
+[33m5eda435[m atualizando arquivo de HELP
+[33mf16c391[m 000 - Configurando a rota de paciente-listagem
+[33mc08b701[m 980 - adicinando o api na url
+[33mdd886ea[m 233 - Ajustando variaveis de ambiente
+[33mf7abd52[m 233 - Ajustando variaveis de ambiente
+[33m5bcd2ed[m 233 - Ajustando variaveis de ambiente
+[33m3cce648[m 233 - Ajustando variaveis de ambiente
+[33m5e867ad[m 233 - Ajustando variaveis de ambiente
+[33md0aff1a[m 345 - Configurando a pipeline no github Actions
+[33m59d4625[m 387 - Configurando portas e kubernetes
+[33m5578d2a[m 938 - Configurando o helm - kubernetes
+[33mea2d572[m[33m ([m[1;31morigin/feature/sprint072026/002-cadastro-medico[m[33m, [m[1;32mfeature/sprint072026/002-cadastro-medico[m[33m)[m Ajustando o Template
+[33m589c218[m Implementando  os AlertMessage
+[33m250a589[m Ajustando o interceptor caso o token expire
+[33m08daf48[m ajustando variaveis abstratas do formulario reativo
+[33mf6ffa41[m Incluindo modal de confirmacao ao deletar um medico
+[33m25fafb4[m Ajustando tela de login e template
+[33m9ab68f5[m Incluindo um menu suspenso com botao de logout
+[33m1f0acb4[m Implementando a tela de login
+[33m61778de[m Implementando o crud de medico
+[33m37c9db8[m Salvando formulario basico de medicos
+[33m6495f4e[m Limpando pesquisa de medico
+[33m806716b[m Atualizando o README
+[33mc3ff76b[m Imaplementando a listagem e filtragem de medicos
+[33mb3669d0[m[33m ([m[1;31morigin/feature/sprint072026/001-arquitetura-template[m[33m, [m[1;32mfeature/sprint072026/001-arquitetura-template[m[33m)[m Implementando o template default da aplicacao
+[33ma8eb8a6[m[33m ([m[1;31morigin/master[m[33m, [m[1;32mmaster[m[33m)[m initial commit

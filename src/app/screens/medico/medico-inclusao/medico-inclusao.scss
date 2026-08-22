@@ -1,0 +1,29 @@
+.choose {
+    text-align: center;
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    &.main {
+        border: 1px solid #55aa55;
+        color: #005500;
+        background: #bbffbb;
+    }
+    &.other {
+        background: lightgray;
+    }
+}
+
+.choose {
+    text-align: center;
+    width: 100%;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    &.active {
+        border: 1px solid #55aa55;
+        color: #005500;
+        background: #bbffbb;
+    }
+    &.inactive {
+        background: lightgray;
+    }
+}
