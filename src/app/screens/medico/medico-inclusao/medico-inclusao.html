@@ -195,11 +195,10 @@
                                                 <div class="col-3">
                                                     <label>Estado:</label>
                                                     <select formControlName="crmEstado" class="form-select">
-                                                        <option>Selecione</option>
-                                                        <option>Bahia</option>
-                                                        <option>Recife</option>
-                                                        <option>Rio de Janeiro</option>
-                                                        <option>São Paulo</option>
+                                                        <option [value]="null">Selecione</option>
+                                                        @for( e of enumEstados ;track $index) {
+                                                        <option [value]="e.sigla" [label]="e.descricao">
+                                                            }
                                                     </select>
                                                 </div>
                                                 <div class="col">
@@ -227,9 +226,10 @@
                                             <div class="col-3">
                                                 <label>Pós Graduação:</label>
                                                 <select formControlName="statusPos" class="form-select">
-                                                    <option>Selecione</option>
-                                                    <option>Concluído</option>
-                                                    <option>Cursando</option>
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
                                                 </select>
                                             </div>
                                             <div class="col">
@@ -242,9 +242,10 @@
                                             <div class="col-3">
                                                 <label>Mestrado:</label>
                                                 <select formControlName="statusMestrado" class="form-select">
-                                                    <option>Selecione</option>
-                                                    <option>Concluído</option>
-                                                    <option>Cursando</option>
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
                                                 </select>
                                             </div>
                                             <div class="col">
@@ -256,9 +257,10 @@
                                             <div class="col-3">
                                                 <label>Doutorado:</label>
                                                 <select formControlName="statusDoutorado" class="form-select">
-                                                    <option>Selecione</option>
-                                                    <option>Concluído</option>
-                                                    <option>Cursando</option>
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
                                                 </select>
                                             </div>
                                             <div class="col">

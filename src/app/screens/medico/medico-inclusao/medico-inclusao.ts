@@ -13,6 +13,7 @@ import { EnumPais } from '../../../model/enum/enum-pais';
 import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 import { EspecialidadeService } from '../../../service/especialidade-service';
 import { form } from '@angular/forms/signals';
+import { EnumSituacaoFormacaoEducacional } from '../../../model/enum/enum-situacao-formacao-educacional';
 
 @Component({
   selector: 'app-medico-inclusao',
@@ -31,6 +32,7 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
   enumGeneros = EnumGenero.values();
   enumEstados = EnumEstados.values();
   enumPaises = EnumPais.values();
+  enumSituacaoFormacao = EnumSituacaoFormacaoEducacional.values();
   listaEspecialidades: any[] = [];
 
   get medicoEspecialidades(): FormArray {
@@ -65,10 +67,10 @@ export class MedicoInclusao extends AbstractComponent implements OnInit {
         cidade: [null],
         estado: [null],
       }),
+
       subEspecialidade: [null],
       crm: [null],
       crmEstado: [null],
-
       instituicaoGraduacao: [null],
       statusPos: [null],
       instituicaoPos: [null],
