@@ -23,6 +23,15 @@
                         <label>Descrição:</label>
                         <input formControlName="descricao" class="form-control">
                     </div>
+                    <div class="col-2">
+                        <label>Situação:</label>
+                        <select formControlName="situacao" class="form-select">
+                            <option [value]="null">Selecione</option>
+                            @for (item of enumSituacao; track $index) {
+                            <option [value]="item.valor">{{ item.descricao }}</option>
+                            }
+                        </select>
+                    </div>
                 </div>
 
             </form>
@@ -34,6 +43,9 @@
                 <thead>
                     <tr>
                         <th> Descrição da Especialidade </th>
+                        <th> TISS </th>
+                        <th> CBO </th>
+                        <th> Status </th>
                         <th> Ação </th>
                     </tr>
                 </thead>
@@ -41,6 +53,9 @@
                     @for (obj of lista() ; track obj.id) {
                     <tr>
                         <td> {{obj.descricao}} </td>
+                        <td> {{obj.tiss}} </td>
+                        <td> {{obj.cbo | cbo}} </td>
+                        <td> {{obj.situacao | situacao}} </td>
                         <td style="width: 90px;">
                             <a (click)="irParaEdicao(obj)" class="btn btn-sm btn-edit">
                                 <i class="fas fa-edit"></i></a>

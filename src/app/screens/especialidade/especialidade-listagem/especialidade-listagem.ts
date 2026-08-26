@@ -3,10 +3,13 @@ import { AbstractComponent } from '../../abstract-component';
 import { RouterLink } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EspecialidadeService } from '../../../service/especialidade-service';
+import { SituacaoEspecialidadePipe } from '../../../shared/pipes/situacao-especialidade-pipe';
+import { CboPipe } from '../../../shared/pipes/cbo-pipe';
+import { EnumSituacao } from '../../../model/enum/enum-situacao';
 
 @Component({
   selector: 'app-especialidade-listagem',
-  imports: [ReactiveFormsModule, RouterLink,],
+  imports: [ReactiveFormsModule, RouterLink, SituacaoEspecialidadePipe, CboPipe],
   templateUrl: './especialidade-listagem.html',
   styleUrl: './especialidade-listagem.scss',
 })
@@ -15,15 +18,17 @@ export class EspecialidadeListagem extends AbstractComponent implements OnInit {
 
   listaSize = signal(0);
   lista = signal<any>([]);
+  enumSituacao = EnumSituacao.values();
 
   constructor() {
     super();
+    this.formulario = this.formBuilder.group({
+      descricao: null,
+      situacao: null,
+    });
   }
 
   ngOnInit() {
-    this.formulario = this.formBuilder.group({
-      descricao: [null],
-    });
     this.listar();
   }
 
@@ -35,14 +40,15 @@ export class EspecialidadeListagem extends AbstractComponent implements OnInit {
   }
 
   filtrar() {
-    this.service.filtrar(this.formulario.value.descricao).subscribe((lista: any) => {
+    this.service.filtrar(this.formulario.value.descricao, this.formulario.value.situacao).subscribe((lista: any[]) => {
       this.lista.set(lista);
       this.listaSize.set(lista.length);
     });
   }
 
   limpar() {
-    throw new Error('Method not implemented.');
+    this.formulario.reset();
+    this.listar();
   }
 
   excluir(obj: any) {

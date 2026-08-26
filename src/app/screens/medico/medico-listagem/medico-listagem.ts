@@ -28,6 +28,7 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
       cpf: null,
     });
   }
+  
   ngOnInit(): void {
     this.listar();
   }
