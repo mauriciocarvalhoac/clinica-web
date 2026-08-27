@@ -1,0 +1,71 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Funcionário > Listagem</span>
+            <h3>Listagem de Funcionários</h3>
+        </div>
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/funcionario-inclusao']" class="btn btn-sm btn-add">Adicionar</button>
+            </div>
+            <div>
+                <button (click)="limpar()" class="btn btn-sm btn-reset" style="margin-right: 10px;">Limpar</button>
+                <button (click)="filtrar()" class="btn btn-sm btn-search">Pesquisar</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <article class="pesquisa">
+            <form [formGroup]="formulario">
+                <div class="row">
+                    <div class="col">
+                        <label>Nome:</label>
+                        <input formControlName="nome" class="form-control">
+                    </div>
+                    <div class="col-3">
+                        <label>CPF:</label>
+                        <input formControlName="cpf" mask="000.000.000-00" placeholder="000.000.000-00"
+                            class="form-control">
+                    </div>
+                </div>
+
+            </form>
+        </article>
+
+        <article class="tabela">
+            <h4>{{listaSize()}} funcionários encontrados</h4>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Nome do funcionário </th>
+                        <th> CPF </th>
+                        <th> Email </th>
+                        <th> Função </th>
+                        <th> Ação </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of lista(); track item.id) {
+                    <tr>
+                        <td> {{item.nome}} </td>
+                        <td style="width: 130px;"> {{item.cpf | cpf}} </td>
+                        <td style="width: 30%;"> {{item.email}} </td>
+                        <td style="width: 30%;"> {{item.funcao | funcao}} </td>
+                        <td style="width: 90px;">
+                            <a (click)="irParaEdicao( item)" class="btn btn-sm btn-edit">
+                                <i class="fas fa-edit"></i></a>
+                            <a (click)="excluir(item)" class="btn btn-sm btn-delete">
+                                <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="3">Nenhum funcionário encontrado.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </article>
+    </section>
+</div>

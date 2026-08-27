@@ -9,6 +9,8 @@ import { PacienteListagem } from './screens/paciente/paciente-listagem/paciente-
 import { PacienteInclusao } from './screens/paciente/paciente-inclusao/paciente-inclusao';
 import { EspecialidadeListagem } from './screens/especialidade/especialidade-listagem/especialidade-listagem';
 import { EspecialidadeInclusao } from './screens/especialidade/especialidade-inclusao/especialidade-inclusao';
+import { FuncionarioInclusao } from './screens/funcionario/funcionario-inclusao/funcionario-inclusao';
+import { FuncionarioListagem } from './screens/funcionario/funcionario-listagem/funcionario-listagem';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -22,6 +24,9 @@ export const routes: Routes = [
             { path: 'medico-listagem', component: MedicoListagem },
             { path: 'medico-inclusao', component: MedicoInclusao },
             { path: 'medico-inclusao/:id', component: MedicoInclusao },
+            { path: 'funcionario-listagem', component: FuncionarioListagem },
+            { path: 'funcionario-inclusao', component: FuncionarioInclusao },
+            { path: 'funcionario-inclusao/:id', component: FuncionarioInclusao },
             { path: 'paciente-listagem', component: PacienteListagem },
             { path: 'paciente-inclusao', component: PacienteInclusao },
             { path: 'paciente-inclusao/:id', component: PacienteInclusao },

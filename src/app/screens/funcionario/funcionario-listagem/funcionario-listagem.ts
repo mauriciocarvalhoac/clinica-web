@@ -1,21 +1,21 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { MedicoService } from '../../../service/medico-service';
-import { ReactiveFormsModule, FormBuilder, FormGroup } from '@angular/forms';
-import { NgxMaskDirective } from 'ngx-mask';
+import { Router, RouterLink } from '@angular/router';
 import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
-import { Router, RouterLink } from "@angular/router";
+import { NgxMaskDirective } from 'ngx-mask';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AbstractComponent } from '../../abstract-component';
+import { FuncionarioService } from '../../../service/funcionario-service';
+import { FuncaoPipe } from '../../../shared/pipes/funcao-pipe';
 
 @Component({
-  selector: 'app-medico-listagem',
-  // standalone: true,
-  imports: [ReactiveFormsModule, NgxMaskDirective, CpfPipe, RouterLink],
-  templateUrl: './medico-listagem.html',
-  styleUrl: './medico-listagem.scss',
+  selector: 'app-funcionario-listagem',
+  imports: [ReactiveFormsModule, NgxMaskDirective, CpfPipe, FuncaoPipe, RouterLink],
+  templateUrl: './funcionario-listagem.html',
+  styleUrl: './funcionario-listagem.scss',
 })
-export class MedicoListagem extends AbstractComponent implements OnInit {
+export class FuncionarioListagem extends AbstractComponent implements OnInit {
 
-  private service = inject(MedicoService);
+  private service = inject(FuncionarioService);
   router = inject(Router);
 
   lista = signal<any>([]);
@@ -41,14 +41,13 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
   }
 
   filtrar() {
-    this.service.filtrar(this.formulario.value.nome, this.formulario.value.cpf).subscribe((medicos: any[]) => {
-      this.lista.set(medicos);
-      this.listaSize.set(medicos.length);
+    this.service.filtrar(this.formulario.value.nome, this.formulario.value.cpf).subscribe((filtros: any[]) => {
+      this.lista.set(filtros);
+      this.listaSize.set(filtros.length);
     });
   }
 
   excluir(obj: any) {
-    console.log("Abrir Modal")
     this.modal.confirmDelete().subscribe((result) => {
       if (result) {
         this.service.excluir(obj.id).subscribe(() => {
@@ -59,7 +58,7 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
   }
 
   irParaEdicao(obj: any) {
-    this.router.navigate(['/medico-inclusao', obj.id]);
+    this.router.navigate(['/funcionario-inclusao', obj.id]);
   }
 
   limpar() {
@@ -67,3 +66,4 @@ export class MedicoListagem extends AbstractComponent implements OnInit {
     this.listar();
   }
 }
+
