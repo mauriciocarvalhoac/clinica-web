@@ -1,4 +1,3 @@
-<app-alert-component />
 <div class="template-default">
     @if (isInvisibleMenu) {
     <aside class="navigation">
@@ -25,13 +24,13 @@
     <main class="content-full">
         <header class="content-header">
             <a (click)="toggleMenu()" class="hamburguer-menu">
-                <i class="fa-solid fa-bars" aria-hidden="true"></i>
+                <i class="fa-solid fa-bars"></i>
             </a>
             <div class="content-header-right">
                 <img src="/images/user-unknown.png" alt="Foto" width="35" class="img-foto mr-10">
                 <span class=""></span>
 
-                <div ngbDropdown [autoClose]="'outside'" placement="top-start" class="d-inline-block">
+                <div ngbDropdown [autoClose]="'outside'" class="d-inline-block">
                     <button style="background: transparent;" type="button" class="font-15 btn btn-primary"
                         ngbDropdownToggle>
                         Drª Alice Carvalho
@@ -46,6 +45,7 @@
         </header>
         <section class="content-main">
             <section class="content-page">
+                <app-alert-component />
                 <router-outlet />
             </section>
         </section>

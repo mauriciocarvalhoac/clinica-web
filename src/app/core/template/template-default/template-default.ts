@@ -29,6 +29,7 @@ export class TemplateDefault implements OnInit {
   }
 
   toggleMenu() {
+    console.log("Troca menu")
     this.isInvisibleMenu = !this.isInvisibleMenu;
   }
 }
