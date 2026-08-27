@@ -8,10 +8,7 @@ export class Validator {
         const crm = control.get('crm')?.value;
 
         // Se a função for MED e o CRM estiver vazio, retorna um erro
-        if ((!crm || crm.trim() === '')) {
-            return { crmInvalido: true };
-        }
-        if (funcao === 'MED') {
+        if (funcao === 'MED' && (!crm || crm.trim() === '')) {
             return { crmInvalido: true };
         }
 
