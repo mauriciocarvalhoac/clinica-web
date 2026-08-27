@@ -1,8 +1,8 @@
 .alert-container-fixo {
     position: fixed;
-    top: 20;
-    right: 0;
-    left: 0;
-    padding: 20px 30%;
+    top: 50;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
     z-index: 1050;
 }
