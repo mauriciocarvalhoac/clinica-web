@@ -14,6 +14,7 @@ import { EnumSituacaoFormacaoEducacional } from '../../../model/enum/enum-situac
 import { Validator } from '../../../shared/validator/validator';
 import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 import { EnumFuncao } from '../../../model/enum/enum-funcao';
+import { EnumSituacao } from '../../../model/enum/enum-situacao';
 
 @Component({
   selector: 'app-funcionario-inclusao',
@@ -33,6 +34,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   enumEstados = EnumEstados.values();
   enumPaises = EnumPais.values();
   enumSituacaoFormacao = EnumSituacaoFormacaoEducacional.values();
+  enumSituacao = EnumSituacao.values();
   enumFuncao = EnumFuncao.values();
   listaEspecialidades: any[] = [];
 
@@ -87,6 +89,8 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
 
       medicoEspecialidades: this.formBuilder.array([]),
       especialidade: [null],
+    }, {
+      validators: [Validator.crmRequired]
     });
 
     if (id) {

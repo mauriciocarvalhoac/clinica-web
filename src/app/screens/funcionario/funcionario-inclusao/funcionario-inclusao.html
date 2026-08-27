@@ -202,18 +202,11 @@
                                         <h6>Formação Principal</h6>
                                         <div class="row">
                                             <div class="row">
-                                                <div class="col">
-                                                    <label>Sub-Especialidade:</label>
-                                                    <select formControlName="subEspecialidade" class="form-select">
-                                                        <option>Dentista</option>
-                                                        <option>Ortopedista</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="row">
                                                 <div class="col-3">
                                                     <label>CRM*:</label>
-                                                    <input formControlName="crm" class="form-control">
+                                                    <input mask="0000000-AA" placeholder="0000000-AA"
+                                                        formControlName="crm" class="form-control"
+                                                        [ngClass]="{ 'is-invalid': hasNotValidated('crm')}">
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Estado:</label>
@@ -224,16 +217,14 @@
                                                             }
                                                     </select>
                                                 </div>
-                                                <div class="col">
-                                                    <label>Instituição de Ensino de Graduação:</label>
-                                                    <input formControlName="instituicaoGraduacao" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Convênios:</label>
-                                                    <input formControlName="nome" class="form-control">
+                                                <div class="col-3">
+                                                    <label>Situação cadastral:</label>
+                                                    <select formControlName="crmEstado" class="form-select">
+                                                        <option [value]="null">Selecione</option>
+                                                        @for( e of enumSituacao ;track $index) {
+                                                        <option [value]="e.sigla" [label]="e.descricao">
+                                                            }
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -243,68 +234,7 @@
 
                             <article class="inclusao">
                                 <div class="row">
-                                    <div class="col">
-                                        <h6>Formação Complementar e títulos</h6>
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <label>Pós Graduação:</label>
-                                                <select formControlName="statusPos" class="form-select">
-                                                    <option [value]="null">Selecione</option>
-                                                    @for (item of enumSituacaoFormacao; track $index) {
-                                                    <option [value]="item.id">{{ item.descricao }}</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label>Instituição de Ensino:</label>
-                                                <input formControlName="instituicaoPos" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-
-                                            <div class="col-3">
-                                                <label>Mestrado:</label>
-                                                <select formControlName="statusMestrado" class="form-select">
-                                                    <option [value]="null">Selecione</option>
-                                                    @for (item of enumSituacaoFormacao; track $index) {
-                                                    <option [value]="item.id">{{ item.descricao }}</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label>Instituição de Ensino:</label>
-                                                <input formControlName="instituicaoMestrado" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-3">
-                                                <label>Doutorado:</label>
-                                                <select formControlName="statusDoutorado" class="form-select">
-                                                    <option [value]="null">Selecione</option>
-                                                    @for (item of enumSituacaoFormacao; track $index) {
-                                                    <option [value]="item.id">{{ item.descricao }}</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label>Instituição de Ensino:</label>
-                                                <input formControlName="instituicaoDoutorado" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </section>
-                    </ng-template>
-                </li>
-                }
-                <li [ngbNavItem]="3">
-                    <button ngbNavLink>Especialidades</button>
-                    <ng-template ngbNavContent>
-                        <section class="formulario">
-                            <article class="inclusao">
-                                <div class="row">
-                                    <h6>Especialidades do médico</h6>
+                                    <h6>Especialidades</h6>
                                     <div class="col">
                                         <div class="row">
                                             <label>Adicionar Especialidade:</label>
@@ -392,6 +322,76 @@
                                     </div>
                                 </div>
                             </article>
+
+                            <article class="inclusao">
+                                <div class="row">
+                                    <div class="col">
+                                        <h6>Formação Complementar e títulos</h6>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <label>Instituição de Ensino de Graduação:</label>
+                                                <input formControlName="instituicaoGraduacao" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label>Pós Graduação:</label>
+                                                <select formControlName="statusPos" class="form-select">
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label>Instituição de Ensino:</label>
+                                                <input formControlName="instituicaoPos" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+
+                                            <div class="col-3">
+                                                <label>Mestrado:</label>
+                                                <select formControlName="statusMestrado" class="form-select">
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label>Instituição de Ensino:</label>
+                                                <input formControlName="instituicaoMestrado" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <label>Doutorado:</label>
+                                                <select formControlName="statusDoutorado" class="form-select">
+                                                    <option [value]="null">Selecione</option>
+                                                    @for (item of enumSituacaoFormacao; track $index) {
+                                                    <option [value]="item.id">{{ item.descricao }}</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label>Instituição de Ensino:</label>
+                                                <input formControlName="instituicaoDoutorado" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </section>
+                    </ng-template>
+                </li>
+                }
+                <li [ngbNavItem]="3">
+                    <button ngbNavLink>Especialidades</button>
+                    <ng-template ngbNavContent>
+                        <section class="formulario">
+
                         </section>
                     </ng-template>
                 </li>
