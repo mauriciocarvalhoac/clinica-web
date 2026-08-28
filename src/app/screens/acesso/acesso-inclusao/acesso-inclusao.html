@@ -1,0 +1,110 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Acesso > Inclusao</span>
+            <h3>Cadastro de Acesso e Associação de Funcionários</h3>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <section class="formulario">
+                <article class="inclusao">
+                    <div class="d-flex">
+                        <div class="col-6" style="padding: 10px;">
+                            <h6>Associar Funcionário ao Login</h6>
+                            <div class="row">
+                                <div>
+                                    <label>Selecionar Funcionario:</label>
+                                    <select formControlName="funcionarioSelecionadoID" (change)="buscarFuncionario()"
+                                        class="form-select">
+                                        <option [value]="null">Selecione</option>
+                                        @for (item of listaUsuarios(); track $index) {
+                                        <option [value]="item.id">{{ item.nome }}</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Nome do funcionário:</label>
+                                    <input formControlName="nome" class="form-control">
+                                </div>
+                                <div>
+                                    <label>CPF do funcionário:</label>
+                                    <input mask="000.000.000-00" formControlName="cpf" class="form-control">
+                                </div>
+                                <div>
+                                    <label>Cargo/Função:</label>
+                                    <input formControlName="funcao" class="form-control">
+                                </div>
+                                <div>
+                                    <label>Departamento:</label>
+                                    <input formControlName="departamento" class="form-control">
+                                </div>
+                                <div>
+                                    <label>Matrícula:</label>
+                                    <input formControlName="matricula" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6" style="padding: 10px;">
+                            <h6>Criar novo Login</h6>
+                            <div class="row">
+                                <div>
+                                    <label>Username*:</label>
+                                    <input formControlName="username" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('username')}">
+                                </div>
+                                <div>
+                                    <label>Email:</label>
+                                    <input formControlName="emailCorporativo" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('emailCorporativo')}">
+                                </div>
+                                <div>
+                                    <label>Definir Senha*:</label>
+                                    <input formControlName="password" type="password" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('password')}">
+                                </div>
+                                <div>
+                                    <label>Confirmar Senha*:</label>
+                                    <input formControlName="passwordConfirm" type="password" class="form-control"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('passwordConfirm')}">
+                                </div>
+                                <div>
+                                    <label>Permissão de acesso*:</label>
+                                    <select formControlName="role" class="form-select"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('role')}">
+                                        <option>Selecione</option>
+                                        @for (item of enumRoles; track $index) {
+                                        <option [value]="item.sigla">{{item.descricao}}</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Situação do acesso*:</label>
+                                    <select formControlName="situacao" class="form-select"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}">
+                                        <option>Selecione</option>
+                                        @for (item of enumSituacao; track $index) {
+                                        <option [value]="item.sigla">{{item.descricao}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navegacao d-flex justify-content-between">
+                        <div>
+                            <button [routerLink]="['/acesso-listagem']" class="btn btn-sm btn-add">Voltar</button>
+                        </div>
+
+                        <div>
+                            <button (click)="cancelar()" class="ml-10 btn btn-sm btn-clean">Cancelar</button>
+                            <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar Associação</button>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </form>
+    </section>
+</div>
