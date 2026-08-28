@@ -79,6 +79,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       subEspecialidade: [null],
       crm: [null],
       crmEstado: [null],
+
       instituicaoGraduacao: [null],
       statusPos: [null],
       instituicaoPos: [null],
@@ -89,9 +90,11 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
 
       medicoEspecialidades: this.formBuilder.array([]),
       especialidade: [null],
-    }, {
-      validators: [Validator.crmRequired]
-    });
+    },
+      {
+        validators: [Validator.crmRequired]
+      }
+    );
 
     if (id) {
       this.isCRUD = "R";
@@ -107,6 +110,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   }
 
   salvar() {
+    console.log("CRM: " + this.formulario.get('crm')?.value)
     if (this.medicoEspecialidades.controls.length > 0) {
       if (this.medicoEspecialidades.controls.every(control => !control.get('situacao')?.value)) {
         this.alert.alertWarning("Pelo menos uma Especialidade precisa estar com situação ativa.");

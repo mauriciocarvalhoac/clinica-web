@@ -1,18 +1,31 @@
-import { AbstractControl, ValidationErrors } from "@angular/forms";
-import { EnumFuncao } from "../../model/enum/enum-funcao";
+import { AbstractControl, ValidationErrors, Validators } from "@angular/forms";
 
 export class Validator {
-    static crmRequired(control: AbstractControl): ValidationErrors | null {
-        // Como o validador será aplicado no FormGroup, o 'control' é o formulário inteiro
-        const funcao = control.get('funcao')?.value;
-        const crm = control.get('crm')?.value;
 
-        // Se a função for MED e o CRM estiver vazio, retorna um erro
-        if (funcao === 'MED' && (!crm || crm.trim() === '')) {
-            return { crmInvalido: true };
+    static crmRequired(control: AbstractControl): ValidationErrors | null {
+        const funcaoControl = control.get('funcao');
+        const crmControl = control.get('crm');
+
+        if (!funcaoControl || !crmControl)
+            return null;
+
+        const funcao = funcaoControl.value;
+        const crm = crmControl.value ? String(crmControl.value).trim() : '';
+
+        if (funcao === 'MED') {
+            const estaVazio = crm === '';
+            const tamanhoIncorreto = crm.length !== 9;
+
+            if (estaVazio || tamanhoIncorreto) {
+                crmControl.setErrors({ crmInvalidoParaMedico: true });
+                return { crmInvalidoParaMedico: true };
+            }
         }
 
-        // Se estiver tudo correto, retorna null (sem erros)
+        if (crmControl.hasError('crmInvalidoParaMedico')) {
+            crmControl.setErrors(null);
+        }
+
         return null;
     }
 
