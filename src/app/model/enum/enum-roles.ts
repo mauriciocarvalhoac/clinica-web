@@ -1,8 +1,12 @@
 export class EnumRoles {
     static values(): any[] {
         return [
-            { sigla: "USR", descricao: "Usuário" },
+            { sigla: "ADM", descricao: "Administrador" },
+            { sigla: "GER", descricao: "Gerente" },
+            { sigla: "MED", descricao: "Médico" },
+            { sigla: "PAC", descricao: "Paciente" },
             { sigla: "REC", descricao: "Recepcionista" },
-            { sigla: "ADM", descricao: "Administrador" },]
+            { sigla: "SUP", descricao: "Supervisor" },
+        ]
     }
 }

@@ -22,4 +22,7 @@ export class FuncionarioService extends AbstractService {
         return this.http.get<any>(this.url + "/filtro", { params });
     }
 
+    findUsuarioByFuncionarioId(id: any): Observable<any> {
+        return this.http.get<any>(`${this.url}/${id}/usuario`);
+    }
 }

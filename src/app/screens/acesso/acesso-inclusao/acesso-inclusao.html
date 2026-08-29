@@ -14,33 +14,33 @@
                         <div class="col-6" style="padding: 10px;">
                             <h6>Associar Funcionário ao Login</h6>
                             <div class="row">
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>Selecionar Funcionario:</label>
-                                    <select formControlName="funcionarioSelecionadoID" (change)="buscarFuncionario()"
-                                        class="form-select">
+                                    <select formControlName="id" (change)="buscarFuncionario()" class="form-select"
+                                        [ngClass]="{ 'is-invalid': hasNotValidated('funcionario.id')}">
                                         <option [value]="null">Selecione</option>
                                         @for (item of listaUsuarios(); track $index) {
                                         <option [value]="item.id">{{ item.nome }}</option>
                                         }
                                     </select>
                                 </div>
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>Nome do funcionário:</label>
                                     <input formControlName="nome" class="form-control">
                                 </div>
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>CPF do funcionário:</label>
                                     <input mask="000.000.000-00" formControlName="cpf" class="form-control">
                                 </div>
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>Cargo/Função:</label>
                                     <input formControlName="funcao" class="form-control">
                                 </div>
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>Departamento:</label>
                                     <input formControlName="departamento" class="form-control">
                                 </div>
-                                <div>
+                                <div formGroupName="funcionario">
                                     <label>Matrícula:</label>
                                     <input formControlName="matricula" class="form-control">
                                 </div>
@@ -84,7 +84,7 @@
                                     <label>Situação do acesso*:</label>
                                     <select formControlName="situacao" class="form-select"
                                         [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}">
-                                        <option>Selecione</option>
+                                        <option [value]="null">Selecione</option>
                                         @for (item of enumSituacao; track $index) {
                                         <option [value]="item.sigla">{{item.descricao}}</option>
                                         }
