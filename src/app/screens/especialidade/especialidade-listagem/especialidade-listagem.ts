@@ -3,9 +3,9 @@ import { AbstractComponent } from '../../abstract-component';
 import { RouterLink } from '@angular/router';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EspecialidadeService } from '../../../service/especialidade-service';
-import { SituacaoEspecialidadePipe } from '../../../shared/pipes/situacao-especialidade-pipe';
 import { CboPipe } from '../../../shared/pipes/cbo-pipe';
 import { EnumSituacao } from '../../../model/enum/enum-situacao';
+import { SituacaoEspecialidadePipe } from '../../../shared/pipes/situacao-especialidade-pipe';
 
 @Component({
   selector: 'app-especialidade-listagem',

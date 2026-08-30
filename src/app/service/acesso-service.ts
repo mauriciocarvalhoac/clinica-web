@@ -17,4 +17,15 @@ export class AcessoService extends AbstractService {
     atualizarUsuario(id: any, obj: any): Observable<any> {
         return this.http.put<any>(`${this.url}/${id}`, obj);
     }
+
+    filtrar(username: any): Observable<any[]> {
+        var params = new HttpParams();
+
+        if (username) {
+            params = params.set("username", username);
+        }
+
+        return this.http.get<any[]>(this.url + "/filter", { params });
+    }
+
 }

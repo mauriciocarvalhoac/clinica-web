@@ -12,6 +12,7 @@ import { EspecialidadeInclusao } from './screens/especialidade/especialidade-inc
 import { FuncionarioInclusao } from './screens/funcionario/funcionario-inclusao/funcionario-inclusao';
 import { FuncionarioListagem } from './screens/funcionario/funcionario-listagem/funcionario-listagem';
 import { AcessoInclusao } from './screens/acesso/acesso-inclusao/acesso-inclusao';
+import { AcessoListagem } from './screens/acesso/acesso-listagem/acesso-listagem';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -35,6 +36,8 @@ export const routes: Routes = [
             { path: 'especialidade-inclusao', component: EspecialidadeInclusao },
             { path: 'especialidade-inclusao/:id', component: EspecialidadeInclusao },
             { path: 'acesso-inclusao', component: AcessoInclusao },
+            { path: 'acesso-inclusao/:id', component: AcessoInclusao },
+            { path: 'acesso-listagem', component: AcessoListagem },
         ]
     },
 

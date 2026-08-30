@@ -55,7 +55,15 @@
                         <td> {{obj.descricao}} </td>
                         <td> {{obj.tiss}} </td>
                         <td> {{obj.cbo | cbo}} </td>
-                        <td> {{obj.situacao | situacao}} </td>
+                        <td>
+                            @if(obj?.situacao){
+                            <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i>
+                                Ativo</label>
+                            }@else{
+                            <label class="situacao inativo w-100 text-center"><i class="fas fa-circle-xmark"></i>
+                                Inativo</label>
+                            }
+                        </td>
                         <td style="width: 90px;">
                             <a (click)="irParaEdicao(obj)" class="btn btn-sm btn-edit">
                                 <i class="fas fa-edit"></i></a>

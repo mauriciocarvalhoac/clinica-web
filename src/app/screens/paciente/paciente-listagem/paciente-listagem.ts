@@ -54,6 +54,10 @@ export class PacienteListagem extends AbstractComponent implements OnInit {
     this.irParaRota.navigate(['/paciente-inclusao', item.id]);
   }
 
+  irPara(rota: string, id: any) {
+    this.irParaRota.navigate([rota, id]);
+  }
+
   excluir(obj: any) {
     this.modal.confirmDelete().subscribe((result) => {
       if (result) {

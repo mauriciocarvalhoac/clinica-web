@@ -97,3 +97,16 @@
         }
     }
 }
+
+.situacao {
+    padding: 5px 15px;
+    border-radius: 5px;
+    &.ativo {
+        background: #e9f7ee;
+        color: #76b38c;
+    }
+    &.inativo {
+        color: #575f79;
+        background: #ebecf0;
+    }
+}

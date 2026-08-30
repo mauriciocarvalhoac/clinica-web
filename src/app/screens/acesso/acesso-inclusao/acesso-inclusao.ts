@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AbstractComponent } from '../../abstract-component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AcessoService } from '../../../service/acesso-service';
@@ -21,6 +21,7 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
 
   service = inject(AcessoService);
   serviceFuncionario = inject(FuncionarioService);
+  route = inject(ActivatedRoute);
   listaUsuarios = signal<any[]>([]);
   enumRoles = EnumRoles.values();
   enumSituacao = EnumSituacaoUser.values();
@@ -45,6 +46,13 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
         matricula: [{ value: '', disabled: true }],
       }),
     });
+
+    var id = this.route.snapshot.paramMap.get("id");
+    if (id) {
+      this.service.buscarPorId(id).subscribe((obj) => {
+        this.formulario.patchValue(obj);
+      });
+    }
   }
 
   ngOnInit(): void {

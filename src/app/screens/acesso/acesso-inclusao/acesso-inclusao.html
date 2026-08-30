@@ -99,7 +99,9 @@
                         </div>
 
                         <div>
+                            @if(isCRUD === 'U'){
                             <button (click)="cancelar()" class="ml-10 btn btn-sm btn-clean">Cancelar</button>
+                            }
                             <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar Associação</button>
                         </div>
                     </div>
