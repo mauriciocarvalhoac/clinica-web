@@ -28,4 +28,10 @@ export abstract class AbstractComponent {
       (this.formulario.get(valor)?.touched || this.formulario.get(valor)?.dirty)
   };
 
+  // navigateTo(rota: string, obj?: any) {
+  //   if (obj)
+  //     this.irParaRota.navigate([rota, obj.id]);
+  //   else
+  //     this.irParaRota.navigate([rota]);
+  // }
 }

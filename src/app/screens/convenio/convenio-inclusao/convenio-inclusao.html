@@ -1,0 +1,54 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Convênio > Inclusão</span>
+            <h3>Inclusão de Convênios</h3>
+        </div>
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/convenio-listagem']" class="btn btn-sm btn-add">Voltar</button>
+
+            </div>
+            <div>
+                @if (isCRUD == 'C') {
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
+                }
+                @if (isCRUD == "U") {
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
+                }
+                @if (isCRUD == 'C' || isCRUD == "U") {
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+                }
+            </div>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <section class="formulario">
+                <article class="inclusao">
+                    <h6>Identificação</h6>
+                    <div class="col" style="padding: 10px;">
+                        <div class="row">
+                            <div class="col">
+                                <label>Descrição*:</label>
+                                <input formControlName="descricao" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('descricao')}">
+                            </div>
+                            <div class="col-2">
+                                <label>Status*:</label>
+                                <select formControlName="situacao"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}" class="form-select">
+                                    <option [value]="null">Situação</option>
+                                    @for(b of enumSituacao ;track $index ) {
+                                    <option [value]="b.valor" [label]="b.descricao"></option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </form>
+    </section>
+</div>

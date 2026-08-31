@@ -1,7 +1,7 @@
 export class EnumSituacao {
     static values(): any[] {
         return [
-            { valor: true, descricao: "Ativo" },
-            { valor: false, descricao: "Inativo" },]
+            { valor: "A", descricao: "Ativo" },
+            { valor: "I", descricao: "Inativo" },]
     }
 }

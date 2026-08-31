@@ -30,6 +30,10 @@ export class AbstractService {
         return this.http.put<any>(this.url + "/" + obj.id, obj);
     }
 
+    public atualizar(id: any, obj: any): Observable<any> {
+        return this.http.put<any>(this.url + "/" + id, obj);
+    }
+
     public buscarPorId(id: string): Observable<any> {
         return this.http.get<any>(this.url + "/" + id);
     }
