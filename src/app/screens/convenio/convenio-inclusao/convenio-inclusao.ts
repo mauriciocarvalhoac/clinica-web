@@ -32,14 +32,13 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
       this.service.buscarPorId(id).subscribe({
         next: (obj: any) => {
           this.formulario.patchValue(obj);
+          this.isCRUD = CrudEnum.U.toString();
         },
         error: (error: any) => {
-
         }
       })
     }
   }
-
 
   constructor() {
     super();
@@ -77,11 +76,22 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
   }
 
   cancelar() {
-    throw new Error('Method not implemented.');
+    if (this.formulario.value.id) {
+      this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
+        this.formulario.patchValue(obj);
+        this.formulario.disable();
+        this.isCRUD = CrudEnum.R.toString();
+      });
+    }
   }
 
   limpar() {
     this.formulario.reset();
   }
 
+
+  habilitarCampos() {
+    this.formulario.enable();
+    this.isCRUD = CrudEnum.U.toString();
+  }
 }

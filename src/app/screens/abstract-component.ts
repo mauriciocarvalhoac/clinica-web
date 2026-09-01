@@ -5,7 +5,7 @@ import { AlertService } from '../shared/alert/alert-service';
 import { Router } from '@angular/router';
 
 export enum CrudEnum {
-  C, R, U, D
+  C = "C", R = "R", U = "U", D = "D"
 }
 @Injectable({
   providedIn: 'root'

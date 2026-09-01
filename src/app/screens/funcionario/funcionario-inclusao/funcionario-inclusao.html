@@ -13,7 +13,11 @@
             <div>
                 <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Limpar</button>
-                @if (formulario.get('id')?.value) {
+                @if(isCRUD == "R"){
+                <button (click)="habilitarCampos()" class="ml-10 btn btn-sm btn-clean">
+                    <i class="fas fa-broom"></i> Habilitar Campos</button>
+                }
+                @if (formulario.get('id')?.value && isCRUD == "U") {
                 <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">
                     <i class="fa-solid fa-xmark"></i> Cancelar</button>
                 }

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractComponent } from '../../abstract-component';
+import { AbstractComponent, CrudEnum } from '../../abstract-component';
 import { FuncionarioService } from '../../../service/funcionario-service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -104,7 +104,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
           obj.medicoEspecialidades.forEach((esp: any) => {
             this.medicoEspecialidades.push(this.groupEspecialidade(esp))
           });
-        this.formulario.disable();
+        this.isCRUD = CrudEnum.U.toString();
       });
     }
   }
@@ -154,12 +154,12 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
       this.formulario.patchValue(obj);
       this.formulario.disable();
-      this.isCRUD = "R";
+      this.isCRUD = CrudEnum.R.toString();
     });
   }
 
   habilitarCampos() {
-    this.isCRUD = "U";
+    this.isCRUD = CrudEnum.U.toString();
     this.formulario.enable();
   }
 

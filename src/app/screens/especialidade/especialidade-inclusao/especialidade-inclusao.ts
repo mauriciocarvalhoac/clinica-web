@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractComponent } from '../../abstract-component';
+import { AbstractComponent, CrudEnum } from '../../abstract-component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,8 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   enumSituacao = EnumSituacao.values();
 
   ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
     this.formulario = this.formBuilder.group({
       id: [null],
       descricao: [null, [Validators.required, Validators.maxLength(200)]],
@@ -28,14 +30,14 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
       situacao: [null]
     });
 
-    const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.service.buscarPorId(id).subscribe((obj: any) => {
         this.formulario.patchValue(obj);
-        this.isCRUD = "U";
+        this.isCRUD = CrudEnum.U.toString();
       });
     }
   }
+
   salvar() {
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
@@ -44,7 +46,6 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
     }
 
     if (this.formulario.value.id) {
-      console.log('Atualizando especialidade:', this.formulario.value);
       this.service.editar(this.formulario.value).subscribe({
         next: (response) => {
           this.alert.alertInfo(MsgUtil.atualizar_sucesso);
@@ -68,15 +69,22 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
   }
 
   cancelar() {
-    this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
-      this.formulario.patchValue(obj);
-      this.formulario.disable();
-      this.isCRUD = "R";
-    });
+    if (this.formulario.value.id) {
+      this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
+        this.formulario.patchValue(obj);
+        this.formulario.disable();
+        this.isCRUD = CrudEnum.R.toString();
+      });
+    }
   }
 
   limpar() {
     this.formulario.reset();
+  }
+
+  habilitarCampos() {
+    this.formulario.enable();
+    this.isCRUD = CrudEnum.U.toString();
   }
 
 } 

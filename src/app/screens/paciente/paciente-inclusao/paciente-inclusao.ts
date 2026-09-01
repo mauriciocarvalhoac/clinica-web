@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AbstractComponent } from '../../abstract-component';
+import { AbstractComponent, CrudEnum } from '../../abstract-component';
 import { PacienteService } from '../../../service/paciente-service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EnumGenero } from '../../../model/enum/enum-genero';
@@ -27,7 +27,6 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
 
   constructor() {
     super();
-    this.isCRUD = "C";
   }
 
   ngOnInit(): void {
@@ -54,10 +53,9 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
 
     var id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.isCRUD = "R";
       this.service.buscarPorId(id).subscribe((obj: any) => {
         this.formulario.patchValue(obj);
-        this.formulario.disable();
+        this.isCRUD = CrudEnum.U.toString();
       });
     }
   }
@@ -93,7 +91,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
       this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
         this.formulario.patchValue(obj);
         this.formulario.disable();
-        this.isCRUD = "R";
+        this.isCRUD = CrudEnum.R.toString();
       });
     }
   }
@@ -103,7 +101,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   }
 
   habilitarCampos() {
-    this.isCRUD = "U";
     this.formulario.enable();
+    this.isCRUD = CrudEnum.U.toString();
   }
 }
