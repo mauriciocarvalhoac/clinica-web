@@ -12,9 +12,11 @@
             <div>
                 <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Limpar</button>
+                @if (formulario.get('id')?.value) {
                 <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">
                     <i class="fa-solid fa-xmark"></i> Cancelar</button>
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                }
+                 <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
                     <i class="fas fa-floppy-disk"></i> Salvar</button>
             </div>
         </div>
