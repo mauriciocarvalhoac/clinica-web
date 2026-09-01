@@ -2,17 +2,20 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../../service/login-service';
-import { NgbAlert, NgbAlertModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAlert, NgbAlertModule, NgbCollapseModule, NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from '../../../shared/alert/alert-component/alert-component';
 
 @Component({
   selector: 'app-template-default',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, NgbDropdownModule, NgbAlertModule, AlertComponent],
+  imports: [CommonModule, RouterOutlet, RouterLink, NgbDropdownModule, NgbAlertModule, NgbCollapseModule, AlertComponent],
   templateUrl: './template-default.html',
   styleUrl: './template-default.scss',
 })
 export class TemplateDefault implements OnInit {
+  isCadastrosCollapse = true;
+  isRelatoriosCollapse = true;
+
   isInvisibleMenu: boolean = true;
   service = inject(LoginService);
   router = inject(Router);

@@ -132,3 +132,12 @@ input.is-invalid {
 .w-100 {
     width: 100%;
 }
+
+.arrow {
+    font-size: 0.8rem;
+    transition: transform 0.2s ease;
+}
+
+.arrow.open {
+    transform: rotate(-180deg);
+}

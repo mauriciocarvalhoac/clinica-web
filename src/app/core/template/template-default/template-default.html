@@ -5,27 +5,70 @@
             <span>Clínica Médica</span>
         </div>
 
-        <ul class="nav-bar">
-            <li>
-                <a [routerLink]="['/dashboard']"> <i class="fa-solid fa-home"></i> Dashboard </a>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-dark" [routerLink]="['/dashboard']">
+                    <i class="fas fa-house"></i> Dashboard</a>
             </li>
-            <li>
-                <a> Cadastro </a>
+
+            <!-- Item Lateral Expansível (Ajustado para abrir para o lado ou para baixo) -->
+            <li class="nav-item">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
+                    (click)="isCadastrosCollapse = !isCadastrosCollapse" [attr.aria-expanded]="!isCadastrosCollapse"
+                    aria-controls="subMeuCadastros">
+                    <span> <i class="fa-solid fa-address-card"></i> Cadastros</span>
+                    <span class="arrow" [class.open]="!isCadastrosCollapse">▼</span>
+                </a>
+
+                <div id="subMeuCadastros" [ngbCollapse]="isCadastrosCollapse">
+                    <ul class="nav flex-column ps-3 small">
+                        <li class="nav-item">
+                            <a [routerLink]="['/funcionario-listagem']" class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-id-card"></i> Funcionários</a>
+                        </li>
+                        <li class="nav-item">
+                            <a [routerLink]="['/paciente-listagem']" class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-user-injured"></i> Pacientes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a [routerLink]="['/especialidade-listagem']" class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-stethoscope"></i> Especialidades</a>
+                        </li>
+                        <li class="nav-item">
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li class="nav-item">
+                            <a [routerLink]="['/convenio-listagem']" class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-hand-holding-heart"></i> Convênio</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li>
-                <a [routerLink]="['/funcionario-listagem']"><i class="fa-solid fa-id-card"></i>Funcionários</a>
+
+            <li class="nav-item">
+                <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
+                    (click)="isRelatoriosCollapse = !isRelatoriosCollapse" [attr.aria-expanded]="!isRelatoriosCollapse"
+                    aria-controls="subMeuRelatorios">
+                    <span> <i class="fa-solid fa-address-card"></i> Relatórios</span>
+                    <span class="arrow" [class.open]="!isRelatoriosCollapse">▼</span>
+                </a>
+                <div id="subMeuRelatorios" [ngbCollapse]="isRelatoriosCollapse">
+                    <ul class="nav flex-column ps-3 small">
+                        <li class="nav-item">
+                            <a class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-id-card"></i> Atendimentos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="dropdown-item nav-link text-secondary">
+                                <i class="fa-solid fa-id-card"></i> Pacientes</a>
+                        </li>
+                    </ul>
+                </div>
             </li>
-            <li>
-                <a [routerLink]="['/paciente-listagem']"><i class="fa-solid fa-user-injured"></i>Pacientes</a>
-            </li>
-            <li>
-                <a [routerLink]="['/especialidade-listagem']"><i class="fa-solid fa-stethoscope"></i>Especialidades</a>
-            </li>
-            <li>
-                <a [routerLink]="['/acesso-listagem']"><i class="fa-solid fa-user-shield"></i>Acessos</a>
-            </li>
-            <li>
-                <a [routerLink]="['/convenio-listagem']"><i class="fa-solid fa-hand-holding-heart"></i>Convênio</a>
+            <li class="nav-item">
+                <a [routerLink]="['/acesso-listagem']" class="nav-link text-dark">
+                    <i class="fa-solid fa-user-shield"></i> Acessos</a>
+
             </li>
         </ul>
     </aside>
