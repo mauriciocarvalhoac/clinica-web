@@ -5,11 +5,10 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EspecialidadeService } from '../../../service/especialidade-service';
 import { CboPipe } from '../../../shared/pipes/cbo-pipe';
 import { EnumSituacao } from '../../../model/enum/enum-situacao';
-import { SituacaoEspecialidadePipe } from '../../../shared/pipes/situacao-especialidade-pipe';
 
 @Component({
   selector: 'app-especialidade-listagem',
-  imports: [ReactiveFormsModule, RouterLink, SituacaoEspecialidadePipe, CboPipe],
+  imports: [ReactiveFormsModule, RouterLink, CboPipe],
   templateUrl: './especialidade-listagem.html',
   styleUrl: './especialidade-listagem.scss',
 })
