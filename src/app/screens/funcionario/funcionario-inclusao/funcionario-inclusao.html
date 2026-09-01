@@ -1,44 +1,24 @@
 <div style="padding: 10px;">
     <header class="header-form">
         <div>
-            <span>Cadastro > Funcionário > Inclusao</span>
+            <span>Cadastro > Funcionário > Inclusão</span>
             <h3>Cadastro de Funcionário</h3>
         </div>
-        @if (isCRUD == 'C') {
+
         <div class="navegacao d-flex justify-content-between">
             <div>
-                <button [routerLink]="['/funcionario-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
+                <button [routerLink]="['/funcionario-listagem']" class="btn btn-sm btn-add">
+                    <i class="fas fa-chevron-left"></i> Voltar</button>
             </div>
             <div>
-                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">
+                    <i class="fas fa-broom"></i> Limpar</button>
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">
+                    <i class="fa-solid fa-xmark"></i> Cancelar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                    <i class="fas fa-floppy-disk"></i> Salvar</button>
             </div>
         </div>
-        }
-        @if (isCRUD == "U") {
-        <div class="navegacao d-flex justify-content-between">
-            <div>
-                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
-            </div>
-            <div>
-                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
-            </div>
-        </div>
-        }
-        @if (isCRUD == "R") {
-        <div class="navegacao d-flex justify-content-between">
-            <div>
-                <button [routerLink]="['/medico-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
-            </div>
-            <div>
-                <button (click)="habilitarCampos()" class="btn btn-sm btn-habilitar">Habilitar campos</button>
-            </div>
-        </div>
-        }
     </header>
 
     <section class="formulario">

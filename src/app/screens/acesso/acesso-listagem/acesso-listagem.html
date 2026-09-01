@@ -1,75 +1,79 @@
 <div style="padding: 10px;">
-    <header class="header-form">
+    <header class="header-form d-flex justify-content-between">
         <div>
             <span>Cadastro > Usuários > Listagem</span>
             <h3>Listagem de Usuários</h3>
         </div>
-
+        <div>
+            <button [routerLink]="['/acesso-inclusao']" class="btn btn-sm btn-add w-100">
+                <i class="fas fa-plus"></i> Novo Usuário</button>
+        </div>
     </header>
 
     <section class="formulario">
-        <article class="tabela">
-            <div class="row d-flex justify-content-end align-items-center">
-                <div class="col-4">
-                    <form [formGroup]="formulario">
+        <form [formGroup]="formulario">
+            <article class="tabela">
+                <div class="row d-flex justify-content-end align-items-center">
+                    <div class="col-4">
                         <input placeholder="Buscar o usuário" formControlName="username" class="form-control">
-                    </form>
-                </div>
-                <div class="col-1">
-                    <button (click)="filtrar()" class="btn btn-sm btn-search w-100">
-                        <i class="fas fa-filter"></i> Filtrar</button>
-                </div>
-                <div class="col-2   ">
-                    <button [routerLink]="['/acesso-inclusao']" class="btn btn-sm btn-add w-100">
-                        <i class="fas fa-plus"></i> Novo Usuário</button>
+                    </div>
+                    <div class="col-1">
+                        <button (click)="filtrar()" class="btn btn-sm btn-search w-100">
+                            <i class="fas fa-filter"></i> Filtrar</button>
+                    </div>
+                    <div class="col-1">
+                        <button (click)="limpar()" class="btn btn-sm btn-clean w-100" style="margin-right: 10px;">
+                            <i class="fas fa-broom"></i> Limpar</button>
+                    </div>
                 </div>
 
-            </div>
-
-            <h4>{{lista().length}} usuários encontrados</h4>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th> Usuário(login) </th>
-                        <th> Nome completo </th>
-                        <th> Tipo </th>
-                        <th> Perfil </th>
-                        <th> Email </th>
-                        <th> Situação </th>
-                        <th> Último Acesso </th>
-                        <th> Ação </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (item of lista(); track item.id) {
-                    <tr>
-                        <td> {{ item?.username }} </td>
-                        <td> {{ item?.funcionario?.nome }} </td>
-                        <td> {{ item?.role | role}} </td>
-                        <td> {{ item?.funcionario?.funcao | funcao}} </td>
-                        <td> {{ item?.emailCorporativo }} </td>
-                        <td>
-                            @if(item?.situacao === "A"){
-                            <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i> Ativo</label>
-                            }@else{
-                            <label class="situacao inativo w-100 text-center"><i class="fas fa-circle-xmark"></i> Inativo</label>
-                            }
-                        </td>
-                        <td> {{ item?.ultimoAcesso }} </td>
-                        <td style="width: 90px;">
-                            <a (click)="irPara( '/acesso-inclusao', item.id)" class="btn btn-sm btn-edit">
-                                <i class="fas fa-edit"></i></a>
-                            <a (click)="visualizacao(item)" class="btn btn-sm btn-delete">
-                                <i class="fas fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    } @empty {
-                    <tr>
-                        <td colspan="3">Nenhum Usuário encontrado.</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </article>
+                <h4>{{lista().length}} usuários encontrados</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th> Usuário(login) </th>
+                            <th> Nome completo </th>
+                            <th> Tipo </th>
+                            <th> Perfil </th>
+                            <th> Email </th>
+                            <th> Situação </th>
+                            <th> Último Acesso </th>
+                            <th> Ação </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (item of lista(); track item.id) {
+                        <tr>
+                            <td> {{ item?.username }} </td>
+                            <td> {{ item?.funcionario?.nome }} </td>
+                            <td> {{ item?.role | role}} </td>
+                            <td> {{ item?.funcionario?.funcao | funcao}} </td>
+                            <td> {{ item?.emailCorporativo }} </td>
+                            <td>
+                                @if(item?.situacao === "A"){
+                                <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i>
+                                    Ativo</label>
+                                }@else{
+                                <label class="situacao inativo w-100 text-center"><i class="fas fa-circle-xmark"></i>
+                                    Inativo</label>
+                                }
+                            </td>
+                            <td> {{ item?.ultimoAcesso }} </td>
+                            <td style="width: 90px;">
+                                <a (click)="irPara( '/acesso-inclusao', item.id)" class="btn btn-sm btn-edit">
+                                    <i class="fas fa-edit"></i></a>
+                                <a (click)="visualizacao(item)" class="btn btn-sm btn-delete">
+                                    <i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        } @empty {
+                        <tr>
+                            <td colspan="3">Nenhum Usuário encontrado.</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </article>
+        </form>
     </section>
 </div>

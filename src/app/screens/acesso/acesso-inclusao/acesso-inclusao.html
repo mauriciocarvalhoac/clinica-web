@@ -95,14 +95,16 @@
                     </div>
                     <div class="navegacao d-flex justify-content-between">
                         <div>
-                            <button [routerLink]="['/acesso-listagem']" class="btn btn-sm btn-add">Voltar</button>
+                            <button [routerLink]="['/acesso-listagem']" class="btn btn-sm btn-add">
+                                <i class="fas fa-chevron-left"></i> Voltar</button>
                         </div>
 
                         <div>
                             @if(isCRUD === 'U'){
                             <button (click)="cancelar()" class="ml-10 btn btn-sm btn-clean">Cancelar</button>
                             }
-                            <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar Associação</button>
+                            <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                                <i class="fas fa-floppy-disk"></i> Salvar Associação</button>
                         </div>
                     </div>
                 </article>

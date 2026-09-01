@@ -91,8 +91,16 @@
             background: rgb(175, 75, 75);
             color: white;
             &:hover {
-                background: rgb(200, 100, 100);
+                background: rgb(200, 115, 115);
                 color: white;
+            }
+        }
+
+        &.btn-delete {
+            color: rgb(175, 75, 75);
+            &:hover {
+                background: rgb(249, 237, 237);
+                color: rgb(200, 115, 115);
             }
         }
     }

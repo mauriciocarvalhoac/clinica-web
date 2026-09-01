@@ -6,19 +6,16 @@
         </div>
         <div class="navegacao d-flex justify-content-between">
             <div>
-                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">Voltar</button>
-
+                <button [routerLink]="['/especialidade-listagem']" class="btn btn-sm btn-add">
+                    <i class="fas fa-chevron-left"></i> Voltar</button>
             </div>
             <div>
-                @if (isCRUD == 'C') {
-                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">Limpar</button>
-                }
-                @if (isCRUD == "U") {
-                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">cancelar</button>
-                }
-                @if (isCRUD == 'C' || isCRUD == "U") {
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">Salvar</button>
-                }
+                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">
+                    <i class="fas fa-broom"></i> Limpar</button>
+                <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">
+                    <i class="fa-solid fa-xmark"></i> Cancelar</button>
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                    <i class="fas fa-floppy-disk"></i> Salvar</button>
             </div>
         </div>
     </header>

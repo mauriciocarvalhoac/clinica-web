@@ -14,6 +14,7 @@ import { RolePipe } from '../../../shared/pipes/role-pipe';
   styleUrl: './acesso-listagem.scss',
 })
 export class AcessoListagem extends AbstractComponent implements OnInit {
+
   lista = signal<any[]>([]);
 
   service = inject(AcessoService);
@@ -53,6 +54,11 @@ export class AcessoListagem extends AbstractComponent implements OnInit {
         this.lista.set(value);
       },
     });
+  }
+
+  limpar() {
+    this.formulario.reset();
+    this.listar();
   }
 
   irPara(rota: any, id: any) {
