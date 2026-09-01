@@ -10,8 +10,11 @@
                 <a class="nav-link text-dark" [routerLink]="['/dashboard']">
                     <i class="fas fa-house"></i> Dashboard</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" [routerLink]="['/dashboard']">
+                    <i class="fas fa-calendar-days"></i> Agendamentos</a>
+            </li>
 
-            <!-- Item Lateral Expansível (Ajustado para abrir para o lado ou para baixo) -->
             <li class="nav-item">
                 <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
                     (click)="isCadastrosCollapse = !isCadastrosCollapse" [attr.aria-expanded]="!isCadastrosCollapse"
@@ -49,18 +52,18 @@
                 <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
                     (click)="isRelatoriosCollapse = !isRelatoriosCollapse" [attr.aria-expanded]="!isRelatoriosCollapse"
                     aria-controls="subMeuRelatorios">
-                    <span> <i class="fa-solid fa-address-card"></i> Relatórios</span>
+                    <span> <i class="fa-solid fa-chart-line"></i> Relatórios</span>
                     <span class="arrow" [class.open]="!isRelatoriosCollapse">▼</span>
                 </a>
                 <div id="subMeuRelatorios" [ngbCollapse]="isRelatoriosCollapse">
                     <ul class="nav flex-column ps-3 small">
                         <li class="nav-item">
                             <a class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-id-card"></i> Atendimentos</a>
+                                <i class="fa-solid fa-file-lines"></i> Atendimentos</a>
                         </li>
                         <li class="nav-item">
                             <a class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-id-card"></i> Pacientes</a>
+                                <i class="fas fa-user-injured"></i> Pacientes</a>
                         </li>
                     </ul>
                 </div>
@@ -68,7 +71,6 @@
             <li class="nav-item">
                 <a [routerLink]="['/acesso-listagem']" class="nav-link text-dark">
                     <i class="fa-solid fa-user-shield"></i> Acessos</a>
-
             </li>
         </ul>
     </aside>
@@ -85,10 +87,10 @@
                 <div ngbDropdown [autoClose]="'outside'" class="d-inline-block">
                     <button style="background: transparent;" type="button" class="font-15 btn btn-primary"
                         ngbDropdownToggle>
-                        Drª Alice Carvalho
+                        <span>Drª Alice Carvalho</span>
                     </button>
 
-                    <div ngbDropdownMenu>
+                    <div ngbDropdownMenu style="padding: 5px;">
                         <label class="font-15" style="width: 100%; text-align: center;">Versão: 1.0.0</label>
                         <button (click)="logout()" style="width: 100%;" class="btn btn-sm btn-danger">Logout</button>
                     </div>
