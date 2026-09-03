@@ -27,19 +27,29 @@
     </header>
 
     <section class="formulario">
-        <form [formGroup]="formulario">
-            <section class="formulario">
-                <article class="inclusao">
-                    <h6>Identificação</h6>
-                    <div class="col" style="padding: 10px;">
+        <section class="formulario">
+            <article class="inclusao">
+                <h6>Identificação</h6>
+                <div class="col" style="padding: 10px;">
+                    <form [formGroup]="formulario">
                         <div class="row">
                             <div class="col">
-                                <label>Descrição*:</label>
-                                <input formControlName="descricao" class="form-control"
-                                    [ngClass]="{ 'is-invalid': hasNotValidated('descricao')}">
+                                <label>Razão Social*:</label>
+                                <input formControlName="razaoSocial" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('razaoSocial')}">
+                            </div>
+                            <div class="col">
+                                <label>Nome Fantasia*:</label>
+                                <input formControlName="nomeFantasia" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('nomeFantasia')}">
+                            </div>
+                            <div class="col">
+                                <label>CNPJ*:</label>
+                                <input formControlName="cnpj" mask="99.999.999/9999-99" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('cnpj')}">
                             </div>
                             <div class="col-2">
-                                <label>Status*:</label>
+                                <label>Situação*:</label>
                                 <select formControlName="situacao"
                                     [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}" class="form-select">
                                     <option [value]="null">Situação</option>
@@ -49,9 +59,115 @@
                                 </select>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Registro ANS*:</label>
+                                <input formControlName="registroAns" class="form-control" maxlength="20"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('registroAns')}">
+                            </div>
+                            <div class="col">
+                                <label>Telefone Suporte:</label>
+                                <input formControlName="telefone" mask="(99) 9999-9999" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label>Email de Faturamento:</label>
+                                <input formControlName="email" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </article>
+
+            <article class="inclusao">
+                <h6>Planos vinculados a esse Convênio</h6>
+
+                <div class="col" style="padding: 10px;">
+                    <div [formGroup]="formularioPlano" class="row">
+                        <div class="col">
+                            <label>Nome do Plano*:</label>
+                            <input formControlName="descricao" class="form-control"
+                                [ngClass]="{ 'is-invalid': hasNotValidated('descricao',formularioPlano)}">
+                        </div>
+                        <div class="col">
+                            <label>Código na ANS*:</label>
+                            <input formControlName="codigoAns" class="form-control"
+                                [ngClass]="{ 'is-invalid': hasNotValidated('codigoAns',formularioPlano)}">
+                        </div>
+                        <div class="col">
+                            <label>Acomodação*:</label>
+                            <select formControlName="acomodacao"
+                                [ngClass]="{ 'is-invalid': hasNotValidated('acomodacao',formularioPlano)}"
+                                class="form-select">
+                                <option [value]="null">Selecione</option>
+                                @for(b of enumAcomodacao ;track $index ) {
+                                <option [value]="b.valor" [label]="b.descricao"></option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col">
+                            <label>Abrangência*:</label>
+                            <select formControlName="abrangencia"
+                                [ngClass]="{ 'is-invalid': hasNotValidated('abrangencia',formularioPlano)}"
+                                class="form-select">
+                                <option [value]="null">Selecione</option>
+                                @for(b of enumAbrangencia ;track $index ) {
+                                <option [value]="b.valor" [label]="b.descricao"></option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <label>Situação*:</label>
+                            <select formControlName="situacao"
+                                [ngClass]="{ 'is-invalid': hasNotValidated('situacao',formularioPlano)}"
+                                class="form-select">
+                                <option [value]="null">Selecione</option>
+                                @for(b of enumSituacao ;track $index ) {
+                                <option [value]="b.valor" [label]="b.descricao"></option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col d-flex align-items-end justify-content-start">
+                            <button (click)="adicionarPlano()" class="ml-10 btn btn-sm btn-search">
+                                <i class="fas fa-plus"></i> Adicionar Plano</button>
+                        </div>
                     </div>
-                </article>
-            </section>
-        </form>
+
+                    <div [formGroup]="formulario" class="tabela">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nome do Plano</th>
+                                    <th>Código ANS</th>
+                                    <th>Acomodação</th>
+                                    <th>Situação</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody formArrayName="planos">
+                                @for (plano of planosArray.controls; track plano; let i = $index) {
+                                <tr [formGroupName]="i">
+                                    <td>
+                                        <label>{{plano.get('descricao')?.value}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{plano.get('codigoAns')?.value}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{plano.get('acomodacao')?.value}}</label>
+                                    </td>
+                                    <td>
+                                        <label>{{plano.get('situacao')?.value}}</label>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </article>
+        </section>
     </section>
 </div>

@@ -21,7 +21,7 @@ export class ConvenioListagem extends AbstractComponent implements OnInit {
   ngOnInit(): void {
     this.formulario = this.formBuilder.group({
       id: [null],
-      descricao: [null],
+      nomeFantasia: [null],
       situacao: [null],
     });
   }
@@ -60,8 +60,9 @@ export class ConvenioListagem extends AbstractComponent implements OnInit {
   }
 
   filtrar() {
-    this.service.filtrar(this.formulario.get('descricao')?.value, this.formulario.get('situacao')?.value).subscribe({
+    this.service.filtrar(this.formulario.get('nomeFantasia')?.value, this.formulario.get('situacao')?.value).subscribe({
       next: (response) => {
+        console.log(response)
         this.lista.set(response);
       },
       error: (error) => {

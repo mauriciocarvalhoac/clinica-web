@@ -15,7 +15,8 @@
             <article class="tabela">
                 <div class="row d-flex justify-content-end align-items-center">
                     <div class="col-4">
-                        <input placeholder="Digite a descrição..." formControlName="descricao" class="form-control">
+                        <input placeholder="Digite o nome do convênio..." formControlName="nomeFantasia"
+                            class="form-control">
                     </div>
                     <div class="col-2">
                         <select formControlName="situacao" class="form-select">
@@ -39,7 +40,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th> Descrição do Convênio </th>
+                            <th> Nome do Convênio </th>
                             <th> Situação </th>
                             <th> Ação </th>
                         </tr>
@@ -47,7 +48,7 @@
                     <tbody>
                         @for (obj of lista() ; track obj.id) {
                         <tr>
-                            <td> {{obj.descricao}} </td>
+                            <td> {{obj.nomeFantasia}} </td>
                             <td>
                                 @if(obj?.situacao == 'A'){
                                 <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i>

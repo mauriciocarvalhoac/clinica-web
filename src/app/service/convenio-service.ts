@@ -10,11 +10,11 @@ export class ConvenioService extends AbstractService {
         super("/convenios");
     }
 
-    filtrar(descricao: any, situacao: any): Observable<any> {
+    filtrar(nomeFantasia: any, situacao: any): Observable<any> {
         var params = new HttpParams();
 
-        if (descricao) {
-            params = params.set('descricao', descricao);
+        if (nomeFantasia) {
+            params = params.set('nomeFantasia', nomeFantasia);
         }
 
         if (situacao) {

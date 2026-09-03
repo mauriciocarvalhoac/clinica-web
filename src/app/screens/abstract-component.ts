@@ -23,9 +23,13 @@ export abstract class AbstractComponent {
 
   }
 
-  hasNotValidated(valor: string) {
-    return this.formulario.get(valor)?.invalid &&
-      (this.formulario.get(valor)?.touched || this.formulario.get(valor)?.dirty)
+  hasNotValidated(valor: string, form?: FormGroup) {
+    if (!form) {
+      form = this.formulario;
+    }
+
+    return form.get(valor)?.invalid &&
+      (form.get(valor)?.touched || form.get(valor)?.dirty)
   };
 
   // navigateTo(rota: string, obj?: any) {
