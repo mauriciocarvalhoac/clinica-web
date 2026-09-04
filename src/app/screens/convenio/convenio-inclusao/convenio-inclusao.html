@@ -160,7 +160,12 @@
                                     <td>
                                         <label>{{plano.get('situacao')?.value}}</label>
                                     </td>
-                                    <td></td>
+                                    <td style="width: 90px;">
+                                        <!-- <a (click)="navigateTo(  '/convenio-inclusao' , obj.id)"
+                                            class="btn btn-sm btn-edit"> <i class="fas fa-edit"></i></a> -->
+                                        <a (click)="removerPlano(i)" class="btn btn-sm btn-delete">
+                                            <i class="fas fa-trash"></i></a>
+                                    </td>
                                 </tr>
                                 }
                             </tbody>

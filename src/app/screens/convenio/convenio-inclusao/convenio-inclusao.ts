@@ -88,7 +88,8 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
   }
 
   salvar() {
-    console.log(this.formulario?.errors)
+    console.log(JSON.stringify(this.formulario.value));
+
     if (this.formulario.get('email')?.errors?.['email']) {
       this.alert.alertWarning(MsgUtil.email_invalid);
       return;
@@ -162,6 +163,8 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
 
     this.formularioPlano.reset();
   }
+
+  removerPlano = (index: number) => this.planosArray.removeAt(index);
 
   planoForm(): any {
     return
