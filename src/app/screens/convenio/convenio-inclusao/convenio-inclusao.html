@@ -10,9 +10,9 @@
                     <i class="fas fa-chevron-left"></i> Voltar</button>
             </div>
             <div>
-                <button (click)="limpar()" class="ml-10 btn btn-sm btn-clean">
+                <button (click)="limpar()" [disabled]="formulario.disabled" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Limpar</button>
-                @if(isCRUD == "R"){
+                @if(formulario.get('id')?.value && isCRUD == "R"){
                 <button (click)="habilitarCampos()" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Habilitar Campos</button>
                 }
@@ -20,7 +20,7 @@
                 <button (click)="cancelar()" class="ml-10 btn btn-sm btn-cancel">
                     <i class="fa-solid fa-xmark"></i> Cancelar</button>
                 }
-                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                <button (click)="salvar()" [disabled]="formulario.disabled" class="ml-10 btn btn-sm btn-search">
                     <i class="fas fa-floppy-disk"></i> Salvar</button>
             </div>
         </div>
@@ -129,7 +129,9 @@
                             </select>
                         </div>
                         <div class="col d-flex align-items-end justify-content-start">
-                            <button (click)="adicionarPlano()" class="ml-10 btn btn-sm btn-search">
+                            <button (click)="adicionarPlano()"
+                                [disabled]="formulario.disabled || formularioPlano.invalid"
+                                class="ml-10 btn btn-sm btn-search">
                                 <i class="fas fa-plus"></i> Adicionar Plano</button>
                         </div>
                     </div>
@@ -141,6 +143,7 @@
                                     <th>Nome do Plano</th>
                                     <th>Código ANS</th>
                                     <th>Acomodação</th>
+                                    <th>Abrangência</th>
                                     <th>Situação</th>
                                     <th>Ação</th>
                                 </tr>
@@ -149,21 +152,37 @@
                                 @for (plano of planosArray.controls; track plano; let i = $index) {
                                 <tr [formGroupName]="i">
                                     <td>
-                                        <label>{{plano.get('descricao')?.value}}</label>
+                                        <input type="text" formControlName="descricao" class="form-control">
                                     </td>
                                     <td>
-                                        <label>{{plano.get('codigoAns')?.value}}</label>
+                                        <input type="text" formControlName="codigoAns" class="form-control">
                                     </td>
                                     <td>
-                                        <label>{{plano.get('acomodacao')?.value}}</label>
+                                        <select formControlName="acomodacao" class="form-select">
+                                            @for(b of enumAcomodacao ;track $index ) {
+                                            <option [value]="b.valor" [label]="b.descricao"></option>
+                                            }
+                                        </select>
                                     </td>
                                     <td>
-                                        <label>{{plano.get('situacao')?.value}}</label>
+                                        <select formControlName="abrangencia" class="form-select">
+                                            @for(b of enumAbrangencia ;track $index ) {
+                                            <option [value]="b.valor" [label]="b.descricao"></option>
+                                            }
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select formControlName="situacao" class="form-select">
+                                            @for(b of enumSituacao ;track $index ) {
+                                            <option [value]="b.valor" [label]="b.descricao"></option>
+                                            }
+                                        </select>
                                     </td>
                                     <td style="width: 90px;">
-                                        <!-- <a (click)="navigateTo(  '/convenio-inclusao' , obj.id)"
-                                            class="btn btn-sm btn-edit"> <i class="fas fa-edit"></i></a> -->
-                                        <a (click)="removerPlano(i)" class="btn btn-sm btn-delete">
+                                        <!-- <a (click)="atualizarPlano(i)" class="btn btn-sm btn-edit"> <i
+                                                class="fas fa-edit"></i></a> -->
+                                        <a (click)="removerPlano(i)" [class.disabled]="formulario.disabled"
+                                            class="btn btn-sm btn-delete">
                                             <i class="fas fa-trash"></i></a>
                                     </td>
                                 </tr>

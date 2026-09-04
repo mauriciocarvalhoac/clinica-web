@@ -129,6 +129,7 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
       this.service.buscarPorId(this.formulario.value.id).subscribe((obj: any) => {
         this.formulario.patchValue(obj);
         this.formulario.disable();
+        this.formularioPlano.disable();
         this.isCRUD = CrudEnum.R.toString();
       });
     }
