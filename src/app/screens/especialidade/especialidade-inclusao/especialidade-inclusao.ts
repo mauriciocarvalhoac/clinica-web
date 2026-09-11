@@ -25,6 +25,7 @@ export class EspecialidadeInclusao extends AbstractComponent implements OnInit {
     this.formulario = this.formBuilder.group({
       id: [null],
       descricao: [null, [Validators.required, Validators.maxLength(200)]],
+      rqe: [null],
       cbo: [null, [Validators.maxLength(6)]],
       tiss: [null, [Validators.maxLength(10)]],
       situacao: [null]

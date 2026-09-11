@@ -12,7 +12,7 @@
             <div>
                 <button (click)="limpar()" [disabled]="formulario.disabled" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Limpar</button>
-                @if(formulario.get('id')?.value && isCRUD == "R"){
+                @if(isCRUD == "R"){
                 <button (click)="habilitarCampos()" class="ml-10 btn btn-sm btn-clean">
                     <i class="fas fa-broom"></i> Habilitar Campos</button>
                 }

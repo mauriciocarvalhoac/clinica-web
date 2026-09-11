@@ -1,8 +1,9 @@
 export class EnumSituacaoFormacaoEducacional {
     static values(): any[] {
         return [
-            { id: 1, descricao: "Concluído" },
-            { id: 2, descricao: "Cursando" },
+            { id: "N", descricao: "Não Fiz" },
+            { id: "C", descricao: "Concluído" },
+            { id: "E", descricao: "Em Andamento" },
         ]
     }
 }

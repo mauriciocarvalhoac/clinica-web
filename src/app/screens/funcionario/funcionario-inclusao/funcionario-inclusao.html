@@ -115,8 +115,9 @@
                                 <h6>Dados do funcionário</h6>
                                 <div class="row">
                                     <div class="col">
-                                        <label>Cargo/Função:</label>
-                                        <select formControlName="funcao" class="form-select">
+                                        <label>Cargo/Função*:</label>
+                                        <select formControlName="funcao" class="form-select" (change)="onChangeFuncao()"
+                                            [ngClass]="{ 'is-invalid': hasNotValidated('funcao')}">
                                             <option [value]="null">Selecione</option>
                                             @for (i of enumFuncao; track $index) {
                                             <option [value]="i.sigla" [label]="i.descricao">
@@ -124,12 +125,14 @@
                                         </select>
                                     </div>
                                     <div class="col-3">
-                                        <label>Departamento:</label>
-                                        <input formControlName="departamento" class="form-control">
+                                        <label>Departamento*:</label>
+                                        <input formControlName="departamento" class="form-control"
+                                            [ngClass]="{ 'is-invalid': hasNotValidated('departamento')}">
                                     </div>
                                     <div class="col-3">
-                                        <label>Matrícula:</label>
-                                        <input formControlName="matricula" class="form-control">
+                                        <label>Matrícula*:</label>
+                                        <input formControlName="matricula" class="form-control"
+                                            [ngClass]="{ 'is-invalid': hasNotValidated('matricula')}">
                                     </div>
                                 </div>
                             </article>
@@ -177,26 +180,28 @@
                         </section>
                     </ng-template>
                 </li>
-                @if (formulario.get('funcao')?.value === "MED") {
+
+                @if (formulario.get('funcao')?.value === 'MED') {
                 <li [ngbNavItem]="2">
                     <button ngbNavLink>Informações Profissionais</button>
                     <ng-template ngbNavContent>
-                        <section class="formulario">
+                        <section [formGroup]="formularioMedico" class="formulario">
                             <article class="inclusao">
                                 <div class="row">
                                     <div class="col">
-                                        <h6>Formação Principal</h6>
+                                        <h6>Registro Profissional</h6>
                                         <div class="row">
                                             <div class="row">
                                                 <div class="col-3">
                                                     <label>CRM*:</label>
                                                     <input mask="0000000-AA" placeholder="0000000-AA"
                                                         formControlName="crm" class="form-control"
-                                                        [ngClass]="{ 'is-invalid': hasNotValidated('crm')}">
+                                                        [ngClass]="{ 'is-invalid': hasNotValidated('crm', formularioMedico)}">
                                                 </div>
                                                 <div class="col-3">
-                                                    <label>Estado:</label>
-                                                    <select formControlName="crmEstado" class="form-select">
+                                                    <label>Estado*:</label>
+                                                    <select formControlName="crmEstado" class="form-select"
+                                                        [ngClass]="{ 'is-invalid': hasNotValidated('crmEstado', formularioMedico)}">
                                                         <option [value]="null">Selecione</option>
                                                         @for( e of enumEstados ;track $index) {
                                                         <option [value]="e.sigla" [label]="e.descricao">
@@ -204,11 +209,12 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-3">
-                                                    <label>Situação cadastral:</label>
-                                                    <select formControlName="crmEstado" class="form-select">
+                                                    <label>Situação do Médico*:</label>
+                                                    <select formControlName="crmSituacao" class="form-select"
+                                                        [ngClass]="{ 'is-invalid': hasNotValidated('crmSituacao', formularioMedico)}">
                                                         <option [value]="null">Selecione</option>
                                                         @for( e of enumSituacao ;track $index) {
-                                                        <option [value]="e.sigla" [label]="e.descricao">
+                                                        <option [value]="e.valor" [label]="e.descricao">
                                                             }
                                                     </select>
                                                 </div>
@@ -247,7 +253,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Especialidade</th>
-                                                    <th>Especialidade Principal</th>
+                                                    <th>Principal</th>
                                                     <th>Situação</th>
                                                     <th>Ações</th>
                                                 </tr>
@@ -257,21 +263,16 @@
                                                 {
                                                 <tr [formGroupName]="i">
                                                     <td>
-                                                        <div formGroupName="especialidade" style="width: 100%;"
-                                                            class="d-flex">
-                                                            <input formControlName="id" class="form-control"
-                                                                style="width: 10%;" readonly>
-                                                            <input formControlName="descricao" class="form-control"
-                                                                style="width: 100%;" readonly>
-                                                        </div>
+                                                        <span>{{ item.get('especialidade')?.get('descricao')?.value
+                                                            }}</span>
                                                     </td>
                                                     <td>
                                                         @if (item.get('principal')?.value) {
-                                                        <div class="choose main">
+                                                        <button class="situacao principal" disabled="true">
                                                             Principal
-                                                        </div>
+                                                        </button>
                                                         } @else {
-                                                        <button type="button" class="choose other"
+                                                        <button type="button" class="situacao outro"
                                                             [disabled]="formulario.disabled"
                                                             (click)="definirPrincipal(i)">
                                                             Definir como principal
@@ -280,14 +281,14 @@
                                                     </td>
                                                     <td>
                                                         @if(item.get('situacao')?.value){
-                                                        <button type="button" class="choose active"
+                                                        <button type="button" class="situacao ativo"
                                                             [disabled]="formulario.disabled"
                                                             (click)="definirSituacao(i)">
                                                             <span class="choose active"> Ativo </span>
 
                                                         </button>
                                                         } @else {
-                                                        <button type="button" class="choose inactive"
+                                                        <button type="button" class="situacao inativo"
                                                             [disabled]="formulario.disabled"
                                                             (click)="definirSituacao(i)">
                                                             Inativo
@@ -323,7 +324,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <label>Pós Graduação:</label>
-                                                <select formControlName="statusPos" class="form-select">
+                                                <select formControlName="situacaoPos" class="form-select">
                                                     <option [value]="null">Selecione</option>
                                                     @for (item of enumSituacaoFormacao; track $index) {
                                                     <option [value]="item.id">{{ item.descricao }}</option>
@@ -339,7 +340,7 @@
 
                                             <div class="col-3">
                                                 <label>Mestrado:</label>
-                                                <select formControlName="statusMestrado" class="form-select">
+                                                <select formControlName="situacaoMestrado" class="form-select">
                                                     <option [value]="null">Selecione</option>
                                                     @for (item of enumSituacaoFormacao; track $index) {
                                                     <option [value]="item.id">{{ item.descricao }}</option>
@@ -354,7 +355,7 @@
                                         <div class="row">
                                             <div class="col-3">
                                                 <label>Doutorado:</label>
-                                                <select formControlName="statusDoutorado" class="form-select">
+                                                <select formControlName="situacaoDoutorado" class="form-select">
                                                     <option [value]="null">Selecione</option>
                                                     @for (item of enumSituacaoFormacao; track $index) {
                                                     <option [value]="item.id">{{ item.descricao }}</option>
@@ -373,16 +374,8 @@
                     </ng-template>
                 </li>
                 }
+
                 <li [ngbNavItem]="3">
-                    <button ngbNavLink>Especialidades</button>
-                    <ng-template ngbNavContent>
-                        <section class="formulario">
-
-                        </section>
-                    </ng-template>
-                </li>
-
-                <li [ngbNavItem]="4">
                     <button ngbNavLink>Configurações de Agenda</button>
                     <ng-template ngbNavContent>
                         <section class="formulario">

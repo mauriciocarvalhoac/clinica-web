@@ -1,4 +1,4 @@
-export class EnumFuncao {
+export class EnumFuncao { 
     static values(): any[] {
         return [
             { sigla: "MED", descricao: "Médico" },

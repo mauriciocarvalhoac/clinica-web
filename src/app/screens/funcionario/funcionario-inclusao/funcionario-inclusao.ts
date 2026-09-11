@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { AbstractComponent, CrudEnum } from '../../abstract-component';
 import { FuncionarioService } from '../../../service/funcionario-service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -25,6 +25,8 @@ import { EnumSituacao } from '../../../model/enum/enum-situacao';
 })
 export class FuncionarioInclusao extends AbstractComponent implements OnInit {
 
+  formularioMedico!: FormGroup;
+
   activeTab = 1;
   service = inject(FuncionarioService);
   serviceEspecialidade = inject(EspecialidadeService);
@@ -39,7 +41,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   listaEspecialidades: any[] = [];
 
   get medicoEspecialidades(): FormArray {
-    return this.formulario.get('medicoEspecialidades') as FormArray;
+    return this.formularioMedico.get('medicoEspecialidades') as FormArray;
   }
 
   constructor() {
@@ -62,10 +64,9 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
       celular: [null, [Validators.required]],
       telefone: [null],
-
-      funcao: [null],
-      departamento: [null],
-      matricula: [null],
+      funcao: [null, [Validators.required]],
+      departamento: [null, [Validators.required]],
+      matricula: [null, [Validators.required]],
 
       endereco: this.formBuilder.group({
         cep: [null],
@@ -75,33 +76,32 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
         cidade: [null],
         estado: [null],
       }),
+      medico: [null],
+    });
 
-      subEspecialidade: [null],
-      crm: [null],
-      crmEstado: [null],
-
-      instituicaoGraduacao: [null],
-      statusPos: [null],
-      instituicaoPos: [null],
-      statusMestrado: [null],
-      instituicaoMestrado: [null],
-      statusDoutorado: [null],
-      instituicaoDoutorado: [null],
-
-      medicoEspecialidades: this.formBuilder.array([]),
+    this.formularioMedico = this.formBuilder.group({
+      crm: [null, [Validators.required]],
+      crmEstado: [null, [Validators.required]],
+      crmSituacao: [null, [Validators.required]],
       especialidade: [null],
-    },
-      {
-        validators: [Validator.crmRequired]
-      }
-    );
+      instituicaoGraduacao: [null],
+      situacaoPos: [null],
+      instituicaoPos: [null],
+      situacaoMestrado: [null],
+      instituicaoMestrado: [null],
+      situacaoDoutorado: [null],
+      instituicaoDoutorado: [null],
+      medicoEspecialidades: this.formBuilder.array([]),
+    });
 
     if (id) {
       this.isCRUD = "R";
       this.service.buscarPorId(id).subscribe((obj: any) => {
+        console.log("OBJETO FUNCIONARIO: " + JSON.stringify(obj));
         this.formulario.patchValue(obj);
-        if (obj.medicoEspecialidades != null)
-          obj.medicoEspecialidades.forEach((esp: any) => {
+        this.formularioMedico.patchValue(obj.medico);
+        if (obj.medico.medicoEspecialidades != null)
+          obj.medico.medicoEspecialidades.forEach((esp: any) => {
             this.medicoEspecialidades.push(this.groupEspecialidade(esp))
           });
         this.isCRUD = CrudEnum.U.toString();
@@ -110,7 +110,32 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   }
 
   salvar() {
-    console.log("CRM: " + this.formulario.get('crm')?.value)
+
+    if (this.formulario.invalid) {
+      console.log("Formulario Funcionario invalido")
+      this.formulario.markAllAsTouched();
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
+      return;
+    }
+
+    if (this.formularioMedico.invalid && this.formulario.get('funcao')?.value === 'MED') {
+      console.log("Formulario Medico invalido")
+      this.formularioMedico.markAllAsTouched();
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
+      return;
+    }
+
+    if (this.formulario.get('funcao')?.value === 'MED') {
+      this.formulario.get('medico')?.setValue(this.formularioMedico.value);
+    } else {
+      this.formulario.get('medico')?.setValue(null);
+    }
+
+    if (this.formulario.get('funcao')?.value === 'MED' && this.medicoEspecialidades.length === 0) {
+      this.alert.alertWarning("Pelo menos uma Especialidade precisa ser adicionada para o Médico.");
+      return;
+    }
+
     if (this.medicoEspecialidades.controls.length > 0) {
       if (this.medicoEspecialidades.controls.every(control => !control.get('situacao')?.value)) {
         this.alert.alertWarning("Pelo menos uma Especialidade precisa estar com situação ativa.");
@@ -121,12 +146,6 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
         this.alert.alertWarning("Pelo menos uma Especialidade precisa estar como Especialidade Principal.");
         return;
       }
-    }
-
-    if (this.formulario.invalid) {
-      this.formulario.markAllAsTouched();
-      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
-      return;
     }
 
     if (this.formulario.value.id) {
@@ -170,8 +189,9 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   }
 
   adicionarEspecialidade() {
-    const idEspecialidadeSelecionada = this.formulario.value.especialidade;
+    const idEspecialidadeSelecionada = this.formularioMedico.value.especialidade;
     console.log("Esp Selecionada: " + idEspecialidadeSelecionada)
+
     if (!idEspecialidadeSelecionada) {
       this.alert.alertWarning("Escolha uma especialidade.");
       return;
@@ -193,6 +213,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     this.medicoEspecialidades.push(
       this.formBuilder.group({
         id: null,
+        rqe: [null],
         principal: this.medicoEspecialidades.length === 0,
         situacao: true,
         especialidade: this.formBuilder.group({
@@ -202,7 +223,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       })
     );
 
-    this.formulario.get('especialidade')?.reset();
+    this.formularioMedico.get('especialidade')?.reset();
   }
 
   removerEspecialidade(i: any) {
@@ -228,7 +249,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       situacao: [medEsp.situacao],
       especialidade: this.formBuilder.group({
         id: [medEsp.especialidade.id],
-        descricao: [`${medEsp.especialidade.descricao.toUpperCase()}  -  CBO: (${medEsp.especialidade.cbo})  -  TISS: (${medEsp.especialidade.tiss})`]
+        descricao: [`${medEsp.especialidade.descricao.toUpperCase()}  -  CBO: (${medEsp.especialidade.cbo})  -  TISS: (${medEsp.especialidade.tiss}) - RQE: (${medEsp.especialidade.rqe})`],
       }),
     });
   }
@@ -261,5 +282,13 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       isSituacaoControl.get('principal')?.setValue(false)
     }
 
+  }
+
+  onChangeFuncao() {
+    if (this.formulario.get('funcao')?.value == 'MED') {
+      this.formularioMedico.enable();
+    } else {
+      this.formularioMedico.disable();
+    }
   }
 } 
