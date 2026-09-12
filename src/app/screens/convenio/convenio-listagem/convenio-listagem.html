@@ -48,7 +48,7 @@
                     <tbody>
                         @for (obj of lista() ; track obj.id) {
                         <tr>
-                            <td> {{obj.nomeFantasia}} </td>
+                            <td> {{obj?.nomeFantasia}} </td>
                             <td>
                                 @if(obj?.situacao == 'A'){
                                 <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i>

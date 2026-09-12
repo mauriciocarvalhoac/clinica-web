@@ -49,11 +49,11 @@
                     <tbody>
                         @for (obj of lista() ; track obj.id) {
                         <tr>
-                            <td> {{obj.descricao}} </td>
-                            <td> {{obj.tiss}} </td>
-                            <td> {{obj.cbo | cbo}} </td>
+                            <td> {{obj?.descricao}} </td>
+                            <td> {{obj?.tiss}} </td>
+                            <td> {{obj?.cbo | cbo}} </td>
                             <td>
-                                @if(obj?.situacao){
+                                @if(obj?.situacao === 'A'){
                                 <label class="situacao ativo w-100 text-center"><i class="fas fa-circle-check"></i>
                                     Ativo</label>
                                 }@else{

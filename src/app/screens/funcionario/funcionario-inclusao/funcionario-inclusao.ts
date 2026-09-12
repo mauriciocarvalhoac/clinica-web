@@ -99,11 +99,14 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       this.service.buscarPorId(id).subscribe((obj: any) => {
         console.log("OBJETO FUNCIONARIO: " + JSON.stringify(obj));
         this.formulario.patchValue(obj);
-        this.formularioMedico.patchValue(obj.medico);
-        if (obj.medico.medicoEspecialidades != null)
-          obj.medico.medicoEspecialidades.forEach((esp: any) => {
-            this.medicoEspecialidades.push(this.groupEspecialidade(esp))
-          });
+        if (obj.medico) {
+          this.formularioMedico.patchValue(obj.medico);
+          if (obj.medico.medicoEspecialidades != null) {
+            obj.medico.medicoEspecialidades.forEach((esp: any) => {
+              this.medicoEspecialidades.push(this.groupEspecialidade(esp))
+            });
+          }
+        }
         this.isCRUD = CrudEnum.U.toString();
       });
     }
@@ -183,7 +186,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
   }
 
   listarEspecialidades() {
-    this.serviceEspecialidade.listar().subscribe((especialidades: any) => {
+    this.serviceEspecialidade.listarAtivas().subscribe((especialidades: any) => {
       this.listaEspecialidades = especialidades;
     });
   }
@@ -213,7 +216,6 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     this.medicoEspecialidades.push(
       this.formBuilder.group({
         id: null,
-        rqe: [null],
         principal: this.medicoEspecialidades.length === 0,
         situacao: true,
         especialidade: this.formBuilder.group({

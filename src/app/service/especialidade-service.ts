@@ -24,4 +24,8 @@ export class EspecialidadeService extends AbstractService {
         return this.http.get<any>(this.url + "/filtro", { params });
     }
 
+    listarAtivas(): Observable<any> {
+        return this.http.get<any>(`${this.url}/ativas`);
+    }
+
 }
