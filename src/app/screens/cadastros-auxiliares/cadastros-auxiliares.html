@@ -1,1 +1,27 @@
-<p>cadastros-auxiliares works!</p>
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Configurações > Cadastros Auxiliares</span>
+            <h3>Cadastros Auxiliares</h3>
+        </div>
+
+
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                    <button ngbNavLink>Departamentos</button>
+                    <ng-template ngbNavContent>
+                        <section class="formulario">
+                            Implementação de Departamentos
+                        </section>
+                    </ng-template>
+                </li>
+
+            </ul>
+            <div [ngbNavOutlet]="nav" class="mt-2"></div>
+        </form>
+    </section>
+</div>
