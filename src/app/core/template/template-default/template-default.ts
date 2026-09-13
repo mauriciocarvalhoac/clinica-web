@@ -15,6 +15,7 @@ import { AlertComponent } from '../../../shared/alert/alert-component/alert-comp
 export class TemplateDefault implements OnInit {
   isCadastrosCollapse = true;
   isRelatoriosCollapse = true;
+  isConfiguracoesCollapse = true;
 
   isInvisibleMenu: boolean = true;
   service = inject(LoginService);

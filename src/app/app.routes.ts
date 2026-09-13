@@ -13,6 +13,7 @@ import { AcessoInclusao } from './screens/acesso/acesso-inclusao/acesso-inclusao
 import { AcessoListagem } from './screens/acesso/acesso-listagem/acesso-listagem';
 import { ConvenioListagem } from './screens/convenio/convenio-listagem/convenio-listagem';
 import { ConvenioInclusao } from './screens/convenio/convenio-inclusao/convenio-inclusao';
+import { CadastrosAuxiliares } from './screens/cadastros-auxiliares/cadastros-auxiliares';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -38,6 +39,7 @@ export const routes: Routes = [
             { path: 'convenio-listagem', component: ConvenioListagem },
             { path: 'convenio-inclusao', component: ConvenioInclusao },
             { path: 'convenio-inclusao/:id', component: ConvenioInclusao },
+            { path: 'cadastros-auxiliares', component: CadastrosAuxiliares },
         ]
     },
 
