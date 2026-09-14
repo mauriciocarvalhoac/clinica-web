@@ -13,82 +13,11 @@
                 <ng-template ngbNavContent>
                     <section class="formulario d-flex">
                         <article class="inclusao col-6 p-2 ms-1">
-                            <header class="header-form">
-                                <h3>Cadastro</h3>
-                            </header>
-
-                            <div class="col">
-                                <form [formGroup]="formularioDepartamento">
-                                    <div class="col">
-                                        <label>Descrição*:</label>
-                                        <div>
-                                            <input class="form-control" formControlName="descricao"
-                                                [ngClass]="{ 'is-invalid': hasNotValidated('descricao',formularioDepartamento )}">
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <label>Situação*:</label>
-                                        <select class="form-select" formControlName="situacao"
-                                            [ngClass]="{ 'is-invalid': hasNotValidated('situacao',formularioDepartamento)}">
-                                            <option [value]="null">Selecione</option>
-                                            @for (i of enumSituacao; track $index) {
-                                            <option [value]="i.valor" [label]="i.descricao"></option>
-                                            }
-                                        </select>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="col d-flex justify-content-end mt-2">
-                                <button (click)="salvarDepartamento()" class="btn btn-sm btn-add">Cadastrar</button>
-                            </div>
+                            <tab-departamento-inclusao></tab-departamento-inclusao>
                         </article>
-                        .
+
                         <article class="tabela col-6 p-2 ms-1">
-                            <header class="header-form">
-                                <h3>Filtragem</h3>
-                            </header>
-
-                            <div class="row d-flex justify-content-end align-items-center">
-                                <div class="col-5">
-                                    <input class="form-control" placeholder="Digite a Descrição">
-                                </div>
-                                <div class="col-5">
-                                    <select class="form-select">
-                                        <option>Selecione</option>
-                                        @for (i of enumSituacao; track $index) {
-                                        <option [value]="i.sigla" [label]="i.descricao">
-                                            }
-                                    </select>
-                                </div>
-                                <div class="col-2">
-                                    <button class="btn btn-sm btn-search w-100">
-                                        <i class="fas fa-filter"></i>Filtrar</button>
-                                </div>
-                            </div>
-
-                            <table class="table table-striped mt-2 ">
-                                <thead>
-                                    <tr>
-                                        <th>Descrição</th>
-                                        <th>Situação</th>
-                                        <th>Ações</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <tr>
-                                        <td> Financeiro </td>
-                                        <td> Ativo </td>
-                                        <td style="width: 90px;">
-                                            <a class="btn btn-sm btn-edit">
-                                                <i class="fas fa-edit"></i></a>
-                                            <a class="btn btn-sm btn-delete">
-                                                <i class="fas fa-trash"></i></a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <tab-departamento-listagem></tab-departamento-listagem>
                         </article>
                     </section>
                 </ng-template>

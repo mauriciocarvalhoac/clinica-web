@@ -1,0 +1,29 @@
+<header class="header-form">
+    <h3>Cadastro</h3>
+</header>
+
+<div class="col">
+    <form [formGroup]="formularioDepartamento">
+        <div class="col">
+            <label>Descrição*:</label>
+            <div>
+                <input class="form-control" formControlName="descricao"
+                    [ngClass]="{ 'is-invalid': hasNotValidated('descricao',formularioDepartamento )}">
+            </div>
+        </div>
+        <div class="col">
+            <label>Situação*:</label>
+            <select class="form-select" formControlName="situacao"
+                [ngClass]="{ 'is-invalid': hasNotValidated('situacao',formularioDepartamento)}">
+                <option [value]="null">Selecione</option>
+                @for (i of enumSituacao; track $index) {
+                <option [value]="i.valor" [label]="i.descricao"></option>
+                }
+            </select>
+        </div>
+    </form>
+</div>
+
+<div class="col d-flex justify-content-end mt-2">
+    <button (click)="salvarDepartamento()" class="btn btn-sm btn-add">Cadastrar</button>
+</div>
