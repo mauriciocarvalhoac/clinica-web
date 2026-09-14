@@ -13,8 +13,12 @@ export class DepartamentoService extends AbstractService {
         super("/departamentos");
     }
 
-    notificarAtualizacao() {
-        this.notification.next()
+    notificarAtualizacao(id?: any) {
+        if (id) {
+            this.notification.next(id)
+        } else {
+            this.notification.next()
+        }
     }
 
     filtrar(descricao: string, situacao: string): Observable<any> {

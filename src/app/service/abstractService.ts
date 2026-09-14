@@ -34,7 +34,7 @@ export class AbstractService {
         return this.http.put<any>(this.url + "/" + id, obj);
     }
 
-    public buscarPorId(id: string): Observable<any> {
+    public buscarPorId(id: any): Observable<any> {
         return this.http.get<any>(this.url + "/" + id);
     }
 }

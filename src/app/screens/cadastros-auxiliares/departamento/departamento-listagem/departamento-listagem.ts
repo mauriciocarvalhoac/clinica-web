@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './departamento-listagem.scss',
 })
 export class DepartamentoListagem extends AbstractComponent implements OnInit, OnDestroy {
+
   formularioDepartamento!: FormGroup;
 
   inscricaoNotificacao !: Subscription;
@@ -82,4 +83,16 @@ export class DepartamentoListagem extends AbstractComponent implements OnInit, O
     });
   }
 
+  prepararEdicao(id: any) {
+    this.serviceDepartamento.buscarPorId(id).subscribe({
+      next: (value: any) => {
+        if (value) {
+          this.serviceDepartamento.notificarAtualizacao(value.id);
+        }
+      },
+      error: (error) => {
+
+      },
+    });
+  }
 }

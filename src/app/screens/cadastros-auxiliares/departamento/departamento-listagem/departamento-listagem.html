@@ -45,7 +45,7 @@
                 }
             </td>
             <td style="width: 90px;">
-                <a class="btn btn-sm btn-edit">
+                <a (click)="prepararEdicao(item.id)" class="btn btn-sm btn-edit">
                     <i class="fas fa-edit"></i></a>
                 <a (click)="excluir(item.id)" class="btn btn-sm btn-delete">
                     <i class="fas fa-trash"></i></a>
