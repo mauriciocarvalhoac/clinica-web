@@ -39,21 +39,21 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       id: [null],
-      razaoSocial: [null, [Validators.required]],
-      nomeFantasia: [null, [Validators.required]],
+      razaoSocial: [null, [Validators.required, Validators.maxLength(250)]],
+      nomeFantasia: [null, [Validators.required, Validators.maxLength(250)]],
       cnpj: [null, [Validators.required]],
       situacao: [null, [Validators.required]],
-      registroAns: [null, [Validators.required]],
+      registroAns: [null, [Validators.required, Validators.maxLength(20)]],
       telefone: [null],
       email: [null, [Validators.email]],
 
-      planos: this.formBuilder.array([])
+      planos: this.formBuilder.array([], Validators.required)
     });
 
     this.formularioPlano = this.formBuilder.group({
       id: [],
-      descricao: [null, [Validators.required]],
-      codigoAns: [null, [Validators.required]],
+      descricao: [null, [Validators.required, Validators.maxLength(50)]],
+      codigoAns: [null, [Validators.required, Validators.maxLength(20)]],
       acomodacao: [null, [Validators.required]],
       abrangencia: [null, [Validators.required]],
       situacao: [null, [Validators.required]],
@@ -70,11 +70,11 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
             this.planosArray.push(
               this.formBuilder.group({
                 id: [plano.id],
-                descricao: [plano.descricao, [Validators.required]],
-                codigoAns: [plano.codigoAns, [Validators.required]],
-                acomodacao: [plano.acomodacao, [Validators.required]],
-                abrangencia: [plano.abrangencia, [Validators.required]],
-                situacao: [plano.situacao, [Validators.required]],
+                descricao: [plano.descricao],
+                codigoAns: [plano.codigoAns],
+                acomodacao: [plano.acomodacao],
+                abrangencia: [plano.abrangencia],
+                situacao: [plano.situacao],
               })
             );
           });
@@ -95,8 +95,10 @@ export class ConvenioInclusao extends AbstractComponent implements OnInit {
       return;
     }
 
-    if (this.formulario.invalid) {
+    if (this.formulario.invalid || (this.formularioPlano.invalid && this.formularioPlano.get('planos')?.value?.length > 0)) {
       this.formulario.markAllAsTouched();
+      if (this.formularioPlano.get('planos')?.value?.length > 0)
+        this.formularioPlano.markAllAsTouched();
       this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
       return;
     }

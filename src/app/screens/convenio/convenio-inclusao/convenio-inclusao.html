@@ -35,12 +35,12 @@
                         <div class="row">
                             <div class="col">
                                 <label>Razão Social*:</label>
-                                <input formControlName="razaoSocial" class="form-control"
+                                <input formControlName="razaoSocial" maxlength="250" class="form-control"
                                     [ngClass]="{ 'is-invalid': hasNotValidated('razaoSocial')}">
                             </div>
                             <div class="col">
                                 <label>Nome Fantasia*:</label>
-                                <input formControlName="nomeFantasia" class="form-control"
+                                <input formControlName="nomeFantasia" maxlength="250" class="form-control"
                                     [ngClass]="{ 'is-invalid': hasNotValidated('nomeFantasia')}">
                             </div>
                             <div class="col">
@@ -88,17 +88,16 @@
                         <div class="col">
                             <label>Nome do Plano*:</label>
                             <input formControlName="descricao" class="form-control"
-                                [ngClass]="{ 'is-invalid': hasNotValidated('descricao',formularioPlano)}">
+                                [ngClass]="{ 'is-invalid': hasNotValidated('planos' )}">
                         </div>
                         <div class="col">
                             <label>Código na ANS*:</label>
                             <input formControlName="codigoAns" class="form-control"
-                                [ngClass]="{ 'is-invalid': hasNotValidated('codigoAns',formularioPlano)}">
+                                [ngClass]="{ 'is-invalid': hasNotValidated('planos' )}">
                         </div>
                         <div class="col">
                             <label>Acomodação*:</label>
-                            <select formControlName="acomodacao"
-                                [ngClass]="{ 'is-invalid': hasNotValidated('acomodacao',formularioPlano)}"
+                            <select formControlName="acomodacao" [ngClass]="{ 'is-invalid': hasNotValidated('planos' )}"
                                 class="form-select">
                                 <option [value]="null">Selecione</option>
                                 @for(b of enumAcomodacao ;track $index ) {
@@ -109,8 +108,7 @@
                         <div class="col">
                             <label>Abrangência*:</label>
                             <select formControlName="abrangencia"
-                                [ngClass]="{ 'is-invalid': hasNotValidated('abrangencia',formularioPlano)}"
-                                class="form-select">
+                                [ngClass]="{ 'is-invalid': hasNotValidated('planos' )}" class="form-select">
                                 <option [value]="null">Selecione</option>
                                 @for(b of enumAbrangencia ;track $index ) {
                                 <option [value]="b.valor" [label]="b.descricao"></option>
@@ -119,8 +117,7 @@
                         </div>
                         <div class="col-2">
                             <label>Situação*:</label>
-                            <select formControlName="situacao"
-                                [ngClass]="{ 'is-invalid': hasNotValidated('situacao',formularioPlano)}"
+                            <select formControlName="situacao" [ngClass]="{ 'is-invalid': hasNotValidated('planos' )}"
                                 class="form-select">
                                 <option [value]="null">Selecione</option>
                                 @for(b of enumSituacao ;track $index ) {
