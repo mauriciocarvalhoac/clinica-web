@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col">
                                     <label>Nome*:</label>
-                                    <input formControlName="nome" class="form-control"
+                                    <input formControlName="nome" maxlength="200" class="form-control"
                                         [ngClass]="{ 'is-invalid': hasNotValidated('nome')}">
                                 </div>
                                 <div class="col-3">
@@ -55,7 +55,7 @@
                             <div class="row">
                                 <div class="col-3">
                                     <label>RG:</label>
-                                    <input formControlName="rg" class="form-control">
+                                    <input formControlName="rg" maxlength="20" class="form-control">
                                 </div>
                                 <div class="col-3">
                                     <label>Data Nascimento*:</label>
@@ -67,8 +67,8 @@
                                     <select formControlName="genero" class="form-select">
                                         <option [value]="null">Selecione</option>
                                         @for (i of enumGeneros; track $index) {
-                                        <option [value]="i.sigla" [label]="i.descricao">
-                                            }
+                                        <option [value]="i.sigla" [label]="i.descricao"></option>
+                                        }
                                     </select>
                                 </div>
                                 <div class="col-3">
@@ -76,16 +76,16 @@
                                     <select formControlName="paisOrigem" class="form-select">
                                         <option [value]="null">Selecione</option>
                                         @for(p of enumPais; track $index) {
-                                        <option [value]="p.sigla" [label]="p.descricao">
-                                            }
+                                        <option [value]="p.sigla" [label]="p.descricao"></option>
+                                        }
                                     </select>
                                 </div>
-
                             </div>
+
                             <div class="row">
                                 <div class=" col">
                                     <label>Email*:</label>
-                                    <input formControlName="email" class="form-control"
+                                    <input formControlName="email" maxlength="100" class="form-control"
                                         [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
                                 </div>
                                 <div class="col-3">
@@ -108,38 +108,42 @@
                     <h6>Dados de Endereço</h6>
                     <div class="row" formGroupName="endereco">
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-2">
                                 <label>CEP:</label>
-                                <input formControlName="cep" mask="00000-000" placeholder="00000-000"
-                                    class="form-control">
-                            </div>
-                            <div class="col">
-                                <label>Logradouro:</label>
-                                <input formControlName="logradouro" class="form-control">
+                                <input formControlName="cep" (keyup)="onConsultarCEP()" mask="00000-000"
+                                    placeholder="00000-000" class="form-control">
                             </div>
                             <div class="col-2">
-                                <label>Número:</label>
-                                <input formControlName="numero" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>Bairro:</label>
-                                <input formControlName="bairro" class="form-control">
+                                <label>Estado:</label>
+                                <select formControlName="estado" class="form-select">
+                                    <option [value]="null">Selecione</option>
+                                    @for( e of enumEstados; track $index) {
+                                    <option [value]="e.sigla" [label]="e.descricao">
+                                        }
+                                </select>
                             </div>
                             <div class="col">
                                 <label>Cidade:</label>
                                 <input formControlName="cidade" class="form-control">
                             </div>
-                            <div class="col-3">
-                                <label>Estado:</label>
-                                <select formControlName="estado" class="form-select">
-                                    <option [value]="null">Selecione</option>
-                                    @for(e of enumEstados; track $index) {
-                                    <option [value]="e.sigla" [label]="e.descricao">
-                                        }
-                                </select>
+                            <div class="col">
+                                <label>Bairro:</label>
+                                <input formControlName="bairro" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Logradouro:</label>
+                                <input formControlName="logradouro" class="form-control">
+                            </div>
+                            <div class="col-1">
+                                <label>Número:</label>
+                                <input formControlName="numero" maxlength="5" class="form-control">
+                            </div>
+                            <div class="col">
+                                <label>Complemento:</label>
+                                <input formControlName="complemento" class="form-control">
                             </div>
                         </div>
                     </div>

@@ -10,6 +10,7 @@ import { NgxMaskDirective } from 'ngx-mask';
 import { EnumEstados } from '../../../model/enum/enum-estado';
 import { EnumPais } from '../../../model/enum/enum-pais';
 import { MsgUtil } from '../../../shared/utilitario/msg.-util';
+import { CepService } from '../../../service/cep-service';
 
 @Component({
   selector: 'app-paciente-inclusao',
@@ -21,6 +22,8 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
   service = inject(PacienteService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  serviceCep = inject(CepService);
+
   enumGeneros = EnumGenero.values();
   enumEstados = EnumEstados.values();
   enumPais = EnumPais.values();
@@ -34,20 +37,21 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
       id: [null],
       nome: [null, [Validators.required, Validators.maxLength(250)]],
       cpf: [null, [Validators.required]],
-      rg: [null],
+      rg: [null, [Validators.maxLength(20)]],
       dataNascimento: [null, [Validators.required, Validator.dateOfBirth]],
       genero: [null],
-      email: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.maxLength(100)]],
       celular: [null, [Validators.required]],
       paisOrigem: [null],
       telefone: [null],
       endereco: this.formBuilder.group({
         cep: [null],
+        estado: [null],
+        cidade: [null],
+        bairro: [null],
         logradouro: [null],
         numero: [null],
-        bairro: [null],
-        cidade: [null],
-        estado: [null],
+        complemento: [null],
       }),
     });
 
@@ -58,6 +62,7 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
         this.isCRUD = CrudEnum.U.toString();
       });
     }
+
   }
 
   salvar() {
@@ -72,16 +77,20 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
         next: () => {
           this.router.navigate(['/paciente-listagem']);
           this.alert.alertInfo(MsgUtil.salvar_sucesso);
-        }, error: (error) => {
+        },
+        error: (error) => {
           this.alert.alertDanger(error.error.message);
         }
       });
     } else {
-      this.service.editar(this.formulario.value).subscribe(() => {
-        this.router.navigate(['/paciente-listagem']);
-        this.alert.alertInfo(MsgUtil.atualizar_sucesso);
-      }, (error) => {
-        this.alert.alertDanger(error.error.message);
+      this.service.editar(this.formulario.value).subscribe({
+        next: () => {
+          this.router.navigate(['/paciente-listagem']);
+          this.alert.alertInfo(MsgUtil.atualizar_sucesso);
+        },
+        error: (error) => {
+          this.alert.alertDanger(error.error.message);
+        }
       });
     }
   }
@@ -104,4 +113,24 @@ export class PacienteInclusao extends AbstractComponent implements OnInit {
     this.formulario.enable();
     this.isCRUD = CrudEnum.U.toString();
   }
+
+  onConsultarCEP() {
+    if (this.formulario.get('endereco')?.get('cep')?.value?.length == 8) {
+      this.serviceCep.consultarCep(this.formulario.get('endereco')?.get('cep')?.value).subscribe({
+        next: (value) => {
+          this.formulario.get("endereco")?.patchValue({
+            cep: value?.cep,
+            estado: value?.uf,
+            bairro: value?.bairro,
+            cidade: value?.localidade,
+            logradouro: value?.logradouro,
+          })
+        },
+        error: (err) => {
+          this.alert.alertDanger("Esse CEP não existe.");
+        },
+      });
+    }
+  }
+
 }
