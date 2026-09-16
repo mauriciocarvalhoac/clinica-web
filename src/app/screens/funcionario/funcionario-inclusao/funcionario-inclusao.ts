@@ -15,6 +15,7 @@ import { Validator } from '../../../shared/validator/validator';
 import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 import { EnumFuncao } from '../../../model/enum/enum-funcao';
 import { EnumSituacao } from '../../../model/enum/enum-situacao';
+import { CepService } from '../../../service/cep-service';
 
 @Component({
   selector: 'app-funcionario-inclusao',
@@ -26,12 +27,14 @@ import { EnumSituacao } from '../../../model/enum/enum-situacao';
 export class FuncionarioInclusao extends AbstractComponent implements OnInit {
 
   formularioMedico!: FormGroup;
-
   activeTab = 1;
+
   service = inject(FuncionarioService);
   serviceEspecialidade = inject(EspecialidadeService);
+  serviceCep = inject(CepService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+
   enumGeneros = EnumGenero.values();
   enumEstados = EnumEstados.values();
   enumPaises = EnumPais.values();
@@ -75,12 +78,14 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
         bairro: [null],
         cidade: [null],
         estado: [null],
+        complemento: [null],
       }),
       medico: [null],
     });
 
     this.formularioMedico = this.formBuilder.group({
-      crm: [null, [Validators.required]],
+      crm: [null, [Validators.required, Validators.pattern('^[0-9]{4,10}$')]],
+      rqe: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(7), Validators.pattern('^[0-9]{4,7}$')]],
       crmEstado: [null, [Validators.required]],
       crmSituacao: [null, [Validators.required]],
       especialidade: [null],
@@ -91,7 +96,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       instituicaoMestrado: [null],
       situacaoDoutorado: [null],
       instituicaoDoutorado: [null],
-      medicoEspecialidades: this.formBuilder.array([]),
+      medicoEspecialidades: this.formBuilder.array([], Validators.required),
     });
 
     if (id) {
@@ -110,20 +115,18 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
         this.isCRUD = CrudEnum.U.toString();
       });
     }
+
+    this.valueChangesSituacaoPos();
+    this.valueChangesSituacaoMestrado();
+    this.valueChangesSituacaoDoutorado();
   }
 
   salvar() {
 
-    if (this.formulario.invalid) {
-      console.log("Formulario Funcionario invalido")
+    if (this.formulario.invalid || this.formularioMedico.invalid && this.formulario.get('funcao')?.value === 'MED') {
       this.formulario.markAllAsTouched();
-      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
-      return;
-    }
-
-    if (this.formularioMedico.invalid && this.formulario.get('funcao')?.value === 'MED') {
-      console.log("Formulario Medico invalido")
-      this.formularioMedico.markAllAsTouched();
+      if (this.formulario.get('funcao')?.value === 'MED')
+        this.formularioMedico.markAllAsTouched();
       this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios);
       return;
     }
@@ -135,7 +138,7 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     }
 
     if (this.formulario.get('funcao')?.value === 'MED' && this.medicoEspecialidades.length === 0) {
-      this.alert.alertWarning("Pelo menos uma Especialidade precisa ser adicionada para o Médico.");
+      this.alert.alertWarning("Pelo menos uma Especialidade precisa ser adicionada ao Médico.");
       return;
     }
 
@@ -152,18 +155,24 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     }
 
     if (this.formulario.value.id) {
-      this.service.editar(this.formulario.value).subscribe(() => {
-        this.router.navigate(['/funcionario-listagem']);
-        this.alert.alertInfo("Alterado com sucesso!!");
-      }, (error) => {
-        this.alert.alertDanger(error.error.message);
+      this.service.editar(this.formulario.value).subscribe({
+        next: () => {
+          this.router.navigate(['/funcionario-listagem']);
+          this.alert.alertInfo("Alterado com sucesso!!");
+        },
+        error: (error) => {
+          this.alert.alertDanger(error.error.message);
+        }
       });
     } else {
-      this.service.salvar(this.formulario.value).subscribe(() => {
-        this.alert.alertInfo(MsgUtil.salvar_sucesso);
-        this.router.navigate(['/funcionario-listagem']);
-      }, (error) => {
-        this.alert.alertDanger(error.error.message);
+      this.service.salvar(this.formulario.value).subscribe({
+        next: () => {
+          this.alert.alertInfo(MsgUtil.salvar_sucesso);
+          this.router.navigate(['/funcionario-listagem']);
+        },
+        error: (error) => {
+          this.alert.alertDanger(error.error.message);
+        }
       });
     }
   }
@@ -193,7 +202,6 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
 
   adicionarEspecialidade() {
     const idEspecialidadeSelecionada = this.formularioMedico.value.especialidade;
-    console.log("Esp Selecionada: " + idEspecialidadeSelecionada)
 
     if (!idEspecialidadeSelecionada) {
       this.alert.alertWarning("Escolha uma especialidade.");
@@ -266,7 +274,6 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     this.medicoEspecialidades.controls.forEach((control, index) => {
       const isPrincipalControl = control.get('principal');
 
-      console.log("se der certo a definicao de principal")
       // Define true apenas para o índice clicado, false para o resto
       isPrincipalControl?.setValue(index === i);
 
@@ -292,5 +299,59 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     } else {
       this.formularioMedico.disable();
     }
+  }
+
+  onConsultarCEP() {
+    if (this.formulario.get('endereco')?.get('cep')?.value?.length == 8) {
+      this.serviceCep.consultarCep(this.formulario.get('endereco')?.get('cep')?.value).subscribe({
+        next: (value) => {
+          console.log("Cep Consultado: " + JSON.stringify(value))
+          this.formulario.get("endereco")?.patchValue({
+            cep: value?.cep,
+            estado: value?.uf,
+            bairro: value?.bairro,
+            cidade: value?.localidade,
+            logradouro: value?.logradouro,
+          })
+        },
+        error(err) {
+
+        },
+      });
+    }
+  }
+
+  valueChangesSituacaoPos() {
+    this.formularioMedico.get('situacaoPos')?.valueChanges.subscribe((situacao) => {
+      const campoInstituicao = this.formularioMedico.get('instituicaoPos');
+      if (situacao === null || situacao === 'null' || situacao === "N") {
+        campoInstituicao?.disable();
+        campoInstituicao?.setValue('');
+      } else {
+        campoInstituicao?.enable();
+      }
+    });
+  }
+  valueChangesSituacaoMestrado() {
+    this.formularioMedico.get('situacaoMestrado')?.valueChanges.subscribe((situacao) => {
+      const campoInstituicao = this.formularioMedico.get('instituicaoMestrado');
+      if (situacao === null || situacao === 'null' || situacao === "N") {
+        campoInstituicao?.disable();
+        campoInstituicao?.setValue('');
+      } else {
+        campoInstituicao?.enable();
+      }
+    });
+  }
+  valueChangesSituacaoDoutorado() {
+    this.formularioMedico.get('situacaoDoutorado')?.valueChanges.subscribe((situacao) => {
+      const campoInstituicao = this.formularioMedico.get('instituicaoDoutorado');
+      if (situacao === null || situacao === 'null' || situacao === "N") {
+        campoInstituicao?.disable();
+        campoInstituicao?.setValue('');
+      } else {
+        campoInstituicao?.enable();
+      }
+    });
   }
 } 
