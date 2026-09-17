@@ -14,6 +14,8 @@ import { AcessoListagem } from './screens/acesso/acesso-listagem/acesso-listagem
 import { ConvenioListagem } from './screens/convenio/convenio-listagem/convenio-listagem';
 import { ConvenioInclusao } from './screens/convenio/convenio-inclusao/convenio-inclusao';
 import { CadastrosAuxiliares } from './screens/cadastros-auxiliares/cadastros-auxiliares';
+import { DepartamentoInclusao } from './screens/cadastros-auxiliares/departamento/departamento-inclusao/departamento-inclusao';
+import { DepartamentoListagem } from './screens/cadastros-auxiliares/departamento/departamento-listagem/departamento-listagem';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -40,6 +42,9 @@ export const routes: Routes = [
             { path: 'convenio-inclusao', component: ConvenioInclusao },
             { path: 'convenio-inclusao/:id', component: ConvenioInclusao },
             { path: 'cadastros-auxiliares', component: CadastrosAuxiliares },
+            { path: 'departamento-listagem', component: DepartamentoListagem },
+            { path: 'departamento-inclusao', component: DepartamentoInclusao },
+            { path: 'departamento-inclusao/:id', component: DepartamentoInclusao },
         ]
     },
 

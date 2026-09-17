@@ -6,16 +6,17 @@ import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MsgUtil } from '../../../../shared/utilitario/msg.-util';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'tab-departamento-listagem',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './departamento-listagem.html',
   styleUrl: './departamento-listagem.scss',
 })
 export class DepartamentoListagem extends AbstractComponent implements OnInit, OnDestroy {
 
-  formularioDepartamento!: FormGroup;
+  // formularioDepartamento!: FormGroup;
 
   inscricaoNotificacao !: Subscription;
 
@@ -28,7 +29,7 @@ export class DepartamentoListagem extends AbstractComponent implements OnInit, O
   }
 
   ngOnInit() {
-    this.formularioDepartamento = this.formBuilder.group({
+    this.formulario = this.formBuilder.group({
       id: [null],
       descricao: [null, [Validators.maxLength(100)]],
       situacao: [null],
@@ -57,7 +58,7 @@ export class DepartamentoListagem extends AbstractComponent implements OnInit, O
   }
 
   filtrar() {
-    this.serviceDepartamento.filtrar(this.formularioDepartamento.get('descricao')?.value, this.formularioDepartamento.get('situacao')?.value).subscribe({
+    this.serviceDepartamento.filtrar(this.formulario.get('descricao')?.value, this.formulario.get('situacao')?.value).subscribe({
       next: (value: any[]) => {
         this.lista.set(value);
       },
@@ -67,13 +68,18 @@ export class DepartamentoListagem extends AbstractComponent implements OnInit, O
     });
   }
 
+  limpar() {
+    this.formulario.reset();
+    this.listar();
+  }
+
   excluir(id: any) {
     this.modal.confirmDelete().subscribe((isDeleted) => {
       if (isDeleted) {
         this.serviceDepartamento.excluir(id).subscribe({
           next: (value: any) => {
-            this.serviceDepartamento.notificarAtualizacao();
-            this.alert.alertInfo(MsgUtil.excluir_sucesso)
+            this.alert.alertInfo(MsgUtil.excluir_sucesso);
+            this.listar();
           },
           error: (error) => {
 
@@ -83,16 +89,7 @@ export class DepartamentoListagem extends AbstractComponent implements OnInit, O
     });
   }
 
-  prepararEdicao(id: any) {
-    this.serviceDepartamento.buscarPorId(id).subscribe({
-      next: (value: any) => {
-        if (value) {
-          this.serviceDepartamento.notificarAtualizacao(value.id);
-        }
-      },
-      error: (error) => {
-
-      },
-    });
+  navigateTo(rota: string, id: any) {
+    this.irParaRota.navigate([rota, id]);
   }
 }

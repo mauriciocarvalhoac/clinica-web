@@ -71,7 +71,7 @@ export class ConvenioListagem extends AbstractComponent implements OnInit {
     });
   }
 
-  limpar() {
+  limpar() { 
     this.formulario.reset();
     this.listar();
   }

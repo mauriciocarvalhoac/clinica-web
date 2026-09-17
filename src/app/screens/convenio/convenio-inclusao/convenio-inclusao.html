@@ -43,10 +43,28 @@
                                 <input formControlName="nomeFantasia" maxlength="250" class="form-control"
                                     [ngClass]="{ 'is-invalid': hasNotValidated('nomeFantasia')}">
                             </div>
-                            <div class="col">
+                            <div class="col-3">
                                 <label>CNPJ*:</label>
-                                <input formControlName="cnpj" mask="99.999.999/9999-99" class="form-control"
-                                    [ngClass]="{ 'is-invalid': hasNotValidated('cnpj')}">
+                                <input formControlName="cnpj" mask="99.999.999/9999-99" placeholder="99.999.999/9999-99"
+                                    class="form-control" [ngClass]="{ 'is-invalid': hasNotValidated('cnpj')}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <label>Registro ANS*:</label>
+                                <input formControlName="registroAns" class="form-control" maxlength="20"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('registroAns')}">
+                            </div>
+                            <div class="col-2">
+                                <label>Telefone Suporte:</label>
+                                <input formControlName="telefone" mask="(99) 9999-9999" placeholder="(99) 9999-9999"
+                                    class="form-control">
+                            </div>
+                            <div class="col">
+                                <label>Email de Faturamento:</label>
+                                <input formControlName="email" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
                             </div>
                             <div class="col-2">
                                 <label>Situação*:</label>
@@ -57,23 +75,6 @@
                                     <option [value]="b.valor" [label]="b.descricao"></option>
                                     }
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col">
-                                <label>Registro ANS*:</label>
-                                <input formControlName="registroAns" class="form-control" maxlength="20"
-                                    [ngClass]="{ 'is-invalid': hasNotValidated('registroAns')}">
-                            </div>
-                            <div class="col">
-                                <label>Telefone Suporte:</label>
-                                <input formControlName="telefone" mask="(99) 9999-9999" class="form-control">
-                            </div>
-                            <div class="col">
-                                <label>Email de Faturamento:</label>
-                                <input formControlName="email" class="form-control"
-                                    [ngClass]="{ 'is-invalid': hasNotValidated('email')}">
                             </div>
                         </div>
                     </form>

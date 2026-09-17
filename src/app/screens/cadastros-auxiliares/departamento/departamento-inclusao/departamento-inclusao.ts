@@ -6,62 +6,54 @@ import { EnumSituacao } from '../../../../model/enum/enum-situacao';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { MsgUtil } from '../../../../shared/utilitario/msg.-util';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'tab-departamento-inclusao',
-  imports: [ReactiveFormsModule, CommonModule,],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink,],
   templateUrl: './departamento-inclusao.html',
   styleUrl: './departamento-inclusao.scss',
 })
-export class DepartamentoInclusao extends AbstractComponent implements OnInit, OnDestroy {
+export class DepartamentoInclusao extends AbstractComponent implements OnInit {
 
-  formularioDepartamento!: FormGroup;
   serviceDepartamento = inject(DepartamentoService);
-  subscription !: Subscription;
+  activatedRoute = inject(ActivatedRoute);
 
   enumSituacao = EnumSituacao.values();
 
   constructor() {
     super();
-
   }
 
   ngOnInit(): void {
-    this.formularioDepartamento = this.formBuilder.group({
+    var id = this.activatedRoute.snapshot.paramMap.get('id');
+
+    this.formulario = this.formBuilder.group({
       id: [null],
       descricao: [null, [Validators.required, Validators.maxLength(100)]],
       situacao: [null, [Validators.required]],
     });
 
-    this.subscription = this.serviceDepartamento.notification$.subscribe((id: any) => {
-      if (id) {
-        this.serviceDepartamento.buscarPorId(id).subscribe((obj) => {
-          this.formularioDepartamento.setValue(obj)
+    if (id) {
+      this.serviceDepartamento.buscarPorId(id).subscribe((obj) => {
+        this.formulario.setValue(obj);
+      })
+    }
 
-          console.log(JSON.stringify(this.formularioDepartamento.value))
-        })
-      }
-    })
-
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   salvar() {
-    if (this.formularioDepartamento.invalid) {
+    if (this.formulario.invalid) {
       this.alert.alertWarning('Preencha os campos obrigatórios');
-      this.formularioDepartamento.markAllAsTouched();
+      this.formulario.markAllAsTouched();
       return;
     }
-    console.log(this.formularioDepartamento.get('id')?.value)
-    if (this.formularioDepartamento.get('id')?.value) {
-      this.serviceDepartamento.atualizar(this.formularioDepartamento.get('id')?.value, this.formularioDepartamento.value).subscribe({
+    if (this.formulario.get('id')?.value) {
+      this.serviceDepartamento.atualizar(this.formulario.get('id')?.value, this.formulario.value).subscribe({
         next: (response) => {
+          this.irParaRota.navigate(["/departamento-listagem"]);
           this.alert.alertInfo(MsgUtil.atualizar_sucesso);
-          this.formularioDepartamento.reset();
-          this.serviceDepartamento.notificarAtualizacao();
+          this.formulario.reset();
         },
         error: (error) => {
           this.alert.alertDanger(error?.error?.message || 'Erro ao atualizar departamento. Tente novamente mais tarde.');
@@ -69,12 +61,12 @@ export class DepartamentoInclusao extends AbstractComponent implements OnInit, O
 
       });
     } else {
-      this.serviceDepartamento.salvar(this.formularioDepartamento.value)
+      this.serviceDepartamento.salvar(this.formulario.value)
         .subscribe({
           next: (response) => {
+            this.irParaRota.navigate(["/departamento-listagem"]);
             this.alert.alertInfo(MsgUtil.salvar_sucesso);
-            this.serviceDepartamento.notificarAtualizacao();
-            this.formularioDepartamento.reset();
+            this.formulario.reset();
           },
           error: (error) => {
             this.alert.alertDanger(error?.error?.message || 'Erro ao salvar departamento. Tente novamente mais tarde.');
@@ -84,6 +76,11 @@ export class DepartamentoInclusao extends AbstractComponent implements OnInit, O
   }
 
   cancelar() {
-    this.formularioDepartamento.reset();
+    this.formulario.reset();
   }
+
+  limpar() {
+    this.formulario.reset();
+  }
+
 }

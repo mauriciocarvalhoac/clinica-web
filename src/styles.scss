@@ -2,6 +2,7 @@
 :root {
     --background-form: #ebf0f4;
     --background-nav-action: #ebf0f4;
+    --background-primary: rgb(33, 107, 160);
 }
 
 * {
@@ -28,6 +29,10 @@
     }
     .inclusao {
         margin-top: 10px;
+        padding: 10px;
+        background: var(--background-form);
+    }
+    .listagem {
         padding: 10px;
         background: var(--background-form);
     }
@@ -127,5 +132,64 @@
     &.outro {
         background: #f1f5bd;
         color: #575f79;
+    }
+}
+
+.th,
+.td {
+    &.col {
+        &.left {
+            text-align: left;
+        }
+        &.center {
+            text-align: center;
+        }
+        &.right {
+            text-align: right;
+        }
+
+        &.w-90 {
+            width: 90px;
+        }
+        &.w-100 {
+            width: 100px;
+        }
+        &.w-120 {
+            width: 120px;
+        }
+        &.w-150 {
+            width: 150px;
+        }
+        &.w-200 {
+            width: 200px;
+        }
+    }
+}
+.list-group {
+    .list-group-item {
+        .list-group-item-action {
+            &:hover {
+                background: var(--background-primary);
+                color: white;
+            }
+        }
+        &.active {
+            border: 2px solid var(--background-primary);
+            background: var(--background-primary);
+        }
+    }
+}
+.fas {
+    &.fa-edit {
+        color: rgb(51, 106, 145);
+        &:hover {
+            color: rgb(111, 132, 148);
+        }
+    }
+    &.fa-trash {
+        color: rgb(174, 44, 44);
+        &:hover {
+            color: rgb(171, 120, 120);
+        }
     }
 }

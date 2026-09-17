@@ -7,32 +7,20 @@
     </header>
 
     <section class="formulario">
-        <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs">
-            <li [ngbNavItem]="1">
-                <button ngbNavLink>Departamentos</button>
-                <ng-template ngbNavContent>
-                    <section class="formulario d-flex">
-                        <article class="inclusao col-6 p-2 ms-1">
-                            <tab-departamento-inclusao></tab-departamento-inclusao>
-                        </article>
-
-                        <article class="tabela col-6 p-2 ms-1">
-                            <tab-departamento-listagem></tab-departamento-listagem>
-                        </article>
-                    </section>
-                </ng-template>
-            </li>
-            <li [ngbNavItem]="2">
-                <button ngbNavLink>Dados de Pagamentos</button>
-                <ng-template ngbNavContent>
-                    <section class="formulario">
-
-                        Implementação de Dados de Pagamentos
-                    </section>
-                </ng-template>
-            </li>
-        </ul>
-        <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
+        <article class="listagem">
+            <ul class="list-group">
+                <li class="list-group-item" aria-current="true">
+                    <a [routerLink]="['/departamento-listagem']" (click)="isActivated()"
+                        class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-building-user"></i> Departamentos
+                    </a>
+                </li>
+                <li class="list-group-item disabled">
+                    <a (click)="isActivated()" class="list-group-item list-group-item-action">
+                        <i class="fas fa-credit-card"></i> Dados de Pagamentos
+                    </a>
+                </li>
+            </ul>
+        </article>
     </section>
 </div>
