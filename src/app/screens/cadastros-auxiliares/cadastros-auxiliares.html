@@ -10,14 +10,18 @@
         <article class="listagem">
             <ul class="list-group">
                 <li class="list-group-item" aria-current="true">
-                    <a [routerLink]="['/departamento-listagem']" (click)="isActivated()"
-                        class="list-group-item list-group-item-action">
+                    <a [routerLink]="['/departamento-listagem']" class="list-group-item list-group-item-action">
                         <i class="fa-solid fa-building-user"></i> Departamentos
                     </a>
                 </li>
-                <li class="list-group-item disabled">
-                    <a (click)="isActivated()" class="list-group-item list-group-item-action">
-                        <i class="fas fa-credit-card"></i> Dados de Pagamentos
+                <li class="list-group-item">
+                    <a [routerLink]="['/convenio-listagem']" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-hand-holding-heart"></i> Convênios
+                    </a>
+                </li>
+                <li class="list-group-item">
+                    <a [routerLink]="['/especialidade-listagem']" class="list-group-item list-group-item-action">
+                        <i class="fa-solid fa-stethoscope"></i> Especialidades
                     </a>
                 </li>
             </ul>

@@ -1,103 +1,75 @@
 <div class="template-default">
     @if (isInvisibleMenu) {
     <aside class="navigation">
-        <div class="nav-logo">
-            <span>Clínica Médica</span>
+        <div class="logo-clinic">
+            <i class="fas fa-stethoscope"></i>
         </div>
-
         <ul class="nav flex-column">
+            <span class="title">Principal</span>
             <li class="nav-item">
-                <a class="nav-link text-dark" [routerLink]="['/dashboard']">
+                <a [routerLink]="['/dashboard']" class="nav-link text-dark">
                     <i class="fas fa-house"></i> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" [routerLink]="['/dashboard']">
+                <a class="nav-link text-dark disabled">
                     <i class="fas fa-calendar-days"></i> Agendamentos</a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
-                    (click)="isCadastrosCollapse = !isCadastrosCollapse" [attr.aria-expanded]="!isCadastrosCollapse"
-                    aria-controls="subMeuCadastros">
-                    <span> <i class="fa-solid fa-address-card"></i> Cadastros</span>
-                    <span class="arrow" [class.open]="!isCadastrosCollapse">▼</span>
-                </a>
-
-                <div id="subMeuCadastros" [ngbCollapse]="isCadastrosCollapse">
-                    <ul class="nav flex-column ps-3 small">
-                        <li class="nav-item">
-                            <a [routerLink]="['/funcionario-listagem']" class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-id-card"></i> Funcionários</a>
-                        </li>
-                        <li class="nav-item">
-                            <a [routerLink]="['/paciente-listagem']" class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-user-injured"></i> Pacientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a [routerLink]="['/especialidade-listagem']" class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-stethoscope"></i> Especialidades</a>
-                        </li>
-                        <li class="nav-item">
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li class="nav-item">
-                            <a [routerLink]="['/convenio-listagem']" class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-hand-holding-heart"></i> Convênio</a>
-                        </li>
-                    </ul>
-                </div>
+                <a [routerLink]="['/paciente-listagem']" class="nav-link text-dark">
+                    <i class="fa-solid fa-user-injured"></i> Pacientes</a>
             </li>
 
+            <span class="title">Administrativo</span>
             <li class="nav-item">
-                <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
-                    (click)="isRelatoriosCollapse = !isRelatoriosCollapse" [attr.aria-expanded]="!isRelatoriosCollapse"
-                    aria-controls="subMeuRelatorios">
-                    <span> <i class="fa-solid fa-chart-line"></i> Relatórios</span>
-                    <span class="arrow" [class.open]="!isRelatoriosCollapse">▼</span>
-                </a>
-                <div id="subMeuRelatorios" [ngbCollapse]="isRelatoriosCollapse">
-                    <ul class="nav flex-column ps-3 small">
-                        <li class="nav-item">
-                            <a class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-file-lines"></i> Atendimentos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="dropdown-item nav-link text-secondary">
-                                <i class="fas fa-user-injured"></i> Pacientes</a>
-                        </li>
-                    </ul>
-                </div>
+                <a [routerLink]="['/funcionario-listagem']" class="nav-link text-dark">
+                    <i class="fa-solid fa-id-card"></i> Funcionários</a>
             </li>
             <li class="nav-item">
                 <a [routerLink]="['/acesso-listagem']" class="nav-link text-dark">
                     <i class="fa-solid fa-user-shield"></i> Acessos</a>
             </li>
-
+            <li class="nav-item ">
+                <a class="nav-link text-dark disabled">
+                    <i class="fa-solid fa-chart-line"></i> Financeiro</a>
+            </li>
             <li class="nav-item">
-                <a class="nav-link text-dark d-flex justify-content-between align-items-center" role="button"
-                    (click)="isConfiguracoesCollapse = !isConfiguracoesCollapse"
-                    [attr.aria-expanded]="!isConfiguracoesCollapse" aria-controls="subMeuConfiguracoes">
-                    <span> <i class="fa-solid fa-address-card"></i> Configurações</span>
-                    <span class="arrow" [class.open]="!isConfiguracoesCollapse">▼</span>
-                </a>
+                <a class="nav-link text-dark disabled">
+                    <i class="fa-solid fa-box-open"></i> Estoque</a>
+            </li>
 
-                <div id="subMeuConfiguracoes" [ngbCollapse]="isConfiguracoesCollapse">
-                    <ul class="nav flex-column ps-3 small">
-                        <li class="nav-item">
-                            <a [routerLink]="['/cadastros-auxiliares']" class="dropdown-item nav-link text-secondary">
-                                <i class="fa-solid fa-id-card"></i> Cadastros Auxiliares</a>
-                        </li>
-                    </ul>
-                </div>
+            <span class="title">Relatórios</span>
+            <li class="nav-item">
+                <a class="nav-link text-dark disabled">
+                    <i class="fa-solid fa-file-lines"></i> Atendimentos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark disabled">
+                    <i class="fas fa-user-injured"></i> Pacientes</a>
+            </li>
+
+            <span class="title">Configurações</span>
+            <li class="nav-item">
+                <a [routerLink]="['/cadastros-auxiliares']" class="nav-link text-dark">
+                    <i class="fa-solid fa-gear"></i> Cadastros Auxiliares</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark disabled">
+                    <i class="fa-solid fa-wrench"></i> Parametrização</a>
             </li>
         </ul>
     </aside>
     }
+
     <main class="content-full">
         <header class="content-header">
-            <a (click)="toggleMenu()" class="hamburguer-menu">
-                <i class="fa-solid fa-bars"></i>
-            </a>
+            <div class="hambueguer-logo">
+                <a (click)="toggleMenu()" class="hamburguer-menu">
+                    <i class="fa-solid fa-bars"></i>
+                </a>
+                <div class="nav-logo">
+                    <span>MrcClínic</span>
+                </div>
+            </div>
             <div class="content-header-right">
                 <img src="/images/user-unknown.png" alt="Foto" width="35" class="img-foto mr-10">
                 <span class=""></span>

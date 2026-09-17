@@ -6,43 +6,42 @@
     .navigation {
         width: 250px;
         transition: width 1.3s ease;
-        .nav-logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            width: 100%;
+        .logo-clinic {
             height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: var(--background-primary);
+        }
+        .nav {
+            .title {
+                font-size: 14px;
+                font-weight: bold;
+                color: var(--background-primary);
+                margin-left: 10px;
+                margin-top: 15px;
+            }
+
+            .nav-item {
+                :hover {
+                    background: var(--background-primary);
+                    color: white !important;
+                }
+            }
+        }
+
+        .nav-logo {
+            // background: var(--background-primary);
+            // display: flex;
+            // justify-content: left;
+            // align-items: start;
+
+            // width: 100%;
+            // height: 40px;
 
             color: #777;
             font-weight: bold;
-        }
-
-        .nav-bar {
-            background: #fff;
-            // font-weight: bold;
-            height: calc(100vh - 40px - 20px);
-            padding-left: 0;
-            li {
-                list-style: none;
-                background: #fff;
-                :hover {
-                    color: rgb(33, 107, 160);
-                    border-right: 2px solid rgb(33, 107, 160);
-                    border-left: 2px solid rgb(33, 107, 160);
-                    background: #eee;
-                }
-                a {
-                    display: block;
-                    padding: 10px;
-                    color: #777;
-                    width: 100%;
-                    text-decoration: none;
-                    i {
-                        margin-right: 10px;
-                    }
-                }
-            }
         }
     }
 
@@ -62,6 +61,21 @@
             background-color: rgb(33, 107, 160);
             color: white;
             text-align: right;
+
+            .hambueguer-logo {
+                display: flex;
+                align-items: center;
+            }
+
+            .hamburguer-menu {
+                margin-right: 10px;
+                font-size: 20px;
+                color: #fff;
+                cursor: pointer;
+                :hover {
+                    color: #ddd;
+                }
+            }
             .content-header-right {
                 display: flex;
                 align-items: center;
@@ -97,15 +111,6 @@
     border-radius: 50px;
     color: white;
     background: white;
-}
-
-.hamburguer-menu {
-    font-size: 20px;
-    color: #fff;
-    cursor: pointer;
-    :hover {
-        color: #ddd;
-    }
 }
 
 input.is-invalid {
