@@ -49,4 +49,24 @@ export class Validator {
         return dataBorn <= today ? null : { dataInvalida: true };
     }
 
+    static password(control: AbstractControl): ValidationErrors | null {
+        var password = control.get("password");
+        var passwordConfirm = control.get("passwordConfirm");
+
+        if (!password || !passwordConfirm) {
+            return null;
+        }
+
+        if (password.value !== passwordConfirm.value) {
+            passwordConfirm.setErrors({ 'is-invalid': true })
+            return {
+                'is-invalid': true
+            };
+        } else {
+            passwordConfirm.setErrors(null)
+            return null;
+        }
+
+        return null;
+    }
 }

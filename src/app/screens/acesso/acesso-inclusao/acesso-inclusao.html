@@ -7,108 +7,121 @@
     </header>
 
     <section class="formulario">
-        <form [formGroup]="formulario">
-            <section class="formulario">
-                <article class="inclusao">
-                    <div class="d-flex">
-                        <div class="col-6" style="padding: 10px;">
-                            <h6>Associar Funcionário ao Login</h6>
+
+        <section class="formulario">
+            <article class="inclusao">
+                <div class="d-flex">
+                    <div class="col-6" style="padding: 10px;">
+                        <h6>Associar Funcionário ao Login</h6>
+                        <form [formGroup]="formFuncionario">
                             <div class="row">
-                                <div formGroupName="funcionario">
+                                <div>
                                     <label>Selecionar Funcionario:</label>
-                                    <select formControlName="id" (change)="buscarFuncionario()" class="form-select"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('funcionario.id')}">
+                                    <select formControlName="id" (change)="buscarFuncionario()" class="form-select">
                                         <option [value]="null">Selecione</option>
                                         @for (item of listaUsuarios(); track $index) {
                                         <option [value]="item.id">{{ item.nome }}</option>
                                         }
                                     </select>
                                 </div>
-                                <div formGroupName="funcionario">
+                                <div>
+                                    <label>Identificador do funcionário:</label>
+                                    <label class="form-control">{{ formFuncionario.get('id')?.value | cpf }}</label>
+                                </div>
+                                <div>
                                     <label>Nome do funcionário:</label>
-                                    <input formControlName="nome" class="form-control">
+                                    <label class="form-control">{{ formFuncionario.get('nome')?.value | cpf }}</label>
                                 </div>
-                                <div formGroupName="funcionario">
+                                <div>
                                     <label>CPF do funcionário:</label>
-                                    <input mask="000.000.000-00" formControlName="cpf" class="form-control">
+                                    <label class="form-control">{{ formFuncionario.get('cpf')?.value | cpf }}</label>
                                 </div>
-                                <div formGroupName="funcionario">
+                                <div>
                                     <label>Cargo/Função:</label>
-                                    <input formControlName="funcao" class="form-control">
+                                    <label class="form-control">{{
+                                        formFuncionario.get('funcao')?.value }}</label>
                                 </div>
-                                <div formGroupName="funcionario">
+                                <div>
                                     <label>Departamento:</label>
-                                    <input formControlName="departamento" class="form-control">
+                                    <label class="form-control"> {{ formFuncionario.get('departamento')?.value
+                                        }}</label>
                                 </div>
-                                <div formGroupName="funcionario">
+                                <div>
                                     <label>Matrícula:</label>
-                                    <input formControlName="matricula" class="form-control">
+                                    <label class="form-control">{{ formFuncionario.get('matricula')?.value }}</label>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+                    </div>
 
-                        <div class="col-6" style="padding: 10px;">
-                            <h6>Criar novo Login</h6>
-                            <div class="row">
-                                <div>
-                                    <label>Username*:</label>
-                                    <input formControlName="username" class="form-control"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('username')}">
-                                </div>
-                                <div>
-                                    <label>Email:</label>
-                                    <input formControlName="emailCorporativo" class="form-control"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('emailCorporativo')}">
-                                </div>
-                                <div>
-                                    <label>Definir Senha*:</label>
-                                    <input formControlName="password" type="password" class="form-control"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('password')}">
-                                </div>
-                                <div>
-                                    <label>Confirmar Senha*:</label>
-                                    <input formControlName="passwordConfirm" type="password" class="form-control"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('passwordConfirm')}">
-                                </div>
-                                <div>
-                                    <label>Permissão de acesso*:</label>
-                                    <select formControlName="role" class="form-select"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('role')}">
-                                        <option>Selecione</option>
-                                        @for (item of enumRoles; track $index) {
-                                        <option [value]="item.sigla">{{item.descricao}}</option>
-                                        }
-                                    </select>
-                                </div>
-                                <div>
-                                    <label>Situação do acesso*:</label>
-                                    <select formControlName="situacao" class="form-select"
-                                        [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}">
-                                        <option [value]="null">Selecione</option>
-                                        @for (item of enumSituacao; track $index) {
-                                        <option [value]="item.sigla">{{item.descricao}}</option>
-                                        }
-                                    </select>
-                                </div>
+                    <div class="col-6" style="padding: 10px;">
+
+                        <h6>Criar novo Login</h6>
+
+                        <div [formGroup]="formulario" class="row">
+                            <div>
+                                <label>Identificador:</label>
+                                <input formControlName="id" class="form-control">
+                            </div>
+                            <div>
+                                <label>Username*:</label>
+                                <input formControlName="username" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('username')}">
+                            </div>
+                            <div>
+                                <label>Email:</label>
+                                <input formControlName="emailCorporativo" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('emailCorporativo')}">
+                            </div>
+                            <div>
+                                <label>Definir Senha*:</label>
+                                <input formControlName="password" type="password" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('password')}">
+                            </div>
+                            <div>
+                                <label>Confirmar Senha*:</label>
+                                <input formControlName="passwordConfirm" type="password" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('passwordConfirm')}">
+                            </div>
+                            <div>
+                                <label>Permissão de acesso*:</label>
+                                <select formControlName="role" class="form-select"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('role')}">
+                                    <option [value]="null">Selecione</option>
+                                    @for (item of enumRoles; track $index) {
+                                    <option [value]="item.sigla" [label]="item.descricao"></option>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label>Situação do acesso*:</label>
+                                <select formControlName="situacao" class="form-select"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('situacao')}">
+                                    <option [value]="null">Selecione</option>
+                                    @for (item of enumSituacao; track $index) {
+                                    <option [value]="item.sigla">{{item.descricao}}</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="navegacao d-flex justify-content-between">
-                        <div>
-                            <button [routerLink]="['/acesso-listagem']" class="btn btn-sm btn-add">
-                                <i class="fas fa-chevron-left"></i> Voltar</button>
-                        </div>
-
-                        <div>
-                            @if(isCRUD === 'U'){
-                            <button (click)="cancelar()" class="ml-10 btn btn-sm btn-clean">Cancelar</button>
-                            }
-                            <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
-                                <i class="fas fa-floppy-disk"></i> Salvar Associação</button>
-                        </div>
+                </div>
+                <div class="navegacao d-flex justify-content-between">
+                    <div>
+                        <button [routerLink]="['/acesso-listagem']" class="btn btn-sm btn-add">
+                            <i class="fas fa-chevron-left"></i> Voltar</button>
                     </div>
-                </article>
-            </section>
-        </form>
+
+                    <div>
+                        @if(isCRUD === 'U'){
+                        <button (click)="cancelar()" class="ml-10 btn btn-sm btn-clean">Cancelar</button>
+                        }
+                        <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                            <i class="fas fa-floppy-disk"></i> Salvar Associação</button>
+                    </div>
+                </div>
+            </article>
+        </section>
+
     </section>
 </div>

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { AbstractComponent } from '../../abstract-component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AcessoService } from '../../../service/acesso-service';
 import { FuncionarioService } from '../../../service/funcionario-service';
@@ -9,15 +9,19 @@ import { NgxMaskDirective } from "ngx-mask";
 import { EnumFuncao } from '../../../model/enum/enum-funcao';
 import { EnumRoles } from '../../../model/enum/enum-roles';
 import { EnumSituacaoUser } from '../../../model/enum/enum-situacao-user';
+import { MsgUtil } from '../../../shared/utilitario/msg.-util';
+import { CpfPipe } from '../../../shared/pipes/cpf-pipe';
+import { Validator } from '../../../shared/validator/validator';
 
 @Component({
   selector: 'app-acesso-inclusao',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgxMaskDirective],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgxMaskDirective, CpfPipe],
   templateUrl: './acesso-inclusao.html',
   styleUrl: './acesso-inclusao.scss',
 })
 export class AcessoInclusao extends AbstractComponent implements OnInit {
+  formFuncionario!: FormGroup;
 
   service = inject(AcessoService);
   serviceFuncionario = inject(FuncionarioService);
@@ -29,23 +33,27 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
   constructor() {
     super();
     this.listar();
-    this.formulario = this.formBuilder.group({
+
+    this.formFuncionario = this.formBuilder.group({
       id: [null],
+      nome: [{ value: '', disabled: true }],
+      cpf: [{ value: '', disabled: true }],
+      funcao: [{ value: '', disabled: true }],
+      departamento: [{ value: '', disabled: true }],
+      matricula: [{ value: '', disabled: true }],
+    });
+
+    this.formulario = this.formBuilder.group({
+      id: [{ value: '', disabled: true }],
       username: [null, [Validators.required]],
       emailCorporativo: [null, [Validators.email]],
       situacao: [null, [Validators.required]],
       role: [null, [Validators.required]],
       password: [null, [Validators.required]],
       passwordConfirm: [null, [Validators.required]],
-      funcionario: this.formBuilder.group({
-        id: [null, [Validators.required]],
-        nome: [{ value: '', disabled: true }],
-        cpf: [{ value: '', disabled: true }],
-        funcao: [{ value: '', disabled: true }],
-        departamento: [{ value: '', disabled: true }],
-        matricula: [{ value: '', disabled: true }],
-      }),
-    });
+    }, { validators: Validator.password });
+
+
 
     var id = this.route.snapshot.paramMap.get("id");
     if (id) {
@@ -73,11 +81,31 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
       return;
     }
 
-    this.serviceFuncionario.findUsuarioByFuncionarioId(this.formulario.get('funcionario')?.get("id")?.value).subscribe({
+    this.serviceFuncionario.findUsuarioByFuncionarioId(this.formFuncionario.get("id")?.value).subscribe({
       next: (obj: any) => {
-        obj.funcao = EnumFuncao.descricao(obj.funcao)
-        this.formulario.get('funcionario')?.patchValue(obj);
-        this.formulario.patchValue(obj.usuario)
+        console.log(JSON.stringify(obj))
+        obj.funcao = EnumFuncao.descricao(obj.funcao);
+
+        this.formFuncionario.patchValue({
+          id: [obj?.id],
+          nome: [obj?.nome],
+          cpf: [obj?.cpf],
+          funcao: [obj.funcao],
+          departamento: [obj.departamento],
+          matricula: [obj.matricula],
+        });
+
+        if (obj?.usuario) {
+          this.formulario.patchValue({
+            id: obj.usuario.id ?? null,
+            username: obj.usuario.username ?? null,
+            emailCorporativo: obj.usuario.emailCorporativo ?? null,
+            password: null,
+            passwordConfirm: null,
+            role: obj.usuario.role ?? null,
+            situacao: obj.usuario.situacao ?? null,
+          })
+        }
       },
       error: (error: any) => {
         this.alert.alertDanger(error.error.message);
@@ -87,38 +115,44 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
   }
 
   salvar() {
-    console.log("Funcionario: " + this.formulario.get('funcionario')?.get('id')?.value)
     if (this.formulario.invalid) {
+      this.alert.alertWarning(MsgUtil.validar_campos_obrigatorios)
       this.formulario.markAllAsTouched();
       return;
     }
-    const idFuncionario = this.formulario.get('funcionario')?.get('id')?.value;
-    console.log("idFuncionario: " + idFuncionario)
-    const idUsuario = this.formulario.get('id')?.value;
-    console.log("idUsuario: " + idUsuario)
 
-    if (idFuncionario && idUsuario) {
-      console.log("Update")
-      this.service.atualizarUsuario(this.formulario?.get('id')?.value, this.formulario?.value).subscribe({
-        next: (obj: any) => {
-          this.alert.alertInfo("Funcionário e Usuário foram vinculados com sucesso.");
-          this.formulario.reset();
-        },
-        error: (error: any) => {
-          this.alert.alertDanger(error.error.message)
-        }
-      });
+
+    console.log("FORM: " + JSON.stringify(this.formulario.value))
+
+    if (this.formFuncionario.get('id')?.value) {
+      if (this.formulario.get('id')?.value) {
+        console.log("Update")
+        this.service.atualizarUsuario(this.formFuncionario.get('id')?.value, this.formulario.value).subscribe({
+          next: (obj: any) => {
+            this.alert.alertInfo("Funcionário e Usuário foram vinculados com sucesso.");
+            this.formulario.reset();
+            this.formFuncionario.reset();
+          },
+          error: (error: any) => {
+            this.alert.alertDanger(error.error.message)
+          }
+        });
+      } else {
+        console.log("Salvar")
+        this.service.salvarUsuario(this.formFuncionario.get('id')?.value, this.formulario?.value).subscribe({
+          next: (obj: any) => {
+            this.alert.alertInfo("O Funcionário e O Usuário foram vinculados com sucesso.");
+            this.formulario.reset();
+            this.formFuncionario.reset();
+          },
+          error: (error: any) => {
+            this.alert.alertDanger(error.error.message)
+          }
+        });
+
+      }
     } else {
-      console.log("Salvar")
-      this.service.salvarUsuario(this.formulario.get('funcionario')?.get('id')?.value, this.formulario?.value).subscribe({
-        next: (obj: any) => {
-          this.alert.alertInfo("O Funcionário e O Usuário foram vinculados com sucesso.");
-          this.formulario.reset();
-        },
-        error: (error: any) => {
-          this.alert.alertDanger(error.error.message)
-        }
-      });
+      this.alert.alertWarning("É preciso ter o ID do Funcionário para poder fazer alterações.")
     }
   }
 

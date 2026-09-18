@@ -10,11 +10,11 @@ export class AcessoService extends AbstractService {
         super("/usuarios");
     }
 
-    salvarUsuario(id: any, obj: any): Observable<any> {
-        return this.http.post<any>(this.url, obj);
+    salvarUsuario(id: number, obj: any): Observable<any> {
+        return this.http.post<any>(`${this.url}/${id}`, obj);
     }
 
-    atualizarUsuario(id: any, obj: any): Observable<any> {
+    atualizarUsuario(id: number, obj: any): Observable<any> {
         return this.http.put<any>(`${this.url}/${id}`, obj);
     }
 
