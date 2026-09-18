@@ -16,7 +16,7 @@ import { Validator } from '../../../shared/validator/validator';
 @Component({
   selector: 'app-acesso-inclusao',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgxMaskDirective, CpfPipe],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, CpfPipe],
   templateUrl: './acesso-inclusao.html',
   styleUrl: './acesso-inclusao.scss',
 })
@@ -27,6 +27,7 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
   serviceFuncionario = inject(FuncionarioService);
   route = inject(ActivatedRoute);
   listaUsuarios = signal<any[]>([]);
+
   enumRoles = EnumRoles.values();
   enumSituacao = EnumSituacaoUser.values();
 
@@ -53,13 +54,10 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
       passwordConfirm: [null, [Validators.required]],
     }, { validators: Validator.password });
 
-
-
     var id = this.route.snapshot.paramMap.get("id");
     if (id) {
-      this.service.buscarPorId(id).subscribe((obj) => {
-        this.formulario.patchValue(obj);
-      });
+      this.formFuncionario.get('id')?.setValue(id);
+      this.buscarFuncionario();
     }
   }
 
@@ -74,14 +72,14 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
   }
 
   buscarFuncionario() {
-    const id = this.formulario.get('funcionario')?.get('id')?.value;
-    if (id == 'null') {
+    const id = this.formFuncionario.get('id')?.value;
+    if (id == null || id == 'null') {
       this.alert.alertWarning("Selecione um Funcionário para vincular a um usuário.")
       this.formulario.reset();
       return;
     }
 
-    this.serviceFuncionario.findUsuarioByFuncionarioId(this.formFuncionario.get("id")?.value).subscribe({
+    this.serviceFuncionario.findUsuarioByFuncionarioId(id).subscribe({
       next: (obj: any) => {
         console.log(JSON.stringify(obj))
         obj.funcao = EnumFuncao.descricao(obj.funcao);
@@ -111,7 +109,6 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
         this.alert.alertDanger(error.error.message);
       }
     });
-
   }
 
   salvar() {
@@ -120,9 +117,6 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
       this.formulario.markAllAsTouched();
       return;
     }
-
-
-    console.log("FORM: " + JSON.stringify(this.formulario.value))
 
     if (this.formFuncionario.get('id')?.value) {
       if (this.formulario.get('id')?.value) {

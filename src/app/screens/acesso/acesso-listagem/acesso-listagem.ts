@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AcessoService } from '../../../service/acesso-service';
 import { FuncaoPipe } from '../../../shared/pipes/funcao-pipe';
 import { RolePipe } from '../../../shared/pipes/role-pipe';
+import { MsgUtil } from '../../../shared/utilitario/msg.-util';
 
 @Component({
   selector: 'app-acesso-listagem',
@@ -44,8 +45,26 @@ export class AcessoListagem extends AbstractComponent implements OnInit {
     });
   }
 
-  visualizacao(obj: any) {
-    throw new Error('Method not implemented.');
+  excluir(id: any) {
+    this.modal.confirmDelete().subscribe((isExcluir) => {
+      if (isExcluir) {
+        this.service.excluir(id).subscribe({
+          next: (value) => {
+            this.alert.alertInfo(MsgUtil.excluir_sucesso);
+            this.listar();
+          },
+          error: (callback) => {
+            this.alert.alertDanger(callback.error.message);
+          },
+        });
+      }
+    })
+
+
+
+
+
+
   }
 
   filtrar() {

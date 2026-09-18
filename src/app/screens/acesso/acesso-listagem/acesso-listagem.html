@@ -60,9 +60,10 @@
                             </td>
                             <td> {{ item?.ultimoAcesso }} </td>
                             <td style="width: 90px;">
-                                <a (click)="irPara( '/acesso-inclusao', item.id)" class="btn btn-sm btn-edit">
+                                <a (click)="irPara( '/acesso-inclusao', item?.funcionario?.id)"
+                                    class="btn btn-sm btn-edit">
                                     <i class="fas fa-edit"></i></a>
-                                <a (click)="visualizacao(item)" class="btn btn-sm btn-delete">
+                                <a (click)="excluir(item?.id)" class="btn btn-sm btn-delete">
                                     <i class="fas fa-trash"></i></a>
                             </td>
                         </tr>
