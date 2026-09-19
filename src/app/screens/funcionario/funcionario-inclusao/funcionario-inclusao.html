@@ -134,6 +134,18 @@
                                         <input formControlName="matricula" maxlength="20" class="form-control"
                                             [ngClass]="{ 'is-invalid': hasNotValidated('matricula')}">
                                     </div>
+                                    <div class="col-3">
+                                        <label>Data Admissão*:</label>
+                                        <input formControlName="dataAdmissao" type="date" class="form-control"
+                                            [ngClass]="{ 'is-invalid': hasNotValidated('dataAdmissao')}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class=" col">
+                                        <label>Email Corporativo*:</label>
+                                        <input formControlName="emailCorporativo" maxlength="100" class="form-control"
+                                            [ngClass]="{ 'is-invalid': hasNotValidated('emailCorporativo')}">
+                                    </div>
                                 </div>
                             </article>
 

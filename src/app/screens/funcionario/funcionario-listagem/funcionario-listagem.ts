@@ -34,9 +34,14 @@ export class FuncionarioListagem extends AbstractComponent implements OnInit {
   }
 
   listar() {
-    this.service.listar().subscribe((lista: any) => {
-      this.lista.set(lista);
-      this.listaSize.set(lista.length);
+    this.service.listar().subscribe({
+      next: (lista: any) => {
+        this.lista.set(lista);
+        this.listaSize.set(lista.length);
+      },
+      error: (err) => {
+
+      },
     });
   }
 

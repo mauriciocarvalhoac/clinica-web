@@ -39,15 +39,16 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
       id: [null],
       nome: [{ value: '', disabled: true }],
       cpf: [{ value: '', disabled: true }],
+      emailCorporativo: [null],
       funcao: [{ value: '', disabled: true }],
       departamento: [{ value: '', disabled: true }],
       matricula: [{ value: '', disabled: true }],
+      dataAdmissao: [{ value: '', disabled: true }],
     });
 
     this.formulario = this.formBuilder.group({
       id: [{ value: '', disabled: true }],
       username: [null, [Validators.required]],
-      emailCorporativo: [null, [Validators.email]],
       situacao: [null, [Validators.required]],
       role: [null, [Validators.required]],
       password: [null, [Validators.required]],
@@ -88,9 +89,11 @@ export class AcessoInclusao extends AbstractComponent implements OnInit {
           id: [obj?.id],
           nome: [obj?.nome],
           cpf: [obj?.cpf],
+          emailCorporativo: [obj?.emailCorporativo],
           funcao: [obj.funcao],
           departamento: [obj.departamento],
           matricula: [obj.matricula],
+          dataAdmissao: [obj?.dataAdmissao],
         });
 
         if (obj?.usuario) {

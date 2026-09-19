@@ -64,12 +64,14 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
       dataNascimento: [null, [Validators.required, Validator.dateOfBirth]],
       genero: [null],
       paisOrigem: [null],
-      email: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
+      email: [null, [Validators.maxLength(100), Validators.email,]],
       celular: [null, [Validators.required]],
       telefone: [null],
       funcao: [null, [Validators.required]],
       departamento: [null, [Validators.required]],
       matricula: [null, [Validators.required]],
+      dataAdmissao: [null, [Validators.required, Validator.dateOfBirth]],
+      emailCorporativo: [null, [Validators.required, Validators.maxLength(100), Validators.email,]],
 
       endereco: this.formBuilder.group({
         cep: [null],
