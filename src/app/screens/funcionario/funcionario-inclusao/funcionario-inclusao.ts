@@ -86,8 +86,8 @@ export class FuncionarioInclusao extends AbstractComponent implements OnInit {
     });
 
     this.formularioMedico = this.formBuilder.group({
-      crm: [null, [Validators.required, Validators.pattern('^[0-9]{4,10}$')]],
-      rqe: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(7), Validators.pattern('^[0-9]{4,7}$')]],
+      crm: [null, [Validators.required]],
+      rqe: [null, [Validators.required, Validators.minLength(4), Validators.maxLength(7)]],
       crmEstado: [null, [Validators.required]],
       crmSituacao: [null, [Validators.required]],
       especialidade: [null],

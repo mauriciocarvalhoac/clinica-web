@@ -6,6 +6,7 @@ export class MsgUtil {
     public static excluir_sucesso: string = 'Excluído com sucesso!';
     public static excluir_falha: string = 'Item não pode ser excluído!';
     public static filtrar_falha: string = 'Item não existe na base de dados!';
+    public static INTERNAL_SERVER_ERROR: string = 'Houve um erro interno do Servidor.';
 
     // Campos Específicos
     public static email_invalid: string = 'Formato de Email inválido!';

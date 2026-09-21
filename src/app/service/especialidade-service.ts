@@ -28,4 +28,6 @@ export class EspecialidadeService extends AbstractService {
         return this.http.get<any>(`${this.url}/ativas`);
     }
 
+  
+
 }

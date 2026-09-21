@@ -16,6 +16,9 @@ import { ConvenioInclusao } from './screens/convenio/convenio-inclusao/convenio-
 import { CadastrosAuxiliares } from './screens/cadastros-auxiliares/cadastros-auxiliares';
 import { DepartamentoInclusao } from './screens/cadastros-auxiliares/departamento/departamento-inclusao/departamento-inclusao';
 import { DepartamentoListagem } from './screens/cadastros-auxiliares/departamento/departamento-listagem/departamento-listagem';
+import { AgendamentoConfiguracao } from './screens/agendamento/agendamento-configuracao/agendamento-configuracao';
+import { AgendaListagem } from './screens/agenda/agenda-listagem/agenda-listagem';
+import { AgendaInclusao } from './screens/agenda/agenda-inclusao/agenda-inclusao';
 
 export const routes: Routes = [
     { path: 'login', component: Login },
@@ -45,6 +48,9 @@ export const routes: Routes = [
             { path: 'departamento-listagem', component: DepartamentoListagem },
             { path: 'departamento-inclusao', component: DepartamentoInclusao },
             { path: 'departamento-inclusao/:id', component: DepartamentoInclusao },
+            { path: 'agenda-listagem', component: AgendaListagem },
+            { path: 'agenda-inclusao', component: AgendaInclusao },
+            { path: 'agenda-inclusao/:id', component: AgendaInclusao },
         ]
     },
 

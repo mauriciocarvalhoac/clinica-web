@@ -16,6 +16,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([interceptorInterceptor])),
     provideEnvironmentNgxMask({
       dropSpecialCharacters: true,
+      leadZero: true,
     }),
     {
       provide: NgbDropdownConfig,

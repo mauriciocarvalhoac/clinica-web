@@ -1,0 +1,235 @@
+<div style="padding: 10px;">
+    <header class="header-form">
+        <div>
+            <span>Cadastro > Agenda > Inclusão</span>
+            <h3>Configuração de Agenda</h3>
+        </div>
+        <div class="navegacao d-flex justify-content-between">
+            <div>
+                <button [routerLink]="['/agenda-listagem']" class="btn btn-sm btn-add">
+                    <i class="fas fa-chevron-left"></i> Voltar</button>
+            </div>
+            <div>
+                <button class="ml-10 btn btn-sm btn-clean">
+                    <i class="fas fa-broom"></i> Limpar</button>
+                @if (formulario.get('id')?.value && isCRUD == "U") {
+                <button class="ml-10 btn btn-sm btn-cancel">
+                    <i class="fa-solid fa-xmark"></i> Cancelar</button>
+                }
+                <button (click)="salvar()" class="ml-10 btn btn-sm btn-search">
+                    <i class="fas fa-floppy-disk"></i> Salvar</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="formulario">
+        <form [formGroup]="formulario">
+            <section class="formulario">
+                <article class="inclusao">
+                    <h6>Dados da Agenda</h6>
+
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <label>Descrição*:</label>
+                                <input formControlName="descricao" maxlength="150" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('descricao')}">
+                            </div>
+                            <div class="col-2">
+                                <label>Duração do Atendimento*:</label>
+                                <input formControlName="duracao" type="time" class="form-control" autocomplete="off"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('duracao')}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div formGroupName="funcionario" class="col">
+                                <label>Profissional*:</label>
+                                <select formControlName="id" [ngClass]="{ 'is-invalid': hasNotValidated('funcionario')}"
+                                    class="form-select">
+                                    <option [value]="null">Selecione</option>
+                                    @for(m of listaMedicos ; track $index ) {
+                                    <option [value]="m.id" [label]="m?.nome"></option>
+                                    }
+                                </select>
+                            </div>
+
+                            <div formGroupName="especialidade" class="col-4">
+                                <label>Especialidade*:</label>
+                                <select formControlName="id" class="form-select"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('especialidade' )}">
+                                    <option [value]="null">Selecione</option>
+                                    @for (medEsp of listaEspecialidades(); track $index) {
+                                    <option [value]="medEsp?.id" [label]="medEsp?.descricao">
+                                    </option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <label>Sala de Atendimento:</label>
+                                <input formControlName="sala" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="inclusao">
+                    <h6>Modalidades de Atendimento</h6>
+                    <div class="col">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="col">
+                                    <div class="form-check form-switch">
+                                        <label for="swtParticular" class="form-check-label"> Atende Particular:</label>
+                                        <input id="swtParticular" formControlName="modalidadeParticular" type="checkbox"
+                                            (change)="changeModalidadeParticular()" class="form-check-input">
+                                    </div>
+                                </div>
+
+                                <div class="col-3">
+                                    <label>Valor Consulta:</label>
+                                    <input formControlName="valorConsultaParticular" type="text" mask="separator.2"
+                                        prefix="R$" thousandSeparator="." decimalMarker="," [leadZero]="true"
+                                        [dropSpecialCharacters]="true" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <div class="col">
+                                    <div class="form-check form-switch">
+                                        <label for="swtConvenio" class="form-check-label"> Atende Convênio:</label>
+                                        <input id="swtConvenio" formControlName="modalidadeConvenio" type="checkbox"
+                                            class="form-check-input">
+                                    </div>
+                                </div>
+
+                                <div formArrayName="convenios" class="col">
+                                    @for (control of conveniosArray.controls; track $index) {
+                                    <div [formGroupName]="$index" class="form-check form-check-inline">
+                                        <input formControlName="selecionado"
+                                            id="btn-check-outlined-{{control.get('id')?.value}}" type="checkbox"
+                                            autocomplete="off" class="btn-check">
+                                        <label for="btn-check-outlined-{{control.get('id')?.value}}"
+                                            class="btn btn-sm btn-outline-primary">
+                                            {{ control.get('nomeFantasia')?.value }}
+                                        </label>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="inclusao">
+                    <h6>Dias e Horários de Atendimento</h6>
+
+                    <section style="background: transparent;">
+                        <div [formGroup]="formAgenda" class="row d-flex align-items-center">
+                            <div class="col">
+                                <label>Dia da semana*:</label>
+                                <select formControlName="dia" class="form-select"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('dia', formAgenda )}">
+                                    <option [value]="null">Selecione</option>
+                                    @for (d of enumDias; track $index) {
+                                    <option [value]="d.sigla" [label]="d.descricao"></option>
+                                    }
+
+                                </select>
+                            </div>
+
+                            <div class="col">
+                                <label>De*:</label>
+                                <input formControlName="horaIni" type="time" class="form-control" autocomplete="off"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('horaIni', formAgenda )}">
+                            </div>
+
+                            <div class="col">
+                                <label>Intervalo Início:</label>
+                                <input formControlName="intervaloIni" type="time" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('intervaloIni', formAgenda )}">
+                            </div>
+
+                            <div class="col">
+                                <label>Intervalo Fim:</label>
+                                <input formControlName="intervaloFim" type="time" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('intervaloFim', formAgenda )}">
+                            </div>
+
+                            <div class="col">
+                                <label>Até*:</label>
+                                <input formControlName="horaFim" type="time" class="form-control"
+                                    [ngClass]="{ 'is-invalid': hasNotValidated('horaFim', formAgenda )}">
+                            </div>
+
+                            <div class="col">
+                                <button (click)="adicionarAtendimento()" class="btn btn-sm btn-add"
+                                    [disabled]="formulario.disabled">
+                                    <i class="fas fa-plus"></i> Adicionar</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <div class="col" style="padding: 10px 0;">
+                        <div>
+                            <label>Grade de horário semanal:</label>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Dia</th>
+                                        <th>Hora início</th>
+                                        <th>Intervalo início</th>
+                                        <th>Intervalo fim</th>
+                                        <th>Hora fim</th>
+                                        <th>Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody formArrayName="atendimentos">
+                                    @for (ag of atendimentosArray.controls; track ag; let i = $index) {
+                                    <tr [formGroupName]="i">
+                                        <td class="col-3">
+                                            <select formControlName="dia" class="form-select">
+                                                @for (d of enumDias; track $index) {
+                                                <option [value]="d.sigla" [label]="d.descricao"></option>
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input type="time" formControlName="horaIni" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="time" formControlName="intervaloIni" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="time" formControlName="intervaloFim" class="form-control">
+                                        </td>
+                                        <td>
+                                            <input type="time" formControlName="horaFim" class="form-control">
+                                        </td>
+                                        <td>
+                                            @if(atendimentosArray.at(i).disabled ){
+                                            <a (click)="habilitarAtendimento(i)" class="btn btn-sm btn-edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            } @else {
+                                            <a (click)="desabilitarAtendimento(i)" class="btn btn-sm btn-edit">
+                                                <i class="fa-solid fa-xmark"></i>
+                                            </a>
+                                            }
+                                            <a (click)="excluirAtendimento(i)" class="btn btn-sm btn-delete">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </form>
+    </section>
+</div>

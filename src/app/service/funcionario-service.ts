@@ -25,4 +25,12 @@ export class FuncionarioService extends AbstractService {
     findUsuarioByFuncionarioId(id: any): Observable<any> {
         return this.http.get<any>(`${this.url}/${id}/usuario`);
     }
+
+    listarMedicos(): Observable<any> {
+        return this.http.get<any>(`${this.url}/medicos`);
+    }
+
+    buscarEspecialidadeByMedico(id: number): Observable<any> {
+        return this.http.get<any>(`${this.url}/${id}/especialidades`);
+    }
 }

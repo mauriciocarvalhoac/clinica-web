@@ -1,6 +1,9 @@
 import { AbstractControl, ValidationErrors, Validators } from "@angular/forms";
+import { AlertService } from "../alert/alert-service";
+import { inject } from "@angular/core";
 
 export class Validator {
+    protected alert = inject(AlertService);
 
     static crmRequired(control: AbstractControl): ValidationErrors | null {
         const funcaoControl = control.get('funcao');
@@ -68,5 +71,51 @@ export class Validator {
         }
 
         return null;
+    }
+
+    static cronogramaHorariosAgenda(control: AbstractControl): ValidationErrors | null {
+        const horaIni = control.get('horaIni');
+        const intervaloIni = control.get('intervaloIni');
+        const intervaloFim = control.get('intervaloFim');
+        const horaFim = control.get('horaFim');
+
+        const erros: ValidationErrors = {};
+
+        if (horaIni?.value > horaFim?.value) {
+            erros["horaInicioMaiorQueHoraFim"] = true;
+            horaIni?.setErrors({ 'is-invalid': true });
+        }
+
+        if (intervaloIni?.value > intervaloFim?.value) {
+            erros["intervaloIniMaiorQueIntervaloFim"] = true;
+            intervaloFim?.setErrors({ 'is-invalid': true });
+            intervaloIni?.setErrors({ 'is-invalid': true });
+        }
+
+        // if (horaIni) {
+        if (intervaloIni?.value < horaIni?.value) {
+            erros["intervaloForaDoHorario"] = true;
+            intervaloIni?.setErrors({ 'is-invalid': true });
+        }
+        if (intervaloFim?.value < horaIni?.value) {
+            erros["intervaloForaDoHorario"] = true;
+            intervaloFim?.setErrors({ 'is-invalid': true });
+        }
+        // }
+
+        // if (horaFim?.value) {
+        if (intervaloIni?.value > horaFim?.value) {
+            erros["intervaloForaDoHorario"] = true;
+            intervaloIni?.setErrors({ 'is-invalid': true });
+        }
+        if (intervaloFim?.value > horaFim?.value) {
+            erros["intervaloForaDoHorario"] = true;
+            intervaloFim?.setErrors({ 'is-invalid': true });
+        }
+        // }
+
+
+        return Object.keys(erros).length > 0 ? erros : null
+
     }
 }

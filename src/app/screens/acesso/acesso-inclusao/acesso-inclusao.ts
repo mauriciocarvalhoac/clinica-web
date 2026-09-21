@@ -16,7 +16,7 @@ import { Validator } from '../../../shared/validator/validator';
 @Component({
   selector: 'app-acesso-inclusao',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, CpfPipe],
+  imports: [ReactiveFormsModule, CommonModule, CpfPipe],
   templateUrl: './acesso-inclusao.html',
   styleUrl: './acesso-inclusao.scss',
 })
