@@ -398,18 +398,6 @@
                     </ng-template>
                 </li>
                 }
-
-                @if (formulario.get('funcao')?.value === 'MED') {
-                <li [ngbNavItem]="3">
-                    <button ngbNavLink>Configurações de Agenda</button>
-                    <ng-template ngbNavContent>
-                        <section class="formulario">
-                            <article class="inclusao">Agenda
-                            </article>
-                        </section>
-                    </ng-template>
-                </li>
-                }
             </ul>
 
             <div [ngbNavOutlet]="nav" class="mt-2"></div>
