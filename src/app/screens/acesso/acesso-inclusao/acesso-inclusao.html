@@ -28,9 +28,9 @@
                 <div [formGroup]="formFuncionario" class="col-12 col-lg-5">
                     <div class="card shadow-sm h-100">
                         <div class="card-body p-0">
-                            <h5 class="fw-bold  mb-0 p-3">Informações do Funcionário Selecionado</h5>
+                            <h5 class="fw-bold mb-0 p-3">Informações do Funcionário Selecionado</h5>
 
-                            <div class="d-flex align-items-center ps-3 mb-3 border-b" style="height: 90px;">
+                            <div class="d-flex align-items-center ps-3 mb-0 border-b" style="height: 74px;">
                                 <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center fw-bold fs-4 me-3"
                                     style="width: 54px; height: 54px;">
                                     FT
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label text-secondary small fw-medium">Nome de Usuário
-                                            (Login)</label>
+                                            (Login)*</label>
                                         <input formControlName="username" placeholder="Ex: nome.sobrenome"
                                             class="form-control bg-light font-monospace"
                                             [ngClass]="{ 'is-invalid': hasNotValidated('username')}">
@@ -109,7 +109,7 @@
                                         <div class="row">
                                             <div class="col-7">
                                                 <label class="form-label text-secondary small fw-medium">Perfil de
-                                                    Permissão</label>
+                                                    Permissão*</label>
                                                 <select formControlName="role" class="form-select"
                                                     [ngClass]="{ 'is-invalid': hasNotValidated('role')}">
                                                     <option [value]="null">Selecione</option>
@@ -136,14 +136,14 @@
                                 <div class="row g-3 mb-3">
                                     <div class="col-12 col-md-6">
                                         <label class="form-label text-secondary small fw-medium">
-                                            Senha Provisória</label>
+                                            Senha*</label>
                                         <input formControlName="password" type="password" placeholder="********"
                                             class="form-control"
                                             [ngClass]="{ 'is-invalid': hasNotValidated('password')}">
                                     </div>
                                     <div class="col-12 col-md-6">
                                         <label class="form-label text-secondary small fw-medium">
-                                            Confirmar Senha</label>
+                                            Confirmar Senha*</label>
                                         <input formControlName="passwordConfirm" type="password" placeholder="********"
                                             class="form-control"
                                             [ngClass]="{ 'is-invalid': hasNotValidated('passwordConfirm')}">
